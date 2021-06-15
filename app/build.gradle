@@ -57,7 +57,6 @@ dependencies {
 //    GLIDE
     implementation "com.github.bumptech.glide:glide:$glide_version"
     implementation 'androidx.preference:preference-ktx:1.1.1'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
 
 //    RECYCLER VIEW
@@ -84,4 +83,11 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
+
+//    GOOGLE AUTHENTICATION
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+//    SECURITY
+    implementation "androidx.security:security-crypto:1.1.0-alpha03"
+    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
 }

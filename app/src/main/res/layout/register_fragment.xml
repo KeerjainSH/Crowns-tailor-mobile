@@ -9,12 +9,24 @@
     android:animateLayoutChanges="true"
     android:focusableInTouchMode="true"
     android:focusable="true"
-    tools:context=".views.login.LoginFragment">
+    tools:context=".views.register.RegisterFragment" >
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/login"
+        android:id="@+id/register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/lato"
+            android:text="@string/sudah_memiliki_akun"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <ImageView
             android:id="@+id/imageView"
@@ -53,7 +65,7 @@
                     android:layout_marginEnd="24dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/lato"
-                    android:text="@string/nama_email_pengguna"
+                    android:text="@string/nama_pengguna"
                     android:textColor="@color/text_darkest"
                     android:textSize="14sp"
                     app:layout_constraintBottom_toBottomOf="parent"
@@ -74,6 +86,20 @@
                     app:layout_constraintEnd_toEndOf="@+id/edit_text_username"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/edit_text_username"
+                    app:layout_constraintTop_toBottomOf="@+id/edit_text_email" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/email"
+                    android:textColor="@color/text_darkest"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/edit_text_username"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/edit_text_username"
                     app:layout_constraintTop_toBottomOf="@+id/edit_text_username" />
 
                 <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
@@ -81,11 +107,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:autofillHints="@string/masukkan_nama_email_pengguna_anda"
+                    android:autofillHints="@string/masukkan_nama_pengguna_anda"
                     android:background="@drawable/shape_edittext_bg"
                     android:ems="10"
                     android:fontFamily="@font/lato"
-                    android:hint="@string/masukkan_nama_email_pengguna_anda"
+                    android:hint="@string/masukkan_nama_pengguna_anda"
                     android:inputType="textPersonName"
                     android:paddingHorizontal="8dp"
                     android:paddingVertical="12dp"
@@ -94,6 +120,24 @@
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textView"
                     app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/edit_text_email"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:autofillHints="@string/masukkan_email_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_email_anda"
+                    android:inputType="textEmailAddress"
+                    android:paddingHorizontal="8dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="12sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView4"
+                    app:layout_constraintStart_toStartOf="@+id/textView4"
+                    app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
                 <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
                     android:id="@+id/edit_text_password"
@@ -112,8 +156,10 @@
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/textView2"
+                    app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="@+id/textView2"
-                    app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                    app:layout_constraintVertical_bias="0.0" />
 
                 <ProgressBar
                     android:layout_width="wrap_content"
@@ -123,58 +169,33 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
+
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/belum_memiliki_akun"
-            android:textSize="12sp"
-            android:fontFamily="@font/lato"
-            app:layout_constraintEnd_toEndOf="@+id/cardView"
-            app:layout_constraintStart_toStartOf="@+id/cardView"
-            app:layout_constraintTop_toBottomOf="@+id/cardView" />
-
-        <TextView
-            android:id="@+id/register_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:fontFamily="@font/lato_bold"
-            android:text="@string/daftar_sekarang"
-            android:textColor="@color/main_blue_color"
-            android:textSize="12sp"
-            app:layout_constraintEnd_toEndOf="@+id/textView3"
-            app:layout_constraintStart_toStartOf="@+id/textView3"
-            app:layout_constraintTop_toBottomOf="@+id/textView3" />
-
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/sign_in_button"
+            android:id="@+id/register_button"
             android:layout_width="144dp"
             android:layout_height="40dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:background="@drawable/button_bg"
-            android:text="@string/masuk"
-            android:textColor="@color/white"
+            android:text="@string/daftar"
             android:textAllCaps="false"
-            app:layout_constraintEnd_toEndOf="@+id/register_text_view"
-            app:layout_constraintStart_toStartOf="@+id/register_text_view"
-            app:layout_constraintTop_toBottomOf="@+id/register_text_view" />
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="@+id/cardView"
+            app:layout_constraintHorizontal_bias="0.497"
+            app:layout_constraintStart_toStartOf="@+id/cardView"
+            app:layout_constraintTop_toBottomOf="@+id/login_text_view" />
 
         <Button
-            android:id="@+id/google_sign_in_button"
+            android:id="@+id/google_register_button"
             android:layout_width="225dp"
             android:layout_height="48dp"
             android:layout_marginTop="16dp"
             android:layout_marginBottom="32dp"
             android:background="@drawable/shape_button_white"
             android:fontFamily="@font/lato"
-            android:text="@string/sign_in_google"
+            android:text="@string/register_with_google"
             android:textAllCaps="false"
             android:textAppearance="@style/TextAppearance.AppCompat"
             android:textColor="@color/black"
@@ -183,10 +204,24 @@
             app:iconSize="32dp"
             app:iconTint="@null"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/sign_in_button"
-            app:layout_constraintStart_toStartOf="@+id/sign_in_button"
-            app:layout_constraintTop_toBottomOf="@+id/sign_in_button"
+            app:layout_constraintEnd_toEndOf="@+id/register_button"
+            app:layout_constraintStart_toStartOf="@+id/register_button"
+            app:layout_constraintTop_toBottomOf="@+id/register_button"
             app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/login_text_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/login"
+            android:textColor="@color/main_blue_color"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="@+id/textView5"
+            app:layout_constraintStart_toStartOf="@+id/textView5"
+            app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

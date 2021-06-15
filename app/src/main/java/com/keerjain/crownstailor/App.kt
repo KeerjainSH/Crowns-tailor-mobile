@@ -14,6 +14,7 @@ class App : Application() {
             modules(
                 listOf(
                     remoteDataSourceModule,
+                    sessionModule,
                     repositoryModule,
                     viewModelModule,
                     retrofitModule,

@@ -22,7 +22,7 @@ val retrofitModule = module {
 
     fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl("https://www.google.com")
             .addConverterFactory(GsonConverterFactory.create(factory))
             .client(client)
             .build()

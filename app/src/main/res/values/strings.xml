@@ -1,3 +1,21 @@
 <resources>
     <string name="app_name">CrownsTailor</string>
+    <string name="nama_email_pengguna">Username / Email</string>
+    <string name="masukkan_nama_email_pengguna_anda">Enter your username/email</string>
+    <string name="masukkan_password_anda">Enter your password</string>
+    <string name="password">Password</string>
+    <string name="belum_memiliki_akun">Don\'t have an account?</string>
+    <string name="daftar_sekarang">Register Now</string>
+    <string name="masuk">Login</string>
+    <string name="main_logo">main_logo</string>
+    <string name="nama_pengguna">Username</string>
+    <string name="masukkan_nama_pengguna_anda">Enter your username</string>
+    <string name="register_with_google">Register with Google</string>
+    <string name="daftar">Register</string>
+    <string name="email">Email</string>
+    <string name="masukkan_email_anda">Enter your email</string>
+    <string name="sudah_memiliki_akun">Already have an account?</string>
+    <string name="login">Login</string>
+    <string name="sign_in_google">Login with Google</string>
+    <string name="exit_confirmation">Tap again to exit</string>
 </resources>
