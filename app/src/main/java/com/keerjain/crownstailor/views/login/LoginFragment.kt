@@ -1,6 +1,7 @@
 package com.keerjain.crownstailor.views.login
 
 import android.os.Bundle
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
+import com.keerjain.crownstailor.data.entities.UserCredentials
 import com.keerjain.crownstailor.databinding.LoginFragmentBinding
 import com.keerjain.crownstailor.viewmodels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,19 +44,47 @@ class LoginFragment : Fragment(), View.OnClickListener {
 
                 when {
                     username != "" && password != "" -> {
-                        val isSuccess = viewModel.signIn(username, password)
+                        val isEmail = Patterns.EMAIL_ADDRESS.matcher(username).matches()
+
+                        val user: UserCredentials = if (isEmail) {
+                            UserCredentials(
+                                username = null,
+                                password = password,
+                                email = username
+                            )
+                        } else {
+                            UserCredentials(
+                                username = username,
+                                password = password,
+                                email = null
+                            )
+                        }
+
+                        val isSuccess = viewModel.signIn(user)
 
                         if (isSuccess) {
-                            Toast.makeText(activity, "Welcome, $username!", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(activity, "Welcome, $username!", Toast.LENGTH_SHORT)
+                                .show()
+                            val toHome = LoginFragmentDirections.actionLoginFragmentToMainActivity()
+                            v.findNavController().navigate(toHome)
+                            activity?.finishAfterTransition()
                         }
                     }
 
                     username == "" -> {
-                        Toast.makeText(activity, "Kolom username tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            "Kolom username tidak boleh kosong!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
 
                     else -> {
-                        Toast.makeText(activity, "Kolom password tidak boleh kosong!", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(
+                            activity,
+                            "Kolom password tidak boleh kosong!",
+                            Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             }
@@ -64,7 +94,8 @@ class LoginFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.register_text_view -> {
-                val toRegisterFragment = LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
+                val toRegisterFragment =
+                    LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
                 v.findNavController().navigate(toRegisterFragment)
             }
         }

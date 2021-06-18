@@ -1,5 +1,6 @@
 package com.keerjain.crownstailor.utils.modules
 
+import com.keerjain.crownstailor.viewmodels.HomeViewModel
 import com.keerjain.crownstailor.viewmodels.LoginViewModel
 import com.keerjain.crownstailor.viewmodels.RegisterViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -12,5 +13,9 @@ val viewModelModule = module {
 
     viewModel {
         RegisterViewModel(get())
+    }
+
+    viewModel {
+        HomeViewModel(get())
     }
 }

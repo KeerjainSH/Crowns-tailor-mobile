@@ -1,7 +1,8 @@
 package com.keerjain.crownstailor.data
 
-import kotlinx.coroutines.flow.Flow
+import com.keerjain.crownstailor.data.entities.UserCredentials
 
 interface AppRepository {
-    fun signIn(username: String, password: String): Boolean
+    fun signIn(user: UserCredentials): Boolean
+    fun register(user: UserCredentials): Boolean
 }
