@@ -10,4 +10,7 @@
     <color name="grey_100">#FFF4F4F4</color>
     <color name="text_darkest">#FF212121</color>
     <color name="main_blue_color">#FF346E93</color>
+    <color name="alt_blue_color">#FFB5D2EB</color>
+    <color name="dark_blue_color">#FF004365</color>
+    <color name="filter_text_disabled">#FFAAAAAA</color>
 </resources>
