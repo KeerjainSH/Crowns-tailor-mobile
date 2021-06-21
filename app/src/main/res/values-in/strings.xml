@@ -19,4 +19,8 @@
     <string name="login">Masuk</string>
     <string name="sign_in_google">Masuk dengan Google</string>
     <string name="exit_confirmation">Tap again to exit</string>
+    <string name="title_home">Home</string>
+    <string name="title_offer">Offer</string>
+    <string name="title_order">Orders</string>
+    <string name="title_other">Other</string>
 </resources>

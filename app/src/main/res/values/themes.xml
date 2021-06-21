@@ -36,4 +36,8 @@
         <item name="android:windowBackground">@drawable/splash_brand_logo</item>
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
+
+    <style name="BottomNavigationView.Crowns" parent="Widget.Design.BottomNavigationView">
+        <item name="fontFamily">@font/lato</item>
+    </style>
 </resources>

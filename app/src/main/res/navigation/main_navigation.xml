@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_navigation"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/navigation_home">
 
     <fragment
-        android:id="@+id/homeFragment"
+        android:id="@+id/navigation_home"
         android:name="com.keerjain.crownstailor.views.home.HomeFragment"
         android:label="home_fragment"
         tools:layout="@layout/home_fragment" >
@@ -26,4 +26,19 @@
         android:name="com.keerjain.crownstailor.views.LoginActivity"
         android:label="login_activity"
         tools:layout="@layout/login_activity" />
+    <fragment
+        android:id="@+id/navigation_offer"
+        android:name="com.keerjain.crownstailor.views.offer.OfferFragment"
+        android:label="offer_fragment"
+        tools:layout="@layout/offer_fragment" />
+    <fragment
+        android:id="@+id/navigation_order"
+        android:name="com.keerjain.crownstailor.views.order.OrderFragment"
+        android:label="order_fragment"
+        tools:layout="@layout/order_fragment" />
+    <fragment
+        android:id="@+id/navigation_other"
+        android:name="com.keerjain.crownstailor.views.settings.SettingFragment"
+        android:label="setting_fragment"
+        tools:layout="@layout/setting_fragment" />
 </navigation>
