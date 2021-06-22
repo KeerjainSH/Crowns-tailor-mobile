@@ -1,0 +1,20 @@
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Preference
+        app:layout="@layout/preference_layout"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:title="@string/title_atur_produk_jahit"
+        app:key="@string/key_atur_produk_jahit" />
+    <Preference
+        app:layout="@layout/preference_layout"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:title="@string/title_atur_profil"
+        app:key="@string/key_atur_profil" />
+    <Preference
+        app:layout="@layout/preference_layout"
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:title="@string/title_atur_rekening_bank"
+        app:key="@string/key_atur_rekening_bank" />
+</PreferenceScreen>

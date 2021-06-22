@@ -22,10 +22,22 @@
     <string name="title_offer">Offer</string>
     <string name="title_order">Orders</string>
     <string name="title_other">Other</string>
-    <string name="search_hint">Search order...</string>
+    <string name="search_hint">Search order…</string>
     <string name="semua">All</string>
     <string name="pesanan_baru">New Order</string>
     <string name="dikerjakan">On Progress</string>
     <string name="dikirim">Delivery</string>
     <string name="selesai">Finished</string>
+    <string name="logout_header">Logout</string>
+    <string name="logout_confirm">Yakin ingin logout?</string>
+    <string name="logout_yes">Ya</string>
+    <string name="logout_success">Berhasil logout</string>
+    <string name="logout_no">Tidak</string>
+    <string name="title_atur_produk_jahit">Atur Produk Jahit</string>
+    <string name="key_atur_produk_jahit">atur_produk_jahit</string>
+    <string name="title_atur_profil">Atur Profil</string>
+    <string name="key_atur_profil">atur_profil</string>
+    <string name="title_atur_rekening_bank">Atur Rekening Bank</string>
+    <string name="key_atur_rekening_bank">atur_rekening_bank</string>
+    <string name="profileheader">profileHeader</string>
 </resources>

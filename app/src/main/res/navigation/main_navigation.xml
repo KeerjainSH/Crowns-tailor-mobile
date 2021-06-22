@@ -38,7 +38,14 @@
         tools:layout="@layout/order_fragment" />
     <fragment
         android:id="@+id/navigation_other"
-        android:name="com.keerjain.crownstailor.views.settings.SettingFragment"
+        android:name="com.keerjain.crownstailor.views.settings.ProfileFragment"
         android:label="setting_fragment"
-        tools:layout="@layout/setting_fragment" />
+        tools:layout="@layout/setting_fragment" >
+        <action
+            android:id="@+id/action_navigation_other_to_loginActivity"
+            app:destination="@id/loginActivity"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/loginActivity"
+            app:popUpToInclusive="true" />
+    </fragment>
 </navigation>
