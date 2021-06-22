@@ -41,4 +41,7 @@
     <string name="title_atur_rekening_bank">Atur Rekening Bank</string>
     <string name="key_atur_rekening_bank">atur_rekening_bank</string>
     <string name="profileheader">profileHeader</string>
+    <string name="logout">Logout</string>
+    <string name="dummy_join_date">Bergabung sejak 19 Agustus 2020</string>
+    <string name="dummy_name">Michael Ricky</string>
 </resources>
