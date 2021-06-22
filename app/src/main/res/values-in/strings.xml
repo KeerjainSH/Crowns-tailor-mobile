@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CrownsTailor</string>
+    <string name="app_name">Crowns Tailor</string>
     <string name="nama_email_pengguna">Nama / Email Pengguna</string>
     <string name="masukkan_nama_email_pengguna_anda">Masukkan nama / email pengguna anda</string>
     <string name="masukkan_password_anda">Masukkan password anda</string>
@@ -18,17 +18,17 @@
     <string name="sudah_memiliki_akun">Sudah memiliki akun?</string>
     <string name="login">Masuk</string>
     <string name="sign_in_google">Masuk dengan Google</string>
-    <string name="exit_confirmation">Tap again to exit</string>
+    <string name="exit_confirmation">Tekan lagi untuk keluar</string>
     <string name="title_home">Home</string>
-    <string name="title_offer">Offer</string>
-    <string name="title_order">Orders</string>
-    <string name="title_other">Other</string>
-    <string name="search_hint">Search order…</string>
-    <string name="semua">All</string>
-    <string name="pesanan_baru">New Order</string>
-    <string name="dikerjakan">On Progress</string>
-    <string name="dikirim">Delivery</string>
-    <string name="selesai">Finished</string>
+    <string name="title_offer">Penawaran</string>
+    <string name="title_order">Pesanan</string>
+    <string name="title_other">Lainnya</string>
+    <string name="search_hint">Cari pesanan…</string>
+    <string name="semua">Semua</string>
+    <string name="pesanan_baru">Pesanan baru</string>
+    <string name="dikerjakan">Dikerjakan</string>
+    <string name="dikirim">Dikirim</string>
+    <string name="selesai">Selesai</string>
     <string name="logout_header">Logout</string>
     <string name="logout_confirm">Yakin ingin logout?</string>
     <string name="logout_yes">Ya</string>
@@ -40,8 +40,15 @@
     <string name="key_atur_profil">atur_profil</string>
     <string name="title_atur_rekening_bank">Atur Rekening Bank</string>
     <string name="key_atur_rekening_bank">atur_rekening_bank</string>
-    <string name="profileheader">profileHeader</string>
+    <string name="profile_header">profileHeader</string>
     <string name="logout">Logout</string>
     <string name="dummy_join_date">Bergabung sejak 19 Agustus 2020</string>
     <string name="dummy_name">Michael Ricky</string>
+    <string name="pesanan_terbaru">Pesanan Terbaru</string>
+    <string name="siap_dikirim">Siap dikirim</string>
+    <string name="dummy_greetings">Selamat pagi, Michael</string>
+    <string name="pendapatan_hari_ini">Pendapatan hari ini</string>
+    <string name="dummy_income">Rp 0</string>
+    <string name="penawaran_baru">Penawaran Baru</string>
+    <string name="empty_number">0</string>
 </resources>

@@ -1,4 +1,3 @@
 package com.keerjain.crownstailor.utils
 
-object DataDummy {
-}
+object DataDummy

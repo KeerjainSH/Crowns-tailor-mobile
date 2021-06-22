@@ -1,7 +1,6 @@
 package com.keerjain.crownstailor.views.register
 
 import android.os.Bundle
-import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +11,6 @@ import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.UserCredentials
 import com.keerjain.crownstailor.databinding.RegisterFragmentBinding
 import com.keerjain.crownstailor.viewmodels.RegisterViewModel
-import com.keerjain.crownstailor.views.login.LoginFragmentDirections
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment(), View.OnClickListener {
@@ -59,7 +57,8 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                         if (isSuccess) {
                             Toast.makeText(activity, "Welcome, $username!", Toast.LENGTH_SHORT)
                                 .show()
-                            val toHome = RegisterFragmentDirections.actionRegisterFragmentToMainActivity()
+                            val toHome =
+                                RegisterFragmentDirections.actionRegisterFragmentToMainActivity()
                             v.findNavController().navigate(toHome)
                             activity?.finishAfterTransition()
                         }

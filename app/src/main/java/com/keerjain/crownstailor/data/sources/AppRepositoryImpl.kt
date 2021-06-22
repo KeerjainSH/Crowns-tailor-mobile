@@ -16,7 +16,7 @@ class AppRepositoryImpl(
 
     override fun register(user: UserCredentials): Boolean {
         val isRegistered = remote.registerUser(user)
-        
+
         if (isRegistered) {
             sessionManager.createLoginSession(user.username.toString())
         }

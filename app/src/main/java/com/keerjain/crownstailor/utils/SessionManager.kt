@@ -4,7 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 
 class SessionManager(context: Context) {
-    private var pref: SharedPreferences = context.getSharedPreferences("Session", Context.MODE_PRIVATE)
+    private var pref: SharedPreferences =
+        context.getSharedPreferences("Session", Context.MODE_PRIVATE)
     private var editor: SharedPreferences.Editor = pref.edit()
 
     fun createLoginSession(username: String) {

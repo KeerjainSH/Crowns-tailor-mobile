@@ -7,7 +7,7 @@
     tools:context=".views.settings.ProfileFragment">
 
     <ImageView
-        android:contentDescription="@string/profileheader"
+        android:contentDescription="@string/profile_header"
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="120dp"

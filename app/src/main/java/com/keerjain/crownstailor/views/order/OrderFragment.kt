@@ -5,8 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.databinding.HomeFragmentBinding
 import com.keerjain.crownstailor.databinding.OrderFragmentBinding
 import com.keerjain.crownstailor.viewmodels.OrderViewModel
 import com.keerjain.crownstailor.views.MainActivity
@@ -22,7 +20,7 @@ class OrderFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = OrderFragmentBinding.inflate(inflater, container, false)
 
         currentActivity = activity as MainActivity
