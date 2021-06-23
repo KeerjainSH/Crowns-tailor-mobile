@@ -1,29 +1,30 @@
-package com.keerjain.crownstailor.views.order
+package com.keerjain.crownstailor.views.detail
 
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import com.keerjain.crownstailor.databinding.OrderFragmentBinding
-import com.keerjain.crownstailor.viewmodels.OrderViewModel
+import com.keerjain.crownstailor.databinding.OfferDetailFragmentBinding
+import com.keerjain.crownstailor.viewmodels.OfferDetailViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class OrderFragment : Fragment() {
+class OfferDetailFragment : Fragment() {
 
-    private var _binding: OrderFragmentBinding? = null
+    private var _binding: OfferDetailFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<OrderViewModel>()
+    private val viewModel by viewModel<OfferDetailViewModel>()
     private lateinit var currentActivity: MainActivity
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = OrderFragmentBinding.inflate(inflater, container, false)
+        _binding = OfferDetailFragmentBinding.inflate(inflater, container, false)
 
         currentActivity = activity as MainActivity
+        currentActivity.removeBottomBar()
 
         return binding.root
     }
@@ -31,7 +32,7 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentActivity.showBottomBar()
         currentActivity.setSupportActionBar(binding.topAppBar)
+        currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }

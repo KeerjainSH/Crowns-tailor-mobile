@@ -1,5 +1,9 @@
 package com.keerjain.crownstailor.data.entities.detail
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class OrderDetail(
     val armSize: Float,
     val waistSize: Float,
@@ -8,4 +12,4 @@ data class OrderDetail(
     val bodyHeight: Float,
     val bodyWeight: Float,
     val instructions: String,
-)
+) : Parcelable

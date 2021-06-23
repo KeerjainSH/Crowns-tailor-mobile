@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".views.offer.OfferFragment">
+    tools:context=".views.detail.OfferDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
@@ -21,17 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/white"
-            app:title="@string/title_offer"
+            app:title="@string/title_offer_detail"
             app:titleTextAppearance="@style/ToolbarTextTheme" />
     </com.google.android.material.appbar.AppBarLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_offer_list"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        tools:listitem="@layout/offer_list_item"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

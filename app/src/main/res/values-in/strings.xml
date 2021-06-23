@@ -51,4 +51,8 @@
     <string name="dummy_income">Rp 0</string>
     <string name="penawaran_baru">Penawaran Baru</string>
     <string name="empty_number">0</string>
+    <string name="offer_type_list">Menawar untuk %1$s</string>
+    <string name="title_offer_detail">Offer Detail</string>
+    <string name="dummy_offer_type">Menawar untuk Seragam SMP</string>
+    <string name="dummy_date">5 Juni 2021</string>
 </resources>

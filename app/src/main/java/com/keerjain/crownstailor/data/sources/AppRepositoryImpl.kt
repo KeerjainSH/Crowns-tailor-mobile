@@ -2,8 +2,10 @@ package com.keerjain.crownstailor.data.sources
 
 import com.keerjain.crownstailor.data.AppRepository
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
+import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.sources.remote.RemoteDataSource
 import com.keerjain.crownstailor.utils.SessionManager
+import kotlinx.coroutines.flow.Flow
 
 class AppRepositoryImpl(
     private val remote: RemoteDataSource,
@@ -22,5 +24,9 @@ class AppRepositoryImpl(
         }
 
         return isRegistered
+    }
+
+    override fun getOfferForTailor(tailorId: Long): Flow<List<OfferListItem>> {
+        return remote.getOfferForTailor(tailorId)
     }
 }

@@ -30,7 +30,16 @@
         android:id="@+id/navigation_offer"
         android:name="com.keerjain.crownstailor.views.offer.OfferFragment"
         android:label="offer_fragment"
-        tools:layout="@layout/offer_fragment" />
+        tools:layout="@layout/offer_fragment" >
+        <action
+            android:id="@+id/action_navigation_offer_to_offerDetailFragment"
+            app:destination="@id/offerDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_order"
         android:name="com.keerjain.crownstailor.views.order.OrderFragment"
@@ -47,5 +56,14 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/loginActivity"
             app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/offerDetailFragment"
+        android:name="com.keerjain.crownstailor.views.detail.OfferDetailFragment"
+        android:label="offer_detail_fragment"
+        tools:layout="@layout/offer_detail_fragment" >
+        <argument
+            android:name="offer"
+            app:argType="com.keerjain.crownstailor.data.entities.offer.OfferListItem" />
     </fragment>
 </navigation>

@@ -23,8 +23,19 @@ class HomeFragment : Fragment() {
         _binding = HomeFragmentBinding.inflate(inflater, container, false)
 
         currentActivity = activity as MainActivity
-        currentActivity.setSupportActionBar(binding.topAppBar)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        currentActivity.setSupportActionBar(binding.topAppBar)
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+        currentActivity.showBottomBar()
     }
 }
