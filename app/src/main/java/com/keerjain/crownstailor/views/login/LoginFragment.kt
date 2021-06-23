@@ -9,7 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.data.entities.UserCredentials
+import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.databinding.LoginFragmentBinding
 import com.keerjain.crownstailor.viewmodels.LoginViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,21 +46,21 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     username != "" && password != "" -> {
                         val isEmail = Patterns.EMAIL_ADDRESS.matcher(username).matches()
 
-                        val user: UserCredentials = if (isEmail) {
-                            UserCredentials(
+                        val tailor: TailorCredentials = if (isEmail) {
+                            TailorCredentials(
                                 username = null,
                                 password = password,
                                 email = username
                             )
                         } else {
-                            UserCredentials(
+                            TailorCredentials(
                                 username = username,
                                 password = password,
                                 email = null
                             )
                         }
 
-                        val isSuccess = viewModel.signIn(user)
+                        val isSuccess = viewModel.signIn(tailor)
 
                         if (isSuccess) {
                             Toast.makeText(activity, "Welcome, $username!", Toast.LENGTH_SHORT)

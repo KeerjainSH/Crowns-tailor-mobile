@@ -8,7 +8,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.data.entities.UserCredentials
+import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.databinding.RegisterFragmentBinding
 import com.keerjain.crownstailor.viewmodels.RegisterViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -46,7 +46,7 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                 when {
                     username != "" && password != "" && email != "" -> {
 
-                        val user = UserCredentials(
+                        val user = TailorCredentials(
                             username = username,
                             password = password,
                             email = email

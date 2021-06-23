@@ -1,8 +1,8 @@
 package com.keerjain.crownstailor.data
 
-import com.keerjain.crownstailor.data.entities.UserCredentials
+import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 
 interface AppRepository {
-    fun signIn(user: UserCredentials): Boolean
-    fun register(user: UserCredentials): Boolean
+    fun signIn(tailor: TailorCredentials): Boolean
+    fun register(tailor: TailorCredentials): Boolean
 }
