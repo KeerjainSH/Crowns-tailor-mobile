@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.databinding.SettingFragmentBinding
+import com.keerjain.crownstailor.utils.ExtensionFunctions.setProfilePicture
 import com.keerjain.crownstailor.utils.SessionManager
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
 import org.koin.android.ext.android.inject
@@ -46,6 +47,12 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         binding.btnLogout.setOnClickListener(this)
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        binding.profilePicture.setProfilePicture("https://picsum.photos/512")
     }
 
     private fun signOut() {

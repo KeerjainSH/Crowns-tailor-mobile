@@ -48,6 +48,7 @@
         android:layout_height="30dp"
         android:layout_marginTop="16dp"
         android:scrollbars="none"
+        android:animateLayoutChanges="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/sv_search_order">
@@ -56,6 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:orientation="horizontal"
+            android:animateLayoutChanges="true"
             android:checkedButton="@id/filter_semua" >
 
             <androidx.appcompat.widget.AppCompatRadioButton
