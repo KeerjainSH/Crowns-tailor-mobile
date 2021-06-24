@@ -53,11 +53,15 @@ class OfferFragment : Fragment() {
             }
         }
 
-        viewAdapter.setOnItemClickCallback(object : OfferAdapter.OnItemClickCallback{
+        viewAdapter.setOnItemClickCallback(object : OfferAdapter.OnItemClickCallback {
             override fun onItemClicked(data: OfferListItem) {
-                val toOfferDetail = OfferFragmentDirections.actionNavigationOfferToOfferDetailFragment(data)
-                view.findNavController().navigate(toOfferDetail)
+                showDetail(data)
             }
         })
+    }
+
+    private fun showDetail(data: OfferListItem) {
+        val toOfferDetail = OfferFragmentDirections.actionNavigationOfferToOfferDetailFragment(data)
+        view?.findNavController()?.navigate(toOfferDetail)
     }
 }

@@ -7,4 +7,9 @@
     <color name="main_blue_color">#FF346E93</color>
     <color name="alt_blue_color">#FFB5D2EB</color>
     <color name="dark_blue_color">#FF004365</color>
+    
+    <!-- STATUS COLOR -->
+    <color name="status_dikerjakan_color">#FF4FA8E0</color>
+    <color name="status_dikirim_color">#FF4FD7E0</color>
+    <color name="status_selesai_color">#FF4FE0AC</color>
 </resources>

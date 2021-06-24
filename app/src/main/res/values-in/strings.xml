@@ -55,4 +55,7 @@
     <string name="title_offer_detail">Offer Detail</string>
     <string name="dummy_offer_type">Menawar untuk Seragam SMP</string>
     <string name="dummy_date">5 Juni 2021</string>
+    <string name="product_photo_content_desc">product_photo</string>
+    <string name="dummy_trx_id">INV/10007</string>
+    <string name="dummy_product_name">Seragam SMP</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.keerjain.crownstailor.views.home
+package com.keerjain.crownstailor.views.order
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.TransactionListItemBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
+import com.keerjain.crownstailor.views.home.HomeAdapter
 
-class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
-
+class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
     private val listOrder = ArrayList<TransactionListItem>()
 
@@ -24,17 +24,20 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
         if (list == null) return
 
         this.listOrder.clear()
-        this.listOrder.addAll(list.take(3))
+        this.listOrder.addAll(list)
         notifyDataSetChanged()
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): HomeViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): OrderAdapter.OrderViewHolder {
         val orderListItemBinding =
             TransactionListItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
-        return HomeViewHolder(orderListItemBinding)
+        return OrderViewHolder(orderListItemBinding)
     }
 
-    override fun onBindViewHolder(holder: HomeViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: OrderAdapter.OrderViewHolder, position: Int) {
         val order = listOrder[position]
 
         holder.itemView.setOnClickListener {
@@ -46,7 +49,7 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
 
     override fun getItemCount(): Int = listOrder.size
 
-    inner class HomeViewHolder(private val binding: TransactionListItemBinding) :
+    inner class OrderViewHolder (private val binding: TransactionListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(order: TransactionListItem) {
             binding.tvOrderId.text = order.trxId.toString()
