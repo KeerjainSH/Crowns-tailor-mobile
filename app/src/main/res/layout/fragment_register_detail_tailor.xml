@@ -1,0 +1,368 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".views.register.RegisterDetailTailorFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:title="@string/title_detail_penjahit"
+            app:titleTextAppearance="@style/ToolbarTextTheme" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/appBarLayout"
+        app:layout_constraintVertical_bias="1.0">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="500dp">
+
+
+            <TextView
+                android:id="@+id/textView16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/lato_bold"
+                android:text="Your Details"
+                android:textAlignment="center"
+                android:textColor="@color/main_blue_color"
+                android:textSize="24sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView17"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="64dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="64dp"
+                android:fontFamily="@font/lato_light"
+                android:text="Masukkan data diri anda. Detil lain dapat anda ubah dalam halaman lainnya."
+                android:textAlignment="center"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+            <TextView
+                android:id="@+id/textView18"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:fontFamily="@font/lato"
+                android:text="Full Name"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView17" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_full_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_nama_lengkap_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_nama_lengkap_anda"
+                android:inputType="textPersonName"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView18"
+                app:layout_constraintStart_toStartOf="@+id/textView18"
+                app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+            <TextView
+                android:id="@+id/textView19"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Address"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/et_full_name"
+                app:layout_constraintStart_toStartOf="@+id/et_full_name"
+                app:layout_constraintTop_toBottomOf="@+id/et_full_name" />
+
+            <TextView
+                android:id="@+id/textView20"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Gender"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/et_address"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/et_address"
+                app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Subdistrict"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/gender_spinner"
+                app:layout_constraintStart_toStartOf="@+id/gender_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/et_address" />
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="District"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/et_kecamatan"
+                app:layout_constraintStart_toStartOf="@+id/et_kecamatan"
+                app:layout_constraintTop_toBottomOf="@+id/et_kecamatan" />
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Province"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/et_kabupaten"
+                app:layout_constraintStart_toStartOf="@+id/et_kabupaten"
+                app:layout_constraintTop_toBottomOf="@+id/et_kabupaten" />
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Postal Code"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/et_provinsi"
+                app:layout_constraintStart_toStartOf="@+id/et_provinsi"
+                app:layout_constraintTop_toBottomOf="@+id/et_provinsi" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_continue_to_product_selection"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/button_bg_gradient"
+                android:fontFamily="@font/lato"
+                android:letterSpacing="0"
+                android:paddingHorizontal="120dp"
+                android:text="@string/next"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/et_birth_date" />
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Phone Number"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/et_postal_code"
+                app:layout_constraintStart_toStartOf="@+id/et_postal_code"
+                app:layout_constraintTop_toBottomOf="@+id/et_postal_code" />
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="Birth Date"
+                android:textColor="@color/black"
+                app:layout_constraintEnd_toEndOf="@+id/gender_spinner"
+                app:layout_constraintStart_toStartOf="@+id/gender_spinner"
+                app:layout_constraintTop_toBottomOf="@+id/gender_spinner" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_address"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_alamat_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_alamat_anda"
+                android:inputType="textPostalAddress"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView19"
+                app:layout_constraintStart_toStartOf="@+id/textView19"
+                app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_kecamatan"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_kecamatan_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_kecamatan_anda"
+                android:inputType="textPostalAddress"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView21"
+                app:layout_constraintStart_toStartOf="@+id/textView21"
+                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_kabupaten"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_kabupaten_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_kabupaten_anda"
+                android:inputType="textPostalAddress"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView22"
+                app:layout_constraintStart_toStartOf="@+id/textView22"
+                app:layout_constraintTop_toBottomOf="@+id/textView22" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_provinsi"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_provinsi_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_provinsi_anda"
+                android:inputType="textPostalAddress"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView23"
+                app:layout_constraintStart_toStartOf="@+id/textView23"
+                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_postal_code"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_provinsi_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_provinsi_anda"
+                android:inputType="textPostalAddress"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView24"
+                app:layout_constraintStart_toStartOf="@+id/textView24"
+                app:layout_constraintTop_toBottomOf="@+id/textView24" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_phone_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_nomor_hp_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_nomor_hp_anda"
+                android:inputType="phone"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView25"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/textView25"
+                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                android:id="@+id/et_birth_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="@string/masukkan_tanggal_lahir_anda"
+                android:background="@drawable/shape_edittext_bg"
+                android:ems="10"
+                android:fontFamily="@font/lato"
+                android:hint="@string/masukkan_tanggal_lahir_anda"
+                android:inputType="date"
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="12dp"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toEndOf="@+id/textView26"
+                app:layout_constraintStart_toStartOf="@+id/textView26"
+                app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+            <Spinner
+                android:id="@+id/gender_spinner"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/shape_dropdown"
+                android:entries="@array/gender"
+                android:gravity="center_vertical"
+                android:popupBackground="@drawable/shape_search"
+                android:spinnerMode="dropdown"
+                android:theme="@style/SpinnerTheme"
+                app:layout_constraintEnd_toEndOf="@+id/textView20"
+                app:layout_constraintStart_toStartOf="@+id/textView20"
+                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -48,4 +48,9 @@
         <item name="android:color">@color/black</item>
         <item name="android:textSize">18sp</item>
     </style>
+    
+    <style name="SpinnerTheme">
+        <item name="android:fontFamily">@font/lato</item>
+        <item name="android:textSize">14sp</item>
+    </style>
 </resources>
