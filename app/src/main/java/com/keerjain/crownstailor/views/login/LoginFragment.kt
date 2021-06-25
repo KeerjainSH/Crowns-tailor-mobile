@@ -12,6 +12,7 @@ import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.databinding.LoginFragmentBinding
 import com.keerjain.crownstailor.viewmodels.LoginViewModel
+import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
@@ -39,52 +40,41 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.sign_in_button -> {
-                val username = binding.editTextUsername.text.toString()
-                val password = binding.editTextPassword.text.toString()
+                val username = binding.editTextUsername
+                val password = binding.editTextPassword
 
-                when {
-                    username != "" && password != "" -> {
-                        val isEmail = Patterns.EMAIL_ADDRESS.matcher(username).matches()
+                val isNotEmpty = nonEmptyList(
+                    username,
+                    password,
+                ) { view, msg ->
+                    view.error = msg
+                }
 
-                        val tailor: TailorCredentials = if (isEmail) {
-                            TailorCredentials(
-                                username = null,
-                                password = password,
-                                email = username
-                            )
-                        } else {
-                            TailorCredentials(
-                                username = username,
-                                password = password,
-                                email = null
-                            )
-                        }
+                if (isNotEmpty) {
+                    val isEmail = Patterns.EMAIL_ADDRESS.matcher(username.text.toString()).matches()
 
-                        val isSuccess = viewModel.signIn(tailor)
-
-                        if (isSuccess) {
-                            Toast.makeText(activity, "Welcome, $username!", Toast.LENGTH_SHORT)
-                                .show()
-                            val toHome = LoginFragmentDirections.actionLoginFragmentToMainActivity()
-                            v.findNavController().navigate(toHome)
-                            activity?.finishAfterTransition()
-                        }
+                    val tailor: TailorCredentials = if (isEmail) {
+                        TailorCredentials(
+                            username = null,
+                            password = password.text.toString(),
+                            email = username.text.toString()
+                        )
+                    } else {
+                        TailorCredentials(
+                            username = username.text.toString(),
+                            password = password.text.toString(),
+                            email = null
+                        )
                     }
 
-                    username == "" -> {
-                        Toast.makeText(
-                            activity,
-                            "Kolom username tidak boleh kosong!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    val isSuccess = viewModel.signIn(tailor)
 
-                    else -> {
-                        Toast.makeText(
-                            activity,
-                            "Kolom password tidak boleh kosong!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    if (isSuccess) {
+                        Toast.makeText(activity, "Welcome, ${username.text.toString()}!", Toast.LENGTH_SHORT)
+                            .show()
+                        val toHome = LoginFragmentDirections.actionLoginFragmentToMainActivity()
+                        v.findNavController().navigate(toHome)
+                        activity?.finishAfterTransition()
                     }
                 }
             }

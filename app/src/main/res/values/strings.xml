@@ -60,11 +60,22 @@
     <string name="title_detail_penjahit">Tailor Detail</string>
     <string name="masukkan_nama_lengkap_anda">Enter your full name</string>
     <string name="masukkan_alamat_anda">Enter your address</string>
-    <string name="masukkan_kelurahan_anda">Enter your village name</string>
     <string name="masukkan_kabupaten_anda">Enter your district name</string>
     <string name="masukkan_provinsi_anda">Enter your province name</string>
     <string name="masukkan_kecamatan_anda">Enter your subdistrict name</string>
-    <string name="masukkan_nomor_hp_anda">+(Area)81299087656</string>
+    <string name="masukkan_nomor_hp_anda">E.g. 081299087656</string>
     <string name="masukkan_tanggal_lahir_anda">DD/MM/YYYY</string>
     <string name="next">Next</string>
+    <string name="masukkan_kode_pos_anda">Enter your postal code</string>
+    <string name="your_details">Your Details</string>
+    <string name="tailor_detail_subtitle">Enter your details. Other detail can be changed from the profile page.</string>
+    <string name="full_name">Full Name</string>
+    <string name="address">Address</string>
+    <string name="subdistrict">Subdistrict</string>
+    <string name="district">District</string>
+    <string name="province">Province</string>
+    <string name="postal_code">Postal Code</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="gender">Gender</string>
 </resources>

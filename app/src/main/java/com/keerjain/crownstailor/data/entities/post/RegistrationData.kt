@@ -34,6 +34,9 @@ data class RegistrationData(
 	@field:SerializedName("kecamatan")
 	var kecamatan: String? = null,
 
+	@field:SerializedName("provinsi")
+	var provinsi: String? = null,
+
 	@field:SerializedName("kodepos")
 	var kodepos: String? = null,
 

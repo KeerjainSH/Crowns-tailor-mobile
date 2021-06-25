@@ -4,20 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.post.RegistrationData
 import com.keerjain.crownstailor.databinding.RegisterFragmentBinding
 import com.keerjain.crownstailor.viewmodels.RegisterViewModel
+import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
+import com.wajahatkarim3.easyvalidation.core.collection_ktx.validEmailList
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class RegisterFragment : Fragment(), View.OnClickListener {
     private var _binding: RegisterFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel by viewModel<RegisterViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -40,46 +43,39 @@ class RegisterFragment : Fragment(), View.OnClickListener {
             }
 
             R.id.register_button -> {
-                val username = binding.editTextUsername.text.toString()
-                val password = binding.editTextPassword.text.toString()
-                val email = binding.editTextEmail.text.toString()
+                val username = binding.editTextUsername
+                val password = binding.editTextPassword
+                val email = binding.editTextEmail
 
-                when {
-                    username != "" && password != "" && email != "" -> {
-
-                        val registrationData = RegistrationData(
-                            username = username,
-                            password = password,
-                            email = email
-                        )
-
-                        val toChooseProducts =
-                            RegisterFragmentDirections.actionRegisterFragmentToRegisterDetailTailorFragment(registrationData)
-                        v.findNavController().navigate(toChooseProducts)
+                lifecycleScope.launchWhenCreated {
+                    val isNotEmpty = nonEmptyList(
+                        username,
+                        password,
+                        email
+                    ) { view, msg ->
+                        view.error = msg
                     }
 
-                    username == "" -> {
-                        Toast.makeText(
-                            activity,
-                            "Kolom username tidak boleh kosong!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                    val isEmailFormatted = validEmailList(
+                        email
+                    ) { view, msg ->
+                        view.error = msg
                     }
 
-                    email == "" -> {
-                        Toast.makeText(
-                            activity,
-                            "Kolom email tidak boleh kosong!",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                    }
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        if (isNotEmpty && isEmailFormatted) {
+                            val registrationData = RegistrationData(
+                                username = username.text.toString(),
+                                password = password.text.toString(),
+                                email = email.text.toString()
+                            )
 
-                    else -> {
-                        Toast.makeText(
-                            activity,
-                            "Kolom password tidak boleh kosong!",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                            withContext(Dispatchers.Main) {
+                                val toChooseProducts =
+                                    RegisterFragmentDirections.actionRegisterFragmentToRegisterDetailTailorFragment(registrationData)
+                                v.findNavController().navigate(toChooseProducts)
+                            }
+                        }
                     }
                 }
             }
