@@ -2,6 +2,7 @@ package com.keerjain.crownstailor.utils
 
 import com.keerjain.crownstailor.data.entities.detail.CustomerDetail
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
+import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.utils.enums.Status
 
@@ -93,6 +94,47 @@ object DataDummy {
                 "Seragam SMA",
                 "https://picsum.photos/400",
                 Status.NEW_ORDER
+            )
+        )
+
+        return list
+    }
+
+    fun generateProducts(): List<Product> {
+        val list = ArrayList<Product>()
+
+        list.add(
+            Product(
+                1,
+                "Seragam SD"
+            )
+        )
+
+        list.add(
+            Product(
+                2,
+                "Seragam SMP"
+            )
+        )
+
+        list.add(
+            Product(
+                3,
+                "Seragam SMA"
+            )
+        )
+
+        list.add(
+            Product(
+                4,
+                "Kemeja"
+            )
+        )
+
+        list.add(
+            Product(
+                5,
+                "Jas"
             )
         )
 

@@ -78,4 +78,7 @@
     <string name="phone_number">Phone Number</string>
     <string name="birth_date">Birth Date</string>
     <string name="gender">Gender</string>
+    <string name="title_pilih_produk">Product List</string>
+    <string name="what_can_you_make">What can you make?</string>
+    <string name="tailor_products_list_subtitle">Choose which product that you can make.</string>
 </resources>

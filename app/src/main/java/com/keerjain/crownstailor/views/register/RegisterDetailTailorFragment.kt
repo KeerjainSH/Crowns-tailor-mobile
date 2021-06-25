@@ -11,12 +11,12 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
-import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.databinding.FragmentRegisterDetailTailorBinding
 import com.keerjain.crownstailor.views.LoginActivity
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -95,7 +95,7 @@ class RegisterDetailTailorFragment : Fragment() {
         }
     }
 
-    private fun saveDataAndNext() {
+    private suspend fun saveDataAndNext() {
         val args: RegisterDetailTailorFragmentArgs by navArgs()
         val data = args.registrationData
 
@@ -113,10 +113,12 @@ class RegisterDetailTailorFragment : Fragment() {
             "p"
         }
 
-        val toNextStep =
-            RegisterDetailTailorFragmentDirections.actionRegisterDetailTailorFragmentToRegisterChooseProductsFragment(
-                data
-            )
-        view?.findNavController()?.navigate(toNextStep)
+        withContext(Dispatchers.Main) {
+            val toNextStep =
+                RegisterDetailTailorFragmentDirections.actionRegisterDetailTailorFragmentToRegisterChooseProductsFragment(
+                    data
+                )
+            view?.findNavController()?.navigate(toNextStep)
+        }
     }
 }
