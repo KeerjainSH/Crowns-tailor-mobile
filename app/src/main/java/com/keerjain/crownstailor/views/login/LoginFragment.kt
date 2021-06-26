@@ -33,10 +33,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
         return binding.root
     }
 
-    companion object {
-        fun newInstance() = LoginFragment()
-    }
-
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.sign_in_button -> {

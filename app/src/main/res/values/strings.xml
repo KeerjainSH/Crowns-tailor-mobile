@@ -80,5 +80,6 @@
     <string name="gender">Gender</string>
     <string name="title_pilih_produk">Product List</string>
     <string name="what_can_you_make">What can you make?</string>
-    <string name="tailor_products_list_subtitle">Choose which product that you can make.</string>
+    <string name="tailor_products_list_subtitle">Choose which product that you can make. You can change it later after registration from the profile page.</string>
+    <string name="list_empty_error">You have to choose at least one item.</string>
 </resources>

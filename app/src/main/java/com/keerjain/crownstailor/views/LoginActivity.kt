@@ -3,6 +3,7 @@ package com.keerjain.crownstailor.views
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -26,7 +27,11 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (navHostFragment.childFragmentManager.backStackEntryCount == 0) {
+        if (navHostFragment.childFragmentManager.backStackEntryCount > 0) {
+//            Log.d("Backstack Count", "Backstack Count = ${navHostFragment.childFragmentManager.backStackEntryCount}")
+            navHostFragment.navController.navigateUp()
+            return
+        } else {
             if (doubleBackToExitOnce) {
                 finishAfterTransition()
                 return
@@ -41,11 +46,16 @@ class LoginActivity : AppCompatActivity() {
             ).show()
 
             Handler(Looper.getMainLooper()).postDelayed({
-                kotlin.run { doubleBackToExitOnce = false }
+                kotlin.run {
+                    this.doubleBackToExitOnce = false
+                    Log.d("Double Back", doubleBackToExitOnce.toString())
+                }
             }, 2000)
-        } else {
-            super.onBackPressed()
-            return
         }
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return false
     }
 }
