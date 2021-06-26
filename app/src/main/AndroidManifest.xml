@@ -16,9 +16,11 @@
         android:theme="@style/Theme.CrownsTailor">
         <activity android:name=".views.LoginActivity"
             android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.NoActionBar" />
         <activity android:name=".views.MainActivity"
             android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

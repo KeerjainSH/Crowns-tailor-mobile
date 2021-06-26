@@ -82,4 +82,15 @@
     <string name="what_can_you_make">What can you make?</string>
     <string name="tailor_products_list_subtitle">Choose which product that you can make. You can change it later after registration from the profile page.</string>
     <string name="list_empty_error">You have to choose at least one item.</string>
+    <string name="payout_payout">Payout, payout!</string>
+    <string name="tailor_bank_account_subtitle">Enter your bank account details that will be used to cash out your income.</string>
+    <string name="finish_registration">Finish Registration</string>
+    <string name="nomor_rekening">Account Number</string>
+    <string name="masukkan_nomor_rekening_anda">Enter your bank account number</string>
+    <string name="bank_name">Bank Name</string>
+    <string name="masukkan_nama_bank_anda">Enter your bank name</string>
+    <string name="masukkan_nama_pemilik_rekening">Enter your account holder name</string>
+    <string name="account_holder_name">Account Holder Name</string>
+    <string name="register_header">Registration</string>
+    <string name="register_confirm">Are you sure the data you entered are all correct?</string>
 </resources>

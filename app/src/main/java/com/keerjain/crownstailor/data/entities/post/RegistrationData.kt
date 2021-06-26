@@ -19,6 +19,9 @@ data class RegistrationData(
 	@field:SerializedName("no_rekening")
 	var noRekening: String? = null,
 
+	@field:SerializedName("nama_pemilik_rekening")
+	var namaPemilikRekening: String? = null,
+
 	@field:SerializedName("alamat")
 	var alamat: String? = null,
 

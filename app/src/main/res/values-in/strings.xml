@@ -83,4 +83,15 @@
     <string name="what_can_you_make">Apa yang dapat anda buat?</string>
     <string name="tailor_products_list_subtitle">Pilihlah produk jahit yang dapat anda buat. Anda dapat mengubah pilihan produk setelah pendaftaran dalam menu profil.</string>
     <string name="list_empty_error">Anda harus memilih minimal satu jenis produk jahit.</string>
+    <string name="payout_payout">Payout, payout!</string>
+    <string name="tailor_bank_account_subtitle">Masukkan nomor rekening anda yang nantinya akan digunakan untuk penarikan dana.</string>
+    <string name="finish_registration">Selesaikan Pendaftaran</string>
+    <string name="nomor_rekening">Nomor Rekening</string>
+    <string name="masukkan_nomor_rekening_anda">Masukkan nomor rekening anda</string>
+    <string name="bank_name">Nama Bank</string>
+    <string name="masukkan_nama_bank_anda">Masukkan nama bank anda</string>
+    <string name="masukkan_nama_pemilik_rekening">Masukkan nama pemilik rekening</string>
+    <string name="account_holder_name">Nama Pemilik Rekening</string>
+    <string name="register_header">Registration</string>
+    <string name="register_confirm">Are you sure the data you entered are all correct?</string>
 </resources>
