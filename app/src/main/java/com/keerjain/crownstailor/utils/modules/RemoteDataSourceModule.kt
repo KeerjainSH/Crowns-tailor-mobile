@@ -5,6 +5,6 @@ import org.koin.dsl.module
 
 val remoteDataSourceModule = module {
     single {
-        RemoteDataSource(get())
+        RemoteDataSource(get(), get())
     }
 }

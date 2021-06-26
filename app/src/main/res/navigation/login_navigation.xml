@@ -125,5 +125,15 @@
         <argument
             android:name="registrationData"
             app:argType="com.keerjain.crownstailor.data.entities.post.RegistrationData" />
+        <action
+            android:id="@+id/action_postRegisterFragment_to_loginFragment"
+            app:destination="@id/loginFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/loginFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

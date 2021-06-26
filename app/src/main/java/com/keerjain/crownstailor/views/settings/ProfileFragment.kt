@@ -53,6 +53,7 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         super.onViewCreated(view, savedInstanceState)
 
         binding.profilePicture.setProfilePicture("https://picsum.photos/512")
+        binding.tvProfileName.text = sessionManager.getSessionData()?.name
     }
 
     private fun signOut() {

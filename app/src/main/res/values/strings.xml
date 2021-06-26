@@ -92,5 +92,10 @@
     <string name="masukkan_nama_pemilik_rekening">Enter your account holder name</string>
     <string name="account_holder_name">Account Holder Name</string>
     <string name="register_header">Registration</string>
-    <string name="register_confirm">Are you sure the data you entered are all correct?</string>
+    <string name="register_confirm">Are you sure the data you entered are correct?</string>
+    <string name="title_completing_registration">Completing Registration…</string>
+    <string name="registration_error">Registration Error. Please try again later.</string>
+    <string name="login_failed">Login failed. Please check your credentials.</string>
+    <string name="login_success">Welcome, %1$s</string>
+    <string name="welcome_message">Hello, %1$s</string>
 </resources>

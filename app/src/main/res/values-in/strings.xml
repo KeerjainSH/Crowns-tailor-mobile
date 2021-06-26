@@ -92,6 +92,11 @@
     <string name="masukkan_nama_bank_anda">Masukkan nama bank anda</string>
     <string name="masukkan_nama_pemilik_rekening">Masukkan nama pemilik rekening</string>
     <string name="account_holder_name">Nama Pemilik Rekening</string>
-    <string name="register_header">Registration</string>
-    <string name="register_confirm">Are you sure the data you entered are all correct?</string>
+    <string name="register_header">Registrasi</string>
+    <string name="register_confirm">Apakah anda yakin semua data yang anda masukkan sudah benar?</string>
+    <string name="title_completing_registration">Menyelesaikan Registrasi…</string>
+    <string name="registration_error">Registrasi Error. Silakan coba beberapa saat lagi.</string>
+    <string name="login_failed">Login gagal. Periksa kembali data anda.</string>
+    <string name="login_success">Selamat datang, %1$s</string>
+    <string name="welcome_message">Halo, %1$s</string>
 </resources>

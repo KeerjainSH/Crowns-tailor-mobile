@@ -3,28 +3,22 @@ package com.keerjain.crownstailor.data.sources
 import com.keerjain.crownstailor.data.AppRepository
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
+import com.keerjain.crownstailor.data.entities.post.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.RemoteDataSource
 import com.keerjain.crownstailor.utils.SessionManager
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 
 class AppRepositoryImpl(
-    private val remote: RemoteDataSource,
-    private val sessionManager: SessionManager
+    private val remote: RemoteDataSource
 ) : AppRepository {
-    override fun signIn(tailor: TailorCredentials): Boolean {
-        sessionManager.createLoginSession(tailor.username.toString())
-        return true
+    override fun signIn(credentials: TailorCredentials): Flow<Boolean> {
+        return remote.signIn(credentials)
     }
 
-    override fun register(tailor: TailorCredentials): Boolean {
-        val isRegistered = remote.registerUser(tailor)
-
-        if (isRegistered) {
-            sessionManager.createLoginSession(tailor.username.toString())
-        }
-
-        return isRegistered
+    override fun register(registrationData: RegistrationData): Flow<Boolean> {
+        return remote.registerUser(registrationData)
     }
 
     override fun getOfferForTailor(tailorId: Long): Flow<List<OfferListItem>> {

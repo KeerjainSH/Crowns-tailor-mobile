@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.HomeFragmentBinding
+import com.keerjain.crownstailor.utils.SessionManager
 import com.keerjain.crownstailor.viewmodels.HomeViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import kotlinx.coroutines.flow.collectLatest
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class HomeFragment : Fragment() {
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModel<HomeViewModel>()
+    private val sessionManager by inject<SessionManager>()
     private lateinit var currentActivity: MainActivity
     private lateinit var viewAdapter: HomeAdapter
 
@@ -43,6 +47,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
+        binding.tvWelcomeGreetings.text = resources.getString(R.string.welcome_message, sessionManager.getSessionData()?.name)
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOrders(1).collectLatest { list ->

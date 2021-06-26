@@ -14,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
 
     private var doubleBackToExitOnce: Boolean = false
     private lateinit var navHostFragment: NavHostFragment
+    private var isRegistration: Boolean = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,9 +29,12 @@ class LoginActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         if (navHostFragment.childFragmentManager.backStackEntryCount > 0) {
-//            Log.d("Backstack Count", "Backstack Count = ${navHostFragment.childFragmentManager.backStackEntryCount}")
-            navHostFragment.navController.navigateUp()
-            return
+            if (isRegistration) {
+                return
+            } else {
+                navHostFragment.navController.navigateUp()
+                return
+            }
         } else {
             if (doubleBackToExitOnce) {
                 finishAfterTransition()
@@ -57,5 +61,9 @@ class LoginActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return false
+    }
+
+    fun enterRegistrationState() {
+        isRegistration = true
     }
 }
