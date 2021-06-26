@@ -3,9 +3,11 @@ package com.keerjain.crownstailor.views.order
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.TransactionListItemBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
+import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.views.home.HomeAdapter
 
 class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
@@ -54,8 +56,36 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
         fun bind(order: TransactionListItem) {
             binding.tvOrderId.text = order.trxId.toString()
             binding.tvProductName.text = order.productName
-            binding.tvStatus.text =
-                binding.tvStatus.context.resources.getString(order.transactionStatus.getStringResources())
+
+            val status = order.transactionStatus
+            binding.tvStatus.text = binding.tvStatus.context.resources.getString(status.getStringResources())
+
+            when(status) {
+                Status.NEW_ORDER -> {
+                    binding.tvStatus.setBackgroundResource(
+                        R.drawable.status_baru
+                    )
+                }
+
+                Status.ON_PROGRESS -> {
+                    binding.tvStatus.setBackgroundResource(
+                        R.drawable.status_dikerjakan
+                    )
+                }
+
+                Status.ON_DELIVERY -> {
+                    binding.tvStatus.setBackgroundResource(
+                        R.drawable.status_dikirim
+                    )
+                }
+
+                Status.FINISHED -> {
+                    binding.tvStatus.setBackgroundResource(
+                        R.drawable.status_selesai
+                    )
+                }
+            }
+
             binding.productPhoto.loadPicture(order.productPhoto)
         }
     }
