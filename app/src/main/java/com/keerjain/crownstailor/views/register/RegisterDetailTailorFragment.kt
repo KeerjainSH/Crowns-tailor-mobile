@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.keerjain.crownstailor.databinding.FragmentRegisterDetailTailorBinding
+import com.keerjain.crownstailor.utils.ExtensionFunctions.hideKeyboard
 import com.keerjain.crownstailor.views.LoginActivity
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
@@ -119,7 +120,7 @@ class RegisterDetailTailorFragment : Fragment() {
             )
 
         withContext(Dispatchers.Main) {
-
+            this@RegisterDetailTailorFragment.hideKeyboard()
             view?.findNavController()?.navigate(toNextStep)
         }
     }
