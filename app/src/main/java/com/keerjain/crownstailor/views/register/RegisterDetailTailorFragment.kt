@@ -113,11 +113,13 @@ class RegisterDetailTailorFragment : Fragment() {
             "p"
         }
 
+        val toNextStep =
+            RegisterDetailTailorFragmentDirections.actionRegisterDetailTailorFragmentToRegisterChooseProductsFragment(
+                data
+            )
+
         withContext(Dispatchers.Main) {
-            val toNextStep =
-                RegisterDetailTailorFragmentDirections.actionRegisterDetailTailorFragmentToRegisterChooseProductsFragment(
-                    data
-                )
+
             view?.findNavController()?.navigate(toNextStep)
         }
     }

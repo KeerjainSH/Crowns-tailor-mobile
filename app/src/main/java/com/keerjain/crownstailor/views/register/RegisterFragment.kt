@@ -70,9 +70,10 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                                 email = email.text.toString()
                             )
 
+                            val toChooseProducts =
+                                RegisterFragmentDirections.actionRegisterFragmentToRegisterDetailTailorFragment(registrationData)
+
                             withContext(Dispatchers.Main) {
-                                val toChooseProducts =
-                                    RegisterFragmentDirections.actionRegisterFragmentToRegisterDetailTailorFragment(registrationData)
                                 v.findNavController().navigate(toChooseProducts)
                             }
                         }
