@@ -1,13 +1,25 @@
 package com.keerjain.crownstailor.views.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.text.method.LinkMovementMethod
+import android.text.method.MovementMethod
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
+import com.keerjain.crownstailor.R
+import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.databinding.OfferDetailFragmentBinding
+import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
+import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.viewmodels.OfferDetailViewModel
 import com.keerjain.crownstailor.views.MainActivity
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OfferDetailFragment : Fragment() {
@@ -34,5 +46,82 @@ class OfferDetailFragment : Fragment() {
 
         currentActivity.setSupportActionBar(binding.topAppBar)
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        lifecycleScope.launchWhenCreated {
+            val args: OfferDetailFragmentArgs by navArgs()
+            val offer = args.offer
+
+            viewModel.getOfferDetail(offer).collectLatest { offerDetail ->
+                checkOfferStatus(offerDetail)
+            }
+        }
+    }
+
+    private fun checkOfferStatus(offerDetail: Offer) {
+        when (offerDetail.offerStatus) {
+            OfferStatus.NEW_OFFER -> {
+                showPriceForm(offerDetail)
+            }
+
+            OfferStatus.PRICE_SENT, OfferStatus.PRICE_ACCEPTED, OfferStatus.PRICE_DECLINED -> {
+                showOfferStatus(offerDetail)
+            }
+
+            OfferStatus.NEW_PRICE -> {
+                showOfferForm(offerDetail)
+            }
+        }
+    }
+
+    private fun showPriceForm(offerDetail: Offer) {
+        binding.offerPriceNotGiven.visibility = View.VISIBLE
+        binding.offerPriceGiven.visibility = View.GONE
+
+        bindBasicInformation(offerDetail)
+        binding.btnConfirmOffer.setOnClickListener {
+            Toast.makeText(
+                requireContext(),
+                resources.getString(R.string.price_sent),
+                Toast.LENGTH_SHORT
+            ).show()
+        }
+    }
+
+    private fun showOfferStatus(offerDetail: Offer) {
+        binding.offerPriceNotGiven.visibility = View.GONE
+        binding.offerPriceGiven.visibility = View.VISIBLE
+
+        bindBasicInformation(offerDetail)
+        binding.tvOfferEstimation.text = offerDetail.offerEstimation.toString()
+        binding.tvOfferPrice.text = offerDetail.offerAmount.toString()
+    }
+
+    private fun showOfferForm(offerDetail: Offer) {
+
+    }
+
+    private fun bindBasicInformation(offerDetail: Offer) {
+        binding.tvOfferProductName.text = offerDetail.productDetail.productName
+        binding.imgOfferProduct.loadPicture(offerDetail.productDetail.productPhoto)
+        binding.tvOfferInstruction.text = offerDetail.orderDetail.instructions
+        binding.tvArm.text = offerDetail.orderDetail.armSize.toString()
+        binding.tvNeck.text = offerDetail.orderDetail.neckSize.toString()
+        binding.tvWaist.text = offerDetail.orderDetail.waistSize.toString()
+        binding.tvHeight.text = offerDetail.orderDetail.bodyHeight.toString()
+        binding.tvChest.text = offerDetail.orderDetail.chestSize.toString()
+        binding.tvWeight.text = offerDetail.orderDetail.bodyWeight.toString()
+
+        if (offerDetail.design != null && offerDetail.design != "") {
+            binding.tvDesignLink.text = resources.getString(R.string.design_link)
+            binding.tvDesignLink.isClickable = true
+            binding.tvDesignLink.isFocusable = true
+            binding.tvDesignLink.setTextColor(R.color.main_blue_color)
+            binding.tvDesignLink.setOnClickListener {
+                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(offerDetail.design))
+                startActivity(toBrowser)
+            }
+        } else {
+            binding.tvDesignLink.text = resources.getString(R.string.no_specific_design)
+        }
     }
 }

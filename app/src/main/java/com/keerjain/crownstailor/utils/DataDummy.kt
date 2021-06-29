@@ -1,9 +1,13 @@
 package com.keerjain.crownstailor.utils
 
 import com.keerjain.crownstailor.data.entities.detail.CustomerDetail
+import com.keerjain.crownstailor.data.entities.detail.OrderDetail
+import com.keerjain.crownstailor.data.entities.detail.ProductDetail
+import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
+import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.utils.enums.Status
 
 object DataDummy {
@@ -140,4 +144,26 @@ object DataDummy {
 
         return list
     }
+
+    fun generateOfferDetails(offerListItem: OfferListItem) = Offer(
+        offerId = offerListItem.offerId,
+        customer = offerListItem.customerDetail,
+        productDetail = ProductDetail(
+            2, offerListItem.productName, "https://picsum.photos/400"
+        ),
+        orderDetail = OrderDetail(
+            armSize = 40f,
+            waistSize = 105f,
+            chestSize = 68f,
+            neckSize = 32f,
+            bodyHeight = 175f,
+            bodyWeight = 82f,
+            instructions = "-"
+        ),
+        design = "https://linkedin.com/in/michael-ricky",
+        offerDate = offerListItem.offerDate,
+        offerAmount = null,
+        offerEstimation = null,
+        offerStatus = OfferStatus.NEW_OFFER,
+    )
 }

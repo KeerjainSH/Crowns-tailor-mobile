@@ -1,6 +1,7 @@
 package com.keerjain.crownstailor.data.sources.remote
 
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
+import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.post.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
@@ -32,5 +33,11 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
         val list = DataDummy.generateDummyOrder(tailorId)
 
         emit(list)
+    }
+
+    fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> = flow {
+        val offer = DataDummy.generateOfferDetails(offerListItem)
+
+        emit(offer)
     }
 }

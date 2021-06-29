@@ -2,6 +2,7 @@ package com.keerjain.crownstailor.data.sources
 
 import com.keerjain.crownstailor.data.AppRepository
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
+import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.post.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
@@ -27,5 +28,9 @@ class AppRepositoryImpl(
 
     override fun getOrdersForTailor(tailorId: Long): Flow<List<TransactionListItem>> {
         return remote.getOrdersForTailor(tailorId)
+    }
+
+    override fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> {
+        return remote.getOfferDetails(offerListItem)
     }
 }

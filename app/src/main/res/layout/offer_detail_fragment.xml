@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,10 +10,7 @@
         android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:elevation="8dp">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
@@ -24,4 +21,399 @@
             app:title="@string/title_offer_detail"
             app:titleTextAppearance="@style/ToolbarTextTheme" />
     </com.google.android.material.appbar.AppBarLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="ifContentScrolls"
+        android:scrollbars="none"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView7"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="12dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <ImageView
+                        android:id="@+id/img_offer_product"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:contentDescription="@string/product_photo_content_desc"
+                        android:src="#FFAAAAAA" />
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/tv_offer_product_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_product_name"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    app:layout_constraintBottom_toBottomOf="@+id/cardView7"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cardView7"
+                    app:layout_constraintTop_toTopOf="@+id/cardView7"
+                    app:layout_constraintVertical_bias="0.0" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/instruksi"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/tv_offer_product_name"
+                    app:layout_constraintStart_toStartOf="@+id/tv_offer_product_name"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_offer_product_name" />
+
+                <TextView
+                    android:id="@+id/tv_offer_instruction"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_instruction"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/textView28"
+                    app:layout_constraintStart_toStartOf="@+id/textView28"
+                    app:layout_constraintTop_toBottomOf="@+id/textView28"
+                    app:layout_constraintVertical_bias="0.0" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="@string/ukuran"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black" />
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="2,4"
+                android:stretchColumns="1,3,5"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp">
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:textSize="12sp"
+                        android:text="@string/lengan" />
+
+                    <TextView
+                        android:id="@+id/tv_arm"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/dummy_length"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="12sp"
+                        android:text="@string/pinggang" />
+
+                    <TextView
+                        android:id="@+id/tv_waist"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:textSize="12sp"
+                        android:text="@string/dummy_length" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="16dp"
+                        android:textSize="12sp"
+                        android:text="@string/dada" />
+
+                    <TextView
+                        android:id="@+id/tv_chest"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:textSize="12sp"
+                        android:text="@string/dummy_length" />
+                </TableRow>
+
+                <TableRow
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:textSize="12sp"
+                        android:text="@string/leher" />
+
+                    <TextView
+                        android:id="@+id/tv_neck"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:textSize="12sp"
+                        android:text="@string/dummy_length" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="12sp"
+                        android:text="@string/tinggi_badan" />
+
+                    <TextView
+                        android:id="@+id/tv_height"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:textSize="12sp"
+                        android:text="@string/dummy_length" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingStart="16dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="12sp"
+                        android:text="@string/berat_badan" />
+
+                    <TextView
+                        android:id="@+id/tv_weight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp"
+                        android:textSize="12sp"
+                        android:text="@string/dummy_weight" />
+                </TableRow>
+            </TableLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="@string/kain_dan_bahan"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_fabric_type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:textSize="12sp"
+                android:text="@string/from_seller"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:text="@string/design"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_design_link"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:textSize="12sp"
+                android:text="@string/no_specific_design"
+                android:clickable="false"
+                android:focusable="false"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp" />
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/offer_price_not_given"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/your_price"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_working_estimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_harga_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_harga_anda"
+                    android:inputType="number"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/working_estimation"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_your_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_estimasi_pengerjaan"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_estimasi_pengerjaan"
+                    android:inputType="number"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_confirm_offer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_bg_gradient"
+                    android:fontFamily="@font/lato"
+                    android:letterSpacing="0"
+                    android:paddingHorizontal="16dp"
+                    android:text="@string/set_estimation_and_price"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/offer_price_given"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/your_price"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_offer_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/dummy_price"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/working_estimation"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_offer_estimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/dummy_working_estimation"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/status"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_offer_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:paddingHorizontal="16dp"
+                    android:paddingVertical="4dp"
+                    android:text="@string/dummy_offer_status"
+                    android:textColor="@color/white"
+                    android:background="@drawable/status_baru"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
