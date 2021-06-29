@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:fontFamily="@font/lato"
         android:text="@string/pesanan_terbaru"
@@ -272,14 +272,14 @@
         android:id="@+id/rv_recent_order"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="16dp"
         android:clipToPadding="false"
         android:paddingBottom="8dp"
-        tools:listitem="@layout/transaction_list_item"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_welcome_greetings2" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_welcome_greetings2"
+        tools:listitem="@layout/transaction_list_item" />
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBarLayout"
