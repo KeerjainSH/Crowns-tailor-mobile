@@ -9,6 +9,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -28,6 +29,7 @@ class OfferDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<OfferDetailViewModel>()
     private lateinit var currentActivity: MainActivity
+    private val args: OfferDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -48,7 +50,6 @@ class OfferDetailFragment : Fragment() {
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         lifecycleScope.launchWhenCreated {
-            val args: OfferDetailFragmentArgs by navArgs()
             val offer = args.offer
 
             viewModel.getOfferDetail(offer).collectLatest { offerDetail ->
@@ -115,7 +116,7 @@ class OfferDetailFragment : Fragment() {
             binding.tvDesignLink.text = resources.getString(R.string.design_link)
             binding.tvDesignLink.isClickable = true
             binding.tvDesignLink.isFocusable = true
-            binding.tvDesignLink.setTextColor(R.color.main_blue_color)
+            binding.tvDesignLink.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_blue_color))
             binding.tvDesignLink.setOnClickListener {
                 val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(offerDetail.design))
                 startActivity(toBrowser)

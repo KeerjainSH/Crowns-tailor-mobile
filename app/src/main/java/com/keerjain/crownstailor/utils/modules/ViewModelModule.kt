@@ -33,4 +33,8 @@ val viewModelModule = module {
     viewModel {
         OfferDetailViewModel(get())
     }
+
+    viewModel {
+        OrderDetailViewModel(get())
+    }
 }

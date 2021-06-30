@@ -129,4 +129,5 @@
     <string name="design_link">Click to View</string>
     <string name="instruksi">Instruksi</string>
     <string name="dummy_instruction">Contoh instruksi pembuatan. Masukkan seluruhnya kedalam plastik dan ikat rata, lalu kirim ke alamat yang tertera</string>
+    <string name="title_order_detail">Order Detail</string>
 </resources>

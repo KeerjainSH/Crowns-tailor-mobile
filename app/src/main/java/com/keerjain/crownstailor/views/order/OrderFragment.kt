@@ -6,12 +6,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.OrderFragmentBinding
 import com.keerjain.crownstailor.viewmodels.OrderViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import com.keerjain.crownstailor.views.home.HomeAdapter
+import com.keerjain.crownstailor.views.home.HomeFragmentDirections
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -44,7 +46,6 @@ class OrderFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        currentActivity.showBottomBar()
         currentActivity.setSupportActionBar(binding.topAppBar)
 
         lifecycleScope.launchWhenCreated {
@@ -60,8 +61,14 @@ class OrderFragment : Fragment() {
         })
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        currentActivity.showBottomBar()
+    }
+
     private fun showDetail(data: TransactionListItem) {
-//        val toOfferDetail = OfferFragmentDirections.actionNavigationOfferToOfferDetailFragment(data)
-//        view?.findNavController()?.navigate(toOfferDetail)
+        val toOrderDetail = OrderFragmentDirections.actionNavigationOrderToOrderDetailFragment(data)
+        view?.findNavController()?.navigate(toOrderDetail)
     }
 }

@@ -13,6 +13,7 @@ import com.keerjain.crownstailor.databinding.SettingFragmentBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.setProfilePicture
 import com.keerjain.crownstailor.utils.SessionManager
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
+import com.keerjain.crownstailor.views.MainActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -69,5 +70,11 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 logoutAlert?.show()
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        (activity as MainActivity).showBottomBar()
     }
 }

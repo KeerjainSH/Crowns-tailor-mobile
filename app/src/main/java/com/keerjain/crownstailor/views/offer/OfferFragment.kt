@@ -45,7 +45,6 @@ class OfferFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
-        currentActivity.showBottomBar()
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOffers(1).collectLatest { list ->
@@ -58,6 +57,12 @@ class OfferFragment : Fragment() {
                 showDetail(data)
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        currentActivity.showBottomBar()
     }
 
     private fun showDetail(data: OfferListItem) {

@@ -20,6 +20,13 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
             app:popUpTo="@id/loginActivity"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_home_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <activity
         android:id="@+id/loginActivity"
@@ -44,7 +51,15 @@
         android:id="@+id/navigation_order"
         android:name="com.keerjain.crownstailor.views.order.OrderFragment"
         android:label="order_fragment"
-        tools:layout="@layout/order_fragment" />
+        tools:layout="@layout/order_fragment" >
+        <action
+            android:id="@+id/action_navigation_order_to_orderDetailFragment"
+            app:destination="@id/orderDetailFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_other"
         android:name="com.keerjain.crownstailor.views.settings.ProfileFragment"
@@ -65,5 +80,14 @@
         <argument
             android:name="offer"
             app:argType="com.keerjain.crownstailor.data.entities.offer.OfferListItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderDetailFragment"
+        android:name="com.keerjain.crownstailor.views.detail.OrderDetailFragment"
+        android:label="order_detail_fragment"
+        tools:layout="@layout/order_detail_fragment" >
+        <argument
+            android:name="transaction"
+            app:argType="com.keerjain.crownstailor.data.entities.transaction.TransactionListItem" />
     </fragment>
 </navigation>
