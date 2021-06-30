@@ -89,5 +89,21 @@
         <argument
             android:name="transaction"
             app:argType="com.keerjain.crownstailor.data.entities.transaction.TransactionListItem" />
+        <action
+            android:id="@+id/action_orderDetailFragment_to_orderInstructionFragment"
+            app:destination="@id/orderInstructionFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+    </fragment>
+    <fragment
+        android:id="@+id/orderInstructionFragment"
+        android:name="com.keerjain.crownstailor.views.detail.OrderInstructionFragment"
+        android:label="fragment_order_instruction"
+        tools:layout="@layout/fragment_order_instruction" >
+        <argument
+            android:name="product"
+            app:argType="com.keerjain.crownstailor.data.entities.product.ProductListItem" />
     </fragment>
 </navigation>

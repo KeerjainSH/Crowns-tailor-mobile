@@ -105,20 +105,39 @@ class OfferDetailFragment : Fragment() {
         binding.tvOfferProductName.text = offerDetail.productDetail.productName
         binding.imgOfferProduct.loadPicture(offerDetail.productDetail.productPhoto)
         binding.tvOfferInstruction.text = offerDetail.orderDetail.instructions
-        binding.tvArm.text = offerDetail.orderDetail.armSize.toString()
-        binding.tvNeck.text = offerDetail.orderDetail.neckSize.toString()
-        binding.tvWaist.text = offerDetail.orderDetail.waistSize.toString()
-        binding.tvHeight.text = offerDetail.orderDetail.bodyHeight.toString()
-        binding.tvChest.text = offerDetail.orderDetail.chestSize.toString()
-        binding.tvWeight.text = offerDetail.orderDetail.bodyWeight.toString()
 
-        if (offerDetail.design != null && offerDetail.design != "") {
+        binding.tvArm.text = resources.getString(
+            R.string.length_format,
+            String.format("%.0f", offerDetail.orderDetail.armSize)
+        )
+        binding.tvNeck.text = resources.getString(
+            R.string.length_format,
+            String.format("%.0f", offerDetail.orderDetail.neckSize)
+        )
+        binding.tvWaist.text = resources.getString(
+            R.string.length_format,
+            String.format("%.0f", offerDetail.orderDetail.waistSize)
+        )
+        binding.tvHeight.text = resources.getString(
+            R.string.length_format,
+            String.format("%.0f", offerDetail.orderDetail.bodyHeight)
+        )
+        binding.tvChest.text = resources.getString(
+            R.string.length_format,
+            String.format("%.0f", offerDetail.orderDetail.chestSize)
+        )
+        binding.tvWeight.text = resources.getString(
+            R.string.weight_format,
+            String.format("%.0f", offerDetail.orderDetail.bodyWeight)
+        )
+
+        if (offerDetail.orderDetail.design != null && offerDetail.orderDetail.design != "") {
             binding.tvDesignLink.text = resources.getString(R.string.design_link)
             binding.tvDesignLink.isClickable = true
             binding.tvDesignLink.isFocusable = true
             binding.tvDesignLink.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_blue_color))
             binding.tvDesignLink.setOnClickListener {
-                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(offerDetail.design))
+                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(offerDetail.orderDetail.design))
                 startActivity(toBrowser)
             }
         } else {

@@ -54,7 +54,7 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     inner class OrderViewHolder (private val binding: TransactionListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(order: TransactionListItem) {
-            binding.tvOrderId.text = order.trxId.toString()
+            binding.tvOrderId.text = binding.tvOrderId.context.resources.getString(R.string.invoice_number, order.trxId.toString())
             binding.tvProductName.text = order.productName
 
             val status = order.transactionStatus

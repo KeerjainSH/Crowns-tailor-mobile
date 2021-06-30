@@ -13,7 +13,6 @@ data class Offer(
     val customer: CustomerDetail,
     val productDetail: ProductDetail,
     val orderDetail: OrderDetail,
-    val design: String?,
     val offerDate: String,
     val offerAmount: Float?,
     val offerEstimation: String?,

@@ -12,4 +12,5 @@ data class OrderDetail(
     val bodyHeight: Float,
     val bodyWeight: Float,
     val instructions: String,
+    val design: String?,
 ) : Parcelable

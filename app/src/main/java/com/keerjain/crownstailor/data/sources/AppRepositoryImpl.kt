@@ -5,6 +5,7 @@ import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.post.RegistrationData
+import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.RemoteDataSource
 import com.keerjain.crownstailor.utils.SessionManager
@@ -32,5 +33,9 @@ class AppRepositoryImpl(
 
     override fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> {
         return remote.getOfferDetails(offerListItem)
+    }
+
+    override fun getTransactionDetails(transactionListItem: TransactionListItem): Flow<Transaction> {
+        return remote.getTransactionDetails(transactionListItem)
     }
 }

@@ -14,6 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="bottomNavigationStyle">@style/BottomNavigationView.Crowns</item>
     </style>
 
     <style name="Theme.NoActionBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
@@ -41,6 +42,7 @@
 
     <style name="BottomNavigationView.Crowns" parent="Widget.Design.BottomNavigationView">
         <item name="android:fontFamily">@font/lato</item>
+        <item name="android:letterSpacing">0</item>
     </style>
 
     <style name="ToolbarTextTheme" parent="Widget.MaterialComponents.Toolbar">
