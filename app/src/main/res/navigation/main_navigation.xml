@@ -71,6 +71,27 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/loginActivity"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigation_other_to_changeBankFragment"
+            app:destination="@id/changeBankFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_other_to_changeProductFragment"
+            app:destination="@id/changeProductFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
+        <action
+            android:id="@+id/action_navigation_other_to_changeProfileFragment"
+            app:destination="@id/changeProfileFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
     <fragment
         android:id="@+id/offerDetailFragment"
@@ -105,5 +126,50 @@
         <argument
             android:name="product"
             app:argType="com.keerjain.crownstailor.data.entities.product.ProductListItem" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeBankFragment"
+        android:name="com.keerjain.crownstailor.views.settings.ChangeBankFragment"
+        android:label="fragment_change_bank"
+        tools:layout="@layout/fragment_change_bank" >
+        <action
+            android:id="@+id/action_changeBankFragment_to_navigation_other"
+            app:destination="@id/navigation_other"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/navigation_other" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeProductFragment"
+        android:name="com.keerjain.crownstailor.views.settings.ChangeProductFragment"
+        android:label="fragment_change_product"
+        tools:layout="@layout/fragment_change_product" >
+        <action
+            android:id="@+id/action_changeProductFragment_to_navigation_other"
+            app:destination="@id/navigation_other"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/navigation_other" />
+    </fragment>
+    <fragment
+        android:id="@+id/changeProfileFragment"
+        android:name="com.keerjain.crownstailor.views.settings.ChangeProfileFragment"
+        android:label="fragment_change_profile"
+        tools:layout="@layout/fragment_change_profile" >
+        <action
+            android:id="@+id/action_changeProfileFragment_to_navigation_other"
+            app:destination="@id/navigation_other"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right"
+            app:popUpTo="@id/navigation_other" />
     </fragment>
 </navigation>

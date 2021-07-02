@@ -4,5 +4,15 @@ import androidx.lifecycle.ViewModel
 import com.keerjain.crownstailor.data.AppRepository
 
 class SettingViewModel(private val repos: AppRepository) : ViewModel() {
-    // TODO: Implement the ViewModel
+    fun setProductList() {
+
+    }
+
+    fun setProfile() {
+
+    }
+
+    fun setBankAccount() {
+
+    }
 }

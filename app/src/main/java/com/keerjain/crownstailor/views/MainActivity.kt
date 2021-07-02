@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.utils.SessionManager
+import com.keerjain.crownstailor.views.settings.ProfileFragment
 import org.koin.android.ext.android.inject
 
 class MainActivity : AppCompatActivity() {
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     private val sessionManager by inject<SessionManager>()
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var navView: BottomNavigationView
+    private var isSettings = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_CrownsTailor)
@@ -84,5 +87,20 @@ class MainActivity : AppCompatActivity() {
 
     fun removeBottomBar() {
         navView.visibility = View.GONE
+    }
+
+    fun goToSettings() {
+        isSettings = true
+    }
+
+    fun outFromSettings() {
+        isSettings = false
+    }
+
+    fun moveSettings(menu: Int) {
+        if (isSettings) {
+            val profileFragment = navHostFragment.childFragmentManager.fragments[0] as ProfileFragment
+            profileFragment.moveToSetting(menu)
+        }
     }
 }

@@ -17,7 +17,7 @@ import com.keerjain.crownstailor.views.MainActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class ProfileFragment : Fragment(), View.OnClickListener {
+class ProfileFragment : Fragment() {
 
     private var _binding: SettingFragmentBinding? = null
     private val binding get() = _binding!!
@@ -45,7 +45,9 @@ class ProfileFragment : Fragment(), View.OnClickListener {
                 }.setNegativeButton(resources.getString(R.string.logout_no), null)
         }
 
-        binding.btnLogout.setOnClickListener(this)
+        binding.btnLogout.setOnClickListener {
+            logoutAlert?.show()
+        }
 
         return binding.root
     }
@@ -55,6 +57,8 @@ class ProfileFragment : Fragment(), View.OnClickListener {
 
         binding.profilePicture.setProfilePicture("https://picsum.photos/512")
         binding.tvProfileName.text = sessionManager.getSessionData()?.name
+
+        (activity as MainActivity).goToSettings()
     }
 
     private fun signOut() {
@@ -64,17 +68,33 @@ class ProfileFragment : Fragment(), View.OnClickListener {
         activity?.finishAfterTransition()
     }
 
-    override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.btn_logout -> {
-                logoutAlert?.show()
-            }
-        }
-    }
-
     override fun onResume() {
         super.onResume()
 
         (activity as MainActivity).showBottomBar()
+    }
+
+    fun moveToSetting(menu: Int) {
+        when (menu) {
+            0 -> {
+                val toProdukJahit = ProfileFragmentDirections.actionNavigationOtherToChangeProductFragment()
+                view?.findNavController()?.navigate(toProdukJahit)
+            }
+
+            1 -> {
+                val toProfile = ProfileFragmentDirections.actionNavigationOtherToChangeProfileFragment()
+                view?.findNavController()?.navigate(toProfile)
+            }
+
+            2 -> {
+                val toRekeningBank = ProfileFragmentDirections.actionNavigationOtherToChangeBankFragment()
+                view?.findNavController()?.navigate(toRekeningBank)
+            }
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        (activity as MainActivity).outFromSettings()
     }
 }

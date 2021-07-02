@@ -70,6 +70,11 @@ class RegisterBankAccountsFragment : Fragment() {
             binding.etAccountHolder,
         ) { view, msg ->
             view.error = msg
+            Toast.makeText(
+                requireContext(),
+                resources.getString(R.string.input_error),
+                Toast.LENGTH_SHORT
+            ).show()
         }
 
         if (isValidated) {

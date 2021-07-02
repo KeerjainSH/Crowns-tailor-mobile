@@ -1,4 +1,4 @@
-package com.keerjain.crownstailor.views.register
+package com.keerjain.crownstailor.views.settings
 
 import android.app.DatePickerDialog
 import android.os.Bundle
@@ -11,34 +11,37 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.databinding.FragmentRegisterDetailTailorBinding
+import com.keerjain.crownstailor.databinding.FragmentChangeProfileBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.hideKeyboard
-import com.keerjain.crownstailor.views.LoginActivity
+import com.keerjain.crownstailor.viewmodels.SettingViewModel
+import com.keerjain.crownstailor.views.MainActivity
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.koin.android.ext.android.inject
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RegisterDetailTailorFragment : Fragment() {
+class ChangeProfileFragment : Fragment() {
 
-    private var _binding: FragmentRegisterDetailTailorBinding? = null
+    private var _binding: FragmentChangeProfileBinding? = null
     private val binding get() = _binding!!
     private lateinit var datePickerDialog: DatePickerDialog
     private lateinit var dateFormatter: SimpleDateFormat
     private lateinit var tvBirthDate: TextView
+    private lateinit var currentActivity: MainActivity
+    private val viewModel by inject<SettingViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentRegisterDetailTailorBinding.inflate(inflater, container, false)
+        _binding = FragmentChangeProfileBinding.inflate(inflater, container, false)
 
         lifecycleScope.launchWhenCreated {
-            binding.btnContinueToProductSelection.setOnClickListener {
+            binding.btnSaveProfileData.setOnClickListener {
                 validateData()
             }
 
@@ -57,13 +60,23 @@ class RegisterDetailTailorFragment : Fragment() {
             tvBirthDate = binding.etBirthDate
         }
 
+        currentActivity = activity as MainActivity
+
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        currentActivity.setSupportActionBar(binding.topAppBar)
+        currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        currentActivity.removeBottomBar()
     }
 
     private fun showDateDialog() {
         val calendar = Calendar.getInstance()
         datePickerDialog = DatePickerDialog(
-            activity as LoginActivity,
+            activity as MainActivity,
             { _, year, monthOfYear, dayOfMonth ->
                 val newDate = Calendar.getInstance()
                 newDate.set(year, monthOfYear, dayOfMonth)
@@ -107,31 +120,14 @@ class RegisterDetailTailorFragment : Fragment() {
     }
 
     private suspend fun saveDataAndNext() {
-        val args: RegisterDetailTailorFragmentArgs by navArgs()
-        val data = args.registrationData
+        viewModel.setProfile()
 
-        data.nama = binding.etFullName.text.toString()
-        data.alamat = binding.etAddress.text.toString()
-        data.kecamatan = binding.etKecamatan.text.toString()
-        data.kota = binding.etKabupaten.text.toString()
-        data.provinsi = binding.etProvinsi.text.toString()
-        data.kodepos = binding.etPostalCode.text.toString()
-        data.noHp = binding.etPhoneNumber.text.toString()
-        data.tanggalLahir = binding.etBirthDate.text.toString()
-        data.jenisKelamin = if (binding.genderSpinner.selectedItem.toString() == "Man") {
-            "l"
-        } else {
-            "p"
-        }
-
-        val toNextStep =
-            RegisterDetailTailorFragmentDirections.actionRegisterDetailTailorFragmentToRegisterChooseProductsFragment(
-                data
-            )
+        val toProfileFragment =
+            ChangeProfileFragmentDirections.actionChangeProfileFragmentToNavigationOther()
 
         withContext(Dispatchers.Main) {
-            this@RegisterDetailTailorFragment.hideKeyboard()
-            view?.findNavController()?.navigate(toNextStep)
+            this@ChangeProfileFragment.hideKeyboard()
+            view?.findNavController()?.navigate(toProfileFragment)
         }
     }
 }

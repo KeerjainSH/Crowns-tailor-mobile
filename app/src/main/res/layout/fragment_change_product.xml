@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".views.settings.ChangeProductFragment">
+
+<com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appBarLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:elevation="8dp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        style="@style/Widget.MaterialComponents.Toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/white"
+        app:title="@string/title_pilih_produk"
+        app:titleTextAppearance="@style/ToolbarTextTheme" />
+</com.google.android.material.appbar.AppBarLayout>
+
+<TextView
+    android:id="@+id/textView16"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="16dp"
+    android:fontFamily="@font/lato_bold"
+    android:text="@string/what_can_you_make"
+    android:textAlignment="center"
+    android:textColor="@color/main_blue_color"
+    android:textSize="24sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/appBarLayout" />
+
+<TextView
+    android:id="@+id/textView17"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="64dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="64dp"
+    android:fontFamily="@font/lato"
+    android:text="@string/tailor_products_list_subtitle"
+    android:textAlignment="center"
+    android:textColor="@color/black"
+    android:textSize="12sp"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView16" />
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/rv_product_list_checkboxes"
+    android:layout_width="0dp"
+    android:layout_height="0dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginBottom="16dp"
+    android:overScrollMode="ifContentScrolls"
+    app:layout_constraintBottom_toTopOf="@+id/btn_save_product_data"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/textView17"
+    tools:listitem="@layout/product_checkbox_list" />
+
+<androidx.appcompat.widget.AppCompatButton
+    android:id="@+id/btn_save_product_data"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginTop="32dp"
+    android:layout_marginBottom="16dp"
+    android:background="@drawable/button_bg_gradient"
+    android:fontFamily="@font/lato"
+    android:letterSpacing="0"
+    android:paddingHorizontal="120dp"
+    android:text="@string/simpan_data"
+    android:textAllCaps="false"
+    android:textColor="@color/white"
+    android:textSize="14sp"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
