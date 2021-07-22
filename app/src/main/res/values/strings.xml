@@ -72,7 +72,7 @@
     <string name="full_name">Nama Lengkap</string>
     <string name="address">Alamat</string>
     <string name="subdistrict">Kecamatan</string>
-    <string name="district">Kabupaten</string>
+    <string name="district">Kabupaten/Kota</string>
     <string name="province">Provinsi</string>
     <string name="postal_code">Kode Pos</string>
     <string name="phone_number">Nomor HP</string>
