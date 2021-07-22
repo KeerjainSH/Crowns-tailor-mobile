@@ -1,7 +1,10 @@
 package com.keerjain.crownstailor.views.order
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
@@ -10,9 +13,12 @@ import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
 import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.views.home.HomeAdapter
 
-class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
+class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>(), Filterable {
     private lateinit var onItemClickCallback: OnItemClickCallback
     private val listOrder = ArrayList<TransactionListItem>()
+    private var listOrderFiltered = ArrayList<TransactionListItem>()
+    private var listOrderStatusFiltered = ArrayList<TransactionListItem>()
+    private val fullList = ArrayList<TransactionListItem>()
 
     interface OnItemClickCallback {
         fun onItemClicked(data: TransactionListItem)
@@ -25,9 +31,18 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     fun setOrdersList(list: List<TransactionListItem>?) {
         if (list == null) return
 
-        this.listOrder.clear()
-        this.listOrder.addAll(list)
+        listOrder.clear()
+        listOrder.addAll(list)
+        setFullList(list)
+        listOrderFiltered = listOrder
+        listOrderStatusFiltered = listOrderFiltered
+
         notifyDataSetChanged()
+    }
+
+    private fun setFullList(list: List<TransactionListItem>) {
+        fullList.clear()
+        fullList.addAll(list)
     }
 
     override fun onCreateViewHolder(
@@ -40,16 +55,16 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: OrderAdapter.OrderViewHolder, position: Int) {
-        val order = listOrder[position]
+        val order = listOrderFiltered[position]
 
         holder.itemView.setOnClickListener {
-            onItemClickCallback.onItemClicked(listOrder[holder.absoluteAdapterPosition])
+            onItemClickCallback.onItemClicked(listOrderFiltered[holder.absoluteAdapterPosition])
         }
 
         holder.bind(order)
     }
 
-    override fun getItemCount(): Int = listOrder.size
+    override fun getItemCount(): Int = listOrderFiltered.size
 
     inner class OrderViewHolder (private val binding: TransactionListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
@@ -87,6 +102,52 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>() {
             }
 
             binding.productPhoto.loadPicture(order.productPhoto)
+        }
+    }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                val charSearch = constraint.toString()
+
+                if (charSearch.isEmpty()) {
+                    listOrderFiltered = listOrderStatusFiltered
+                } else {
+                    val resultList = ArrayList<TransactionListItem>()
+                    for (data in listOrderStatusFiltered) {
+                        if (data.trxId.toString().lowercase().contains(charSearch.lowercase()) or data.productName.lowercase().contains(charSearch.lowercase())) {
+                            resultList.add(data)
+                        }
+                    }
+                    listOrderFiltered = resultList
+                }
+
+                val filterResults = FilterResults()
+                filterResults.values = listOrderFiltered
+                return filterResults
+            }
+
+            @Suppress("UNCHECKED_CAST")
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                listOrderFiltered = results?.values as ArrayList<TransactionListItem>
+                notifyDataSetChanged()
+            }
+        }
+    }
+
+    fun filterWithStatus(status: Status?) {
+        if (status != null) {
+            val list = fullList
+            val filtered = list.filter {
+                it.transactionStatus == status
+            }
+            listOrderStatusFiltered.clear()
+            listOrderStatusFiltered.addAll(filtered)
+            notifyDataSetChanged()
+        } else {
+            listOrderStatusFiltered.clear()
+            listOrderStatusFiltered.addAll(fullList)
+            notifyDataSetChanged()
         }
     }
 }

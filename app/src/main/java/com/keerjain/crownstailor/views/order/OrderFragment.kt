@@ -1,17 +1,28 @@
 package com.keerjain.crownstailor.views.order
 
+import android.app.SearchManager
+import android.content.Context
+import android.graphics.Typeface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.RadioButton
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.widget.SearchView
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.OrderFragmentBinding
+import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.viewmodels.OrderViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import com.keerjain.crownstailor.views.home.HomeAdapter
@@ -44,6 +55,53 @@ class OrderFragment : Fragment() {
             setHasFixedSize(true)
         }
 
+        binding.filterSemua.setOnClickListener {
+            onRadioButtonClicked(it)
+        }
+
+        binding.filterPesananBaru.setOnClickListener {
+            onRadioButtonClicked(it)
+        }
+
+        binding.filterDikerjakan.setOnClickListener {
+            onRadioButtonClicked(it)
+        }
+
+        binding.filterDikirim.setOnClickListener {
+            onRadioButtonClicked(it)
+        }
+
+        binding.filterSelesai.setOnClickListener {
+            onRadioButtonClicked(it)
+        }
+
+        val searchManager =
+            (activity as MainActivity).getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = binding.svSearchOrder
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo((activity as MainActivity).componentName))
+        searchView.setIconifiedByDefault(false)
+        searchView.queryHint = resources.getString(R.string.search_hint)
+
+        searchView.clearFocus()
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextChange(newText: String?): Boolean {
+                viewAdapter.filter.filter(newText)
+                return true
+            }
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                searchView.clearFocus()
+                return false
+            }
+        })
+
+        searchView.setOnCloseListener {
+            Log.d("Closed", "Closed")
+            true
+        }
+
         return binding.root
     }
 
@@ -52,6 +110,10 @@ class OrderFragment : Fragment() {
 
         currentActivity.setSupportActionBar(binding.topAppBar)
         showListLoading(true)
+
+        val searchTextView = binding.svSearchOrder.findViewById(R.id.search_src_text) as TextView
+        searchTextView.typeface = ResourcesCompat.getFont(requireContext(), R.font.lato)
+        searchTextView.textSize = 14f
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOrders(1).collectLatest { list ->
@@ -72,10 +134,54 @@ class OrderFragment : Fragment() {
         })
     }
 
+    fun onRadioButtonClicked(view: View) {
+        if (view is RadioButton) {
+            val checked = view.isChecked
+
+            when (view.id) {
+                R.id.filter_semua -> {
+                    if (checked) {
+                        viewAdapter.filterWithStatus(null)
+                        Log.d("FilterButton", "ALL")
+                    }
+                }
+
+                R.id.filter_pesanan_baru -> {
+                    if (checked) {
+                        viewAdapter.filterWithStatus(Status.NEW_ORDER)
+                        Log.d("FilterButton", "NEW ORDER")
+                    }
+                }
+
+                R.id.filter_dikerjakan -> {
+                    if (checked) {
+                        viewAdapter.filterWithStatus(Status.ON_PROGRESS)
+                        Log.d("FilterButton", "ON PROGRESS")
+                    }
+                }
+
+                R.id.filter_dikirim -> {
+                    if (checked) {
+                        viewAdapter.filterWithStatus(Status.ON_DELIVERY)
+                        Log.d("FilterButton", "ON DELIVERY")
+                    }
+                }
+
+                R.id.filter_selesai -> {
+                    if (checked) {
+                        viewAdapter.filterWithStatus(Status.FINISHED)
+                        Log.d("FilterButton", "FINISHED")
+                    }
+                }
+            }
+        }
+    }
+
     override fun onResume() {
         super.onResume()
 
         currentActivity.showBottomBar()
+        binding.filterSemua.isChecked = true
     }
 
     private fun showDetail(data: TransactionListItem) {
