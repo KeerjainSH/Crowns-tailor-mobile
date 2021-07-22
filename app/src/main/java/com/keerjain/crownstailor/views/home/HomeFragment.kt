@@ -2,6 +2,8 @@ package com.keerjain.crownstailor.views.home
 
 import android.content.Context
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +18,9 @@ import com.keerjain.crownstailor.utils.ActivityObserver
 import com.keerjain.crownstailor.utils.SessionManager
 import com.keerjain.crownstailor.viewmodels.HomeViewModel
 import com.keerjain.crownstailor.views.MainActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -51,10 +55,17 @@ class HomeFragment : Fragment() {
 
         currentActivity.setSupportActionBar(binding.topAppBar)
         binding.tvWelcomeGreetings.text = resources.getString(R.string.welcome_message, sessionManager.getSessionData()?.name)
+        showListLoading(true)
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOrders(1).collectLatest { list ->
                 viewAdapter.setOrdersList(list)
+
+                withContext(Dispatchers.Main) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        showListLoading(false)
+                    }, 1000)
+                }
             }
         }
 
@@ -82,5 +93,15 @@ class HomeFragment : Fragment() {
         activity?.lifecycle?.addObserver(ActivityObserver {
             (activity as MainActivity).showBottomBar()
         })
+    }
+
+    private fun showListLoading(state: Boolean) {
+        if (state) {
+            binding.shimmerHome.visibility = View.VISIBLE
+            binding.rvRecentOrder.visibility = View.GONE
+        } else {
+            binding.rvRecentOrder.visibility = View.VISIBLE
+            binding.shimmerHome.visibility = View.GONE
+        }
     }
 }

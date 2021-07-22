@@ -1,6 +1,8 @@
 package com.keerjain.crownstailor.views.order
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +16,9 @@ import com.keerjain.crownstailor.viewmodels.OrderViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import com.keerjain.crownstailor.views.home.HomeAdapter
 import com.keerjain.crownstailor.views.home.HomeFragmentDirections
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OrderFragment : Fragment() {
@@ -47,10 +51,17 @@ class OrderFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
+        showListLoading(true)
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOrders(1).collectLatest { list ->
                 viewAdapter.setOrdersList(list)
+
+                withContext(Dispatchers.Main) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        showListLoading(false)
+                    }, 1000)
+                }
             }
         }
 
@@ -70,5 +81,15 @@ class OrderFragment : Fragment() {
     private fun showDetail(data: TransactionListItem) {
         val toOrderDetail = OrderFragmentDirections.actionNavigationOrderToOrderDetailFragment(data)
         view?.findNavController()?.navigate(toOrderDetail)
+    }
+
+    private fun showListLoading(state: Boolean) {
+        if (state) {
+            binding.shimmerOrder.visibility = View.VISIBLE
+            binding.rvOrderList.visibility = View.GONE
+        } else {
+            binding.rvOrderList.visibility = View.VISIBLE
+            binding.shimmerOrder.visibility = View.GONE
+        }
     }
 }

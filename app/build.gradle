@@ -86,7 +86,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:$okhttp_version"
 
 //    GOOGLE AUTHENTICATION
-    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+    implementation 'com.google.android.gms:play-services-auth:19.2.0'
 
 //    SECURITY
     implementation "androidx.security:security-crypto:1.1.0-alpha03"

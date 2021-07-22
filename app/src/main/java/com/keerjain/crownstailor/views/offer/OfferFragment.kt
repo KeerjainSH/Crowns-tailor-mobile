@@ -1,6 +1,8 @@
 package com.keerjain.crownstailor.views.offer
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +14,9 @@ import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.databinding.OfferFragmentBinding
 import com.keerjain.crownstailor.viewmodels.OfferViewModel
 import com.keerjain.crownstailor.views.MainActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OfferFragment : Fragment() {
@@ -45,10 +49,17 @@ class OfferFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
+        showListLoading(true)
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOffers(1).collectLatest { list ->
                 viewAdapter.setOffers(list)
+
+                withContext(Dispatchers.Main) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        showListLoading(false)
+                    }, 1000)
+                }
             }
         }
 
@@ -68,5 +79,15 @@ class OfferFragment : Fragment() {
     private fun showDetail(data: OfferListItem) {
         val toOfferDetail = OfferFragmentDirections.actionNavigationOfferToOfferDetailFragment(data)
         view?.findNavController()?.navigate(toOfferDetail)
+    }
+
+    private fun showListLoading(state: Boolean) {
+        if (state) {
+            binding.shimmerOffer.visibility = View.VISIBLE
+            binding.rvOfferList.visibility = View.GONE
+        } else {
+            binding.rvOfferList.visibility = View.VISIBLE
+            binding.shimmerOffer.visibility = View.GONE
+        }
     }
 }
