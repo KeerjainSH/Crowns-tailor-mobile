@@ -22,7 +22,7 @@ val retrofitModule = module {
 
     fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://www.google.com")
+            .baseUrl("http://127.0.0.1:8000/api/")
             .addConverterFactory(GsonConverterFactory.create(factory))
             .client(client)
             .build()
