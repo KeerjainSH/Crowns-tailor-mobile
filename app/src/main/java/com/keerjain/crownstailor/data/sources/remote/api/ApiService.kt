@@ -2,9 +2,13 @@ package com.keerjain.crownstailor.data.sources.remote.api
 
 import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
 import com.keerjain.crownstailor.data.sources.remote.posts.IsiHargaPost
+import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
+import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.sources.remote.responses.DetailPenjahitResponse
+import com.keerjain.crownstailor.data.sources.remote.responses.LoginResponse
 import com.keerjain.crownstailor.data.sources.remote.responses.PesananDetailResponse
 import com.keerjain.crownstailor.data.sources.remote.responses.PesananResponse
+import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
 import retrofit2.http.POST
@@ -12,14 +16,14 @@ import retrofit2.http.Path
 
 interface ApiService {
     @GET("penjahit/{id}/pesanan")
-    fun getAllOrders(
+    suspend fun getAllOrders(
         @Path("id") id: Int,
-    ) : PesananResponse
+    ) : Response<PesananResponse>
 
     @GET("penjahit/{id}")
-    fun getPenjahitDetails(
+    suspend fun getPenjahitDetails(
         @Path("id") id: Int,
-    ) : DetailPenjahitResponse
+    ) : Response<DetailPenjahitResponse>
 
     @POST("pesanan/updateHarga")
     suspend fun fillPrice(
@@ -37,7 +41,17 @@ interface ApiService {
     )
 
     @GET("pesanan/{id}")
-    fun getOrderDetails(
+    suspend fun getOrderDetails(
         @Path("id") id: Int,
-    ) : PesananDetailResponse
+    ) : Response<PesananDetailResponse>
+
+    @POST("penjahit/login")
+    suspend fun login(
+        @Body data: LoginPost
+    ) : Response<LoginResponse>
+
+    @POST("penjahit/register")
+    suspend fun register(
+        @Body data: RegistrationData
+    ) : Response<LoginResponse>
 }

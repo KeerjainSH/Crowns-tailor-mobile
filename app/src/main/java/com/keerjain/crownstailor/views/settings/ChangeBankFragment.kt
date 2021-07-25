@@ -8,17 +8,10 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
-import androidx.navigation.fragment.navArgs
 import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.data.entities.post.RegistrationData
 import com.keerjain.crownstailor.databinding.FragmentChangeBankBinding
-import com.keerjain.crownstailor.databinding.FragmentChangeProductBinding
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
-import com.keerjain.crownstailor.views.LoginActivity
 import com.keerjain.crownstailor.views.MainActivity
-import com.keerjain.crownstailor.views.register.ProductAdapter
-import com.keerjain.crownstailor.views.register.RegisterBankAccountsFragmentArgs
-import com.keerjain.crownstailor.views.register.RegisterBankAccountsFragmentDirections
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

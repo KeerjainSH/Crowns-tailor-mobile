@@ -6,8 +6,12 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class IdPesananPost(
-    @SerializedName("id_pesanan")
+data class LoginPost(
+    @SerializedName("username")
     @Expose
-    val idPesanan: Int?,
+    val username: String?,
+
+    @SerializedName("password")
+    @Expose
+    val password: String?,
 ) : Parcelable

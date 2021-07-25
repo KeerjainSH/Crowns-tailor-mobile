@@ -1,4 +1,4 @@
-package com.keerjain.crownstailor.data.entities.post
+package com.keerjain.crownstailor.data.sources.remote.posts
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
@@ -19,7 +19,7 @@ data class RegistrationData(
 	@field:SerializedName("no_rekening")
 	var noRekening: String? = null,
 
-	@field:SerializedName("nama_pemilik_rekening")
+	@field:SerializedName("nama_rek")
 	var namaPemilikRekening: String? = null,
 
 	@field:SerializedName("alamat")

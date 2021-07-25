@@ -1,9 +1,11 @@
 package com.keerjain.crownstailor.utils.modules
 
+import androidx.viewbinding.BuildConfig
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -15,14 +17,17 @@ val retrofitModule = module {
     }
 
     fun provideHttpClient(): OkHttpClient {
-        val okHttpClientBuilder = OkHttpClient.Builder()
+        val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY)
 
-        return okHttpClientBuilder.build()
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .build()
     }
 
     fun provideRetrofit(factory: Gson, client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("http://127.0.0.1:8000/api/")
+            .baseUrl("http://crowns.keerjain.com/api/")
             .addConverterFactory(GsonConverterFactory.create(factory))
             .client(client)
             .build()

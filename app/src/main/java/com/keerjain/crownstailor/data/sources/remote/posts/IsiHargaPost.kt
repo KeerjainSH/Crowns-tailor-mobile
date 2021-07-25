@@ -9,21 +9,21 @@ import kotlinx.parcelize.Parcelize
 data class IsiHargaPost (
     @SerializedName("id_pesanan")
     @Expose
-    val idPesanan: Int,
+    val idPesanan: Int?,
 
     @SerializedName("biaya_jahit")
     @Expose
-    val biayaJahit: Int,
+    val biayaJahit: Int?,
 
     @SerializedName("biaya_material")
     @Expose
-    val biayaMaterial: Int,
+    val biayaMaterial: Int?,
 
     @SerializedName("biaya_kirim")
     @Expose
-    val biayaKirim: Int,
+    val biayaKirim: Int?,
 
     @SerializedName("biaya_jemput")
     @Expose
-    val biayaJemput: Int,
+    val biayaJemput: Int?,
 ) : Parcelable

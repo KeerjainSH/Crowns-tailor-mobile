@@ -2,8 +2,8 @@ package com.keerjain.crownstailor.utils
 
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.detail.TailorSession
-import com.keerjain.crownstailor.data.entities.post.ListIdBajuItem
-import com.keerjain.crownstailor.data.entities.post.RegistrationData
+import com.keerjain.crownstailor.data.sources.remote.posts.ListIdBajuItem
+import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.product.Product
 
 object DataMapper {
@@ -16,10 +16,14 @@ object DataMapper {
     fun mapRegistrationDataToSessionData(input: RegistrationData) = TailorSession(
         username = input.username.toString(),
         name = input.nama.toString(),
+        userId = null,
+        token = null,
     )
 
     fun mapCredentialsToSessionData(input: TailorCredentials) = TailorSession(
         username = input.username.toString(),
-        name = input.username.toString()
+        name = input.username.toString(),
+        userId = null,
+        token = null,
     )
 }

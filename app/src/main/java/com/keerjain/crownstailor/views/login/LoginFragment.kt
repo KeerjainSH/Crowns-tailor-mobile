@@ -1,6 +1,8 @@
 package com.keerjain.crownstailor.views.login
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +16,10 @@ import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.databinding.LoginFragmentBinding
 import com.keerjain.crownstailor.viewmodels.LoginViewModel
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment(), View.OnClickListener {
@@ -38,6 +43,7 @@ class LoginFragment : Fragment(), View.OnClickListener {
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.sign_in_button -> {
+                setLoading(true)
                 val username = binding.editTextUsername
                 val password = binding.editTextPassword
 
@@ -65,17 +71,25 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         )
                     }
 
-                    lifecycleScope.launchWhenCreated {
+                    lifecycleScope.launch(Dispatchers.IO) {
                         viewModel.signIn(tailor).collectLatest { isSuccess ->
                             if (isSuccess) {
-                                Toast.makeText(activity, resources.getString(R.string.login_success, username.text.toString()), Toast.LENGTH_SHORT)
-                                    .show()
                                 val toHome = LoginFragmentDirections.actionLoginFragmentToMainActivity()
-                                v.findNavController().navigate(toHome)
-                                activity?.finishAfterTransition()
+
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(activity, resources.getString(R.string.login_success, username.text.toString()), Toast.LENGTH_SHORT)
+                                        .show()
+                                    v.findNavController().navigate(toHome)
+                                    activity?.finishAfterTransition()
+                                }
                             } else {
-                                Toast.makeText(activity, resources.getString(R.string.login_failed), Toast.LENGTH_SHORT)
-                                    .show()
+                                withContext(Dispatchers.Main) {
+                                    Toast.makeText(activity, resources.getString(R.string.login_failed), Toast.LENGTH_SHORT)
+                                        .show()
+                                    Handler(Looper.getMainLooper()).postDelayed({
+                                        setLoading(false)
+                                    }, 500)
+                                }
                             }
                         }
                     }
@@ -91,6 +105,16 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     LoginFragmentDirections.actionLoginFragmentToRegisterFragment()
                 v.findNavController().navigate(toRegisterFragment)
             }
+        }
+    }
+
+    private fun setLoading(state: Boolean) {
+        if (state) {
+            binding.loadingLogin.visibility = View.VISIBLE
+            binding.loginInputs.visibility = View.INVISIBLE
+        } else {
+            binding.loginInputs.visibility = View.VISIBLE
+            binding.loadingLogin.visibility = View.GONE
         }
     }
 }

@@ -5,6 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class TailorSession(
-    val username: String,
-    val name: String,
+    var username: String,
+    var name: String,
+    var userId: Int?,
+    var token: String?,
 ) : Parcelable

@@ -150,4 +150,5 @@
     <string name="weight_format">%1$skg</string>
     <string name="simpan_data">Simpan Data</string>
     <string name="input_error">Ada kolom yang error. Periksa kembali isi setiap kolom.</string>
+    <string name="penjahit">Penjahit</string>
 </resources>

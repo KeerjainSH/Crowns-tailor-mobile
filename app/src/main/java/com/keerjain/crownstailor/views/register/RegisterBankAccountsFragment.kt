@@ -11,10 +11,8 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import com.keerjain.crownstailor.R
-import com.keerjain.crownstailor.data.entities.post.RegistrationData
+import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.databinding.FragmentRegisterBankAccountsBinding
-import com.keerjain.crownstailor.databinding.FragmentRegisterChooseProductsBinding
-import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.views.LoginActivity
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers

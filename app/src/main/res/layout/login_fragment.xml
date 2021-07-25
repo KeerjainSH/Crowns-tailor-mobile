@@ -40,78 +40,88 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:animateLayoutChanges="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginTop="24dp"
-                    android:layout_gravity="start"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/nama_email_pengguna"
-                    android:textColor="@color/text_darkest"
-                    android:textSize="14sp" />
-
-                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                    android:id="@+id/edit_text_username"
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:id="@+id/login_inputs"
+                    android:visibility="visible"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:autofillHints="@string/masukkan_nama_email_pengguna_anda"
-                    android:background="@drawable/shape_edittext_bg"
-                    android:ems="10"
-                    android:fontFamily="@font/lato"
-                    android:hint="@string/masukkan_nama_email_pengguna_anda"
-                    android:inputType="textPersonName"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="12dp"
-                    android:textSize="12sp" />
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/textView2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_gravity="start"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/password"
-                    android:textColor="@color/text_darkest"
-                    android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/tv_nama_pengguna_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginTop="24dp"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/lato"
+                        android:text="@string/nama_email_pengguna"
+                        android:textColor="@color/text_darkest"
+                        android:textSize="14sp" />
 
-                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                    android:id="@+id/edit_text_password"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginHorizontal="24dp"
-                    android:layout_marginBottom="24dp"
-                    android:autofillHints="@string/masukkan_password_anda"
-                    android:background="@drawable/shape_edittext_bg"
-                    android:ems="10"
-                    android:fontFamily="@font/lato"
-                    android:hint="@string/masukkan_password_anda"
-                    android:inputType="textPassword"
-                    android:paddingHorizontal="8dp"
-                    android:paddingVertical="12dp"
-                    android:textSize="12sp" />
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/edit_text_username"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="24dp"
+                        android:autofillHints="@string/masukkan_nama_email_pengguna_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="@string/masukkan_nama_email_pengguna_anda"
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="12sp" />
 
-                <ProgressBar
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_password_login"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/lato"
+                        android:text="@string/password"
+                        android:textColor="@color/text_darkest"
+                        android:textSize="14sp" />
+
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/edit_text_password"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="24dp"
+                        android:layout_marginBottom="24dp"
+                        android:autofillHints="@string/masukkan_password_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:hint="@string/masukkan_password_anda"
+                        android:inputType="textPassword"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="12sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:id="@+id/loading_login"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                    android:layout_width="wrap_content"
+                    android:layout_height="150dp"
+                    app:lottie_fileName="loading_small.json"
+                    android:layout_gravity="center"
+                    app:lottie_autoPlay="true" />
+            </FrameLayout>
         </androidx.cardview.widget.CardView>
 
         <TextView

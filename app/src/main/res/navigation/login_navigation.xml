@@ -73,7 +73,7 @@
             app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="registrationData"
-            app:argType="com.keerjain.crownstailor.data.entities.post.RegistrationData" />
+            app:argType="com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData" />
     </fragment>
     <fragment
         android:id="@+id/registerBankAccountsFragment"
@@ -89,7 +89,7 @@
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         <argument
             android:name="registrationData"
-            app:argType="com.keerjain.crownstailor.data.entities.post.RegistrationData" />
+            app:argType="com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData" />
     </fragment>
     <fragment
         android:id="@+id/registerDetailTailorFragment"
@@ -105,7 +105,7 @@
             app:popExitAnim="@android:anim/slide_out_right" />
         <argument
             android:name="registrationData"
-            app:argType="com.keerjain.crownstailor.data.entities.post.RegistrationData" />
+            app:argType="com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData" />
     </fragment>
     <fragment
         android:id="@+id/postRegisterFragment"
@@ -124,7 +124,7 @@
             app:popUpToInclusive="true" />
         <argument
             android:name="registrationData"
-            app:argType="com.keerjain.crownstailor.data.entities.post.RegistrationData" />
+            app:argType="com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData" />
         <action
             android:id="@+id/action_postRegisterFragment_to_loginFragment"
             app:destination="@id/loginFragment"
