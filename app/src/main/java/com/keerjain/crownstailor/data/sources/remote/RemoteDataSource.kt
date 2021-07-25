@@ -12,6 +12,7 @@ import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
 import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.utils.SessionManager
+import com.keerjain.crownstailor.utils.SessionManager.Companion.KEY_TOKEN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -36,11 +37,12 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             val id = response.body()?.data?.idUser
 
             if (id != null) {
-                val detailResponse = api.getPenjahitDetails(id)
+                val token = "Bearer " + response.body()?.data?.token.toString()
+                val detailResponse = api.getPenjahitDetails(token, id)
                 if (detailResponse.isSuccessful) {
                     session.name = detailResponse.body()?.data?.nama.toString()
                     session.userId = response.body()?.data?.idUser
-                    session.token = response.body()?.data?.token
+                    session.token = token
                     sessionManager.createLoginSession(session)
                     emit(true)
                 } else {
