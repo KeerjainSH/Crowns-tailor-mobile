@@ -71,18 +71,18 @@ class OrderInstructionFragment : Fragment() {
             String.format("%.0f", product.orderDetail.bodyWeight)
         )
 
-        if (product.orderDetail.design != null && product.orderDetail.design != "") {
-            binding.tvDesignLinkInstruction.text = resources.getString(R.string.design_link)
-            binding.tvDesignLinkInstruction.isClickable = true
-            binding.tvDesignLinkInstruction.isFocusable = true
-            binding.tvDesignLinkInstruction.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_blue_color))
-            binding.tvDesignLinkInstruction.setOnClickListener {
-                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(product.orderDetail.design))
-                startActivity(toBrowser)
-            }
-        } else {
-            binding.tvDesignLinkInstruction.text = resources.getString(R.string.no_specific_design)
-        }
+//        if (product.orderDetail.design != null && product.orderDetail.design != "") {
+//            binding.tvDesignLinkInstruction.text = resources.getString(R.string.design_link)
+//            binding.tvDesignLinkInstruction.isClickable = true
+//            binding.tvDesignLinkInstruction.isFocusable = true
+//            binding.tvDesignLinkInstruction.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_blue_color))
+//            binding.tvDesignLinkInstruction.setOnClickListener {
+//                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(product.orderDetail.design))
+//                startActivity(toBrowser)
+//            }
+//        } else {
+//            binding.tvDesignLinkInstruction.text = resources.getString(R.string.no_specific_design)
+//        }
 
         binding.tvProductInstruction.text = product.orderDetail.instructions
     }

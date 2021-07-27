@@ -5,6 +5,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.method.LinkMovementMethod
 import android.text.method.MovementMethod
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,7 +14,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.R
+import com.keerjain.crownstailor.data.entities.detail.DesignDetail
 import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.databinding.OfferDetailFragmentBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
@@ -29,6 +32,8 @@ class OfferDetailFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModel<OfferDetailViewModel>()
     private lateinit var currentActivity: MainActivity
+    private lateinit var sizeAdapter: SizeAdapter
+    private lateinit var designAdapter: DesignAdapter
     private val args: OfferDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -40,11 +45,28 @@ class OfferDetailFragment : Fragment() {
         currentActivity = activity as MainActivity
         currentActivity.removeBottomBar()
 
+        sizeAdapter = SizeAdapter()
+        designAdapter = DesignAdapter()
+
+        binding.rvSizeList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = sizeAdapter
+            setHasFixedSize(true)
+        }
+
+        binding.rvDesignList.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = designAdapter
+            setHasFixedSize(true)
+        }
+
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        showLoading(true)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -53,6 +75,19 @@ class OfferDetailFragment : Fragment() {
             val offer = args.offer
 
             viewModel.getOfferDetail(offer).collectLatest { offerDetail ->
+                sizeAdapter.setSizeList(offerDetail.orderDetail)
+                designAdapter.setDesignList(offerDetail.designDetail)
+
+                designAdapter.setOnItemClickCallback(object : DesignAdapter.OnItemClickCallback {
+                    override fun onItemClicked(data: DesignDetail) {
+                        val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(data.foto))
+                        startActivity(toBrowser)
+                    }
+                })
+
+                binding.tvOfferProductName.text = offerDetail.productDetail.productName
+                binding.imgOfferProduct.loadPicture(offerDetail.productDetail.productPhoto)
+
                 checkOfferStatus(offerDetail)
             }
         }
@@ -62,23 +97,34 @@ class OfferDetailFragment : Fragment() {
         when (offerDetail.offerStatus) {
             OfferStatus.NEW_OFFER -> {
                 showPriceForm(offerDetail)
+                showLoading(false)
             }
 
             OfferStatus.PRICE_SENT, OfferStatus.PRICE_ACCEPTED, OfferStatus.PRICE_DECLINED -> {
                 showOfferStatus(offerDetail)
+                showLoading(false)
             }
 
             OfferStatus.NEW_PRICE -> {
                 showOfferForm(offerDetail)
+                showLoading(false)
             }
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.offerViewLoading.visibility = View.VISIBLE
+            binding.mainOfferView.visibility = View.GONE
+        } else {
+            binding.mainOfferView.visibility = View.VISIBLE
+            binding.offerViewLoading.visibility = View.GONE
         }
     }
 
     private fun showPriceForm(offerDetail: Offer) {
         binding.offerPriceNotGiven.visibility = View.VISIBLE
         binding.offerPriceGiven.visibility = View.GONE
-
-        bindBasicInformation(offerDetail)
         binding.btnConfirmOffer.setOnClickListener {
             Toast.makeText(
                 requireContext(),
@@ -91,57 +137,9 @@ class OfferDetailFragment : Fragment() {
     private fun showOfferStatus(offerDetail: Offer) {
         binding.offerPriceNotGiven.visibility = View.GONE
         binding.offerPriceGiven.visibility = View.VISIBLE
-
-        bindBasicInformation(offerDetail)
-        binding.tvOfferEstimation.text = offerDetail.offerEstimation.toString()
         binding.tvOfferPrice.text = offerDetail.offerAmount.toString()
     }
 
     private fun showOfferForm(offerDetail: Offer) {
-
-    }
-
-    private fun bindBasicInformation(offerDetail: Offer) {
-        binding.tvOfferProductName.text = offerDetail.productDetail.productName
-        binding.imgOfferProduct.loadPicture(offerDetail.productDetail.productPhoto)
-        binding.tvOfferInstruction.text = offerDetail.orderDetail.instructions
-
-        binding.tvArm.text = resources.getString(
-            R.string.length_format,
-            String.format("%.0f", offerDetail.orderDetail.armSize)
-        )
-        binding.tvNeck.text = resources.getString(
-            R.string.length_format,
-            String.format("%.0f", offerDetail.orderDetail.neckSize)
-        )
-        binding.tvWaist.text = resources.getString(
-            R.string.length_format,
-            String.format("%.0f", offerDetail.orderDetail.waistSize)
-        )
-        binding.tvHeight.text = resources.getString(
-            R.string.length_format,
-            String.format("%.0f", offerDetail.orderDetail.bodyHeight)
-        )
-        binding.tvChest.text = resources.getString(
-            R.string.length_format,
-            String.format("%.0f", offerDetail.orderDetail.chestSize)
-        )
-        binding.tvWeight.text = resources.getString(
-            R.string.weight_format,
-            String.format("%.0f", offerDetail.orderDetail.bodyWeight)
-        )
-
-        if (offerDetail.orderDetail.design != null && offerDetail.orderDetail.design != "") {
-            binding.tvDesignLink.text = resources.getString(R.string.design_link)
-            binding.tvDesignLink.isClickable = true
-            binding.tvDesignLink.isFocusable = true
-            binding.tvDesignLink.setTextColor(ContextCompat.getColor(requireContext(), R.color.main_blue_color))
-            binding.tvDesignLink.setOnClickListener {
-                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(offerDetail.orderDetail.design))
-                startActivity(toBrowser)
-            }
-        } else {
-            binding.tvDesignLink.text = resources.getString(R.string.no_specific_design)
-        }
     }
 }

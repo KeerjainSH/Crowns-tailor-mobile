@@ -51,7 +51,7 @@
     <string name="penawaran_baru">Penawaran Baru</string>
     <string name="empty_number">0</string>
     <string name="offer_type_list">Menawar untuk %1$s</string>
-    <string name="title_offer_detail">Offer Detail</string>
+    <string name="title_offer_detail">Detail Penawaran</string>
     <string name="dummy_offer_type">Menawar untuk Seragam SMP</string>
     <string name="dummy_date">5 Juni 2021</string>
     <string name="product_photo_content_desc">product_photo</string>
@@ -151,4 +151,11 @@
     <string name="simpan_data">Simpan Data</string>
     <string name="input_error">Ada kolom yang error. Periksa kembali isi setiap kolom.</string>
     <string name="penjahit">Penjahit</string>
+    <string name="sew_price">Harga Jahit</string>
+    <string name="material_price">Harga Material</string>
+    <string name="delivery_price">Harga Kirim</string>
+    <string name="take_price">Harga Jemput</string>
+    <string name="set_price">Berikan Harga</string>
+    <string name="design_satu">Design 1</string>
+    <string name="design_number">Desain %1$s</string>
 </resources>

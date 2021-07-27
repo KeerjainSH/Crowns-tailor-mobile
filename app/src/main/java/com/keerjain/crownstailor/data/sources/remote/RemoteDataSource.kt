@@ -2,6 +2,8 @@ package com.keerjain.crownstailor.data.sources.remote
 
 import android.util.Log
 import com.keerjain.crownstailor.data.entities.detail.CustomerDetail
+import com.keerjain.crownstailor.data.entities.detail.OrderDetail
+import com.keerjain.crownstailor.data.entities.detail.ProductDetail
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
@@ -13,7 +15,10 @@ import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.api.ApiService
 import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
 import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
+import com.keerjain.crownstailor.data.sources.remote.responses.Data
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
 import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.utils.SessionManager
@@ -121,9 +126,42 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
     }
 
     fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> = flow {
-        val offer = DataDummy.generateOfferDetails(offerListItem)
+        val response = api.getOrderDetails(
+            sessionManager.getToken().toString(),
+            offerListItem.offerId.toInt()
+        )
 
-        emit(offer)
+        if (response.isSuccessful) {
+            val data = response.body()?.data
+
+            if (data != null) {
+                val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
+                if (userResponse?.isSuccessful as Boolean) {
+                    val offer = data.id?.toLong()?.let {
+                        Offer(
+                            offerId = it,
+                            customer = CustomerDetail(
+                                userId = data.idKonsumen.toLong(),
+                                username = userResponse.body()?.data?.username.toString(),
+                                email = userResponse.body()?.data?.email.toString()
+                            ),
+                            productDetail = ProductDetail(
+                                productId = data.baju?.id!!.toLong(),
+                                productName = data.baju.nama.toString(),
+                                productPhoto = data.baju.foto.toString()
+                            ),
+                            orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                            offerDate = data.createdAt.toString(),
+                            offerAmount = data.biayaTotal?.toFloat(),
+                            offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
+                        )
+                    }
+
+                    emit(offer as Offer)
+                }
+            }
+        }
     }
 
     fun getTransactionDetails(transactionListItem: TransactionListItem): Flow<Transaction> = flow {

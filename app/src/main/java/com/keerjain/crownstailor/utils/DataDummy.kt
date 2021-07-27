@@ -142,27 +142,26 @@ object DataDummy {
         return list
     }
 
-    fun generateOfferDetails(offerListItem: OfferListItem) = Offer(
-        offerId = offerListItem.offerId,
-        customer = offerListItem.customerDetail,
-        productDetail = ProductDetail(
-            2, offerListItem.productName, "https://picsum.photos/400"
-        ),
-        orderDetail = OrderDetail(
-            armSize = 40f,
-            waistSize = 105f,
-            chestSize = 68f,
-            neckSize = 32f,
-            bodyHeight = 175f,
-            bodyWeight = 82f,
-            instructions = "-",
-            design = "https://linkedin.com/in/michael-ricky",
-        ),
-        offerDate = offerListItem.offerDate,
-        offerAmount = null,
-        offerEstimation = null,
-        offerStatus = OfferStatus.NEW_OFFER,
-    )
+//    fun generateOfferDetails(offerListItem: OfferListItem) = Offer(
+//        offerId = offerListItem.offerId,
+//        customer = offerListItem.customerDetail,
+//        productDetail = ProductDetail(
+//            2, offerListItem.productName, "https://picsum.photos/400"
+//        ),
+//        orderDetail = OrderDetail(
+//            armSize = 40f,
+//            waistSize = 105f,
+//            chestSize = 68f,
+//            neckSize = 32f,
+//            bodyHeight = 175f,
+//            bodyWeight = 82f,
+//            instructions = "-",
+//        ),
+//        offerDate = offerListItem.offerDate,
+//        offerAmount = null,
+//        offerEstimation = null,
+//        offerStatus = OfferStatus.NEW_OFFER,
+//    )
 
     fun generateTransactionDetails(transactionListItem: TransactionListItem) = Transaction(
         trxId = transactionListItem.trxId,
@@ -181,7 +180,6 @@ object DataDummy {
                     bodyHeight = 180f,
                     bodyWeight = 85f,
                     instructions = "-",
-                    design = "https://youtu.be/dQw4w9WgXcQ",
                 )
             ),
             ProductListItem(
@@ -198,7 +196,6 @@ object DataDummy {
                     bodyHeight = 182f,
                     bodyWeight = 76f,
                     instructions = "-",
-                    design = "https://linkedin.com/in/michael-ricky",
                 )
             ),
         ),

@@ -19,6 +19,7 @@ object ExtensionFunctions {
                 RequestOptions().override(400, 400)
                     .placeholder(ShimmerDrawableInit.shimmerDrawable)
                     .error(R.drawable.ic_profile_picture)
+                    .fallback(R.drawable.ic_broken_image)
             }
             .into(this)
     }
@@ -30,6 +31,7 @@ object ExtensionFunctions {
                 RequestOptions()
                     .placeholder(ShimmerDrawableInit.shimmerDrawable)
                     .error(R.drawable.ic_broken_image)
+                    .fallback(R.drawable.ic_broken_image)
             }
             .into(this)
     }
