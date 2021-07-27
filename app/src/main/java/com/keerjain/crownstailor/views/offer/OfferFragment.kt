@@ -54,12 +54,7 @@ class OfferFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.getOffers().collectLatest { list ->
                 viewAdapter.setOffers(list)
-
-                withContext(Dispatchers.Main) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        showListLoading(false)
-                    }, 1000)
-                }
+                showListLoading(false)
             }
         }
 
