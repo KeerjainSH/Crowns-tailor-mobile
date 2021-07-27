@@ -58,7 +58,7 @@ class HomeFragment : Fragment() {
         showListLoading(true)
 
         lifecycleScope.launchWhenCreated {
-            viewModel.getOrders(1).collectLatest { list ->
+            viewModel.getOrders().collectLatest { list ->
                 viewAdapter.setOrdersList(list)
 
                 withContext(Dispatchers.Main) {

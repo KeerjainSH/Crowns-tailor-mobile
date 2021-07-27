@@ -1,6 +1,8 @@
 package com.keerjain.crownstailor.views.settings
 
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +20,7 @@ import com.keerjain.crownstailor.views.LoginActivity
 import com.keerjain.crownstailor.views.MainActivity
 import com.keerjain.crownstailor.views.register.ProductAdapter
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
@@ -56,8 +59,19 @@ class ChangeProductFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        showLoading(true)
+        lifecycleScope.launchWhenCreated {
+            viewModel.getProductList().collectLatest { list ->
+                viewAdapter.setProductList(list)
 
-        viewAdapter.setProductList(DataDummy.generateProducts())
+                withContext(Dispatchers.Main) {
+                    Handler(Looper.getMainLooper()).postDelayed({
+                        showLoading(false)
+                    }, 500)
+                }
+            }
+        }
+
         currentActivity.setSupportActionBar(binding.topAppBar)
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         currentActivity.removeBottomBar()
@@ -81,6 +95,16 @@ class ChangeProductFragment : Fragment() {
                     view?.findNavController()?.navigate(toProfileFragment)
                 }
             }
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.changeProductLoading.visibility = View.VISIBLE
+            binding.rvProductListCheckboxes.visibility = View.GONE
+        } else {
+            binding.rvProductListCheckboxes.visibility = View.VISIBLE
+            binding.changeProductLoading.visibility = View.GONE
         }
     }
 }

@@ -4,6 +4,7 @@ import com.keerjain.crownstailor.data.AppRepository
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
+import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
@@ -21,12 +22,12 @@ class AppRepositoryImpl(
         return remote.registerUser(registrationData)
     }
 
-    override fun getOfferForTailor(tailorId: Long): Flow<List<OfferListItem>> {
-        return remote.getOfferForTailor(tailorId)
+    override fun getOfferForTailor(): Flow<List<OfferListItem>> {
+        return remote.getOfferForTailor()
     }
 
-    override fun getOrdersForTailor(tailorId: Long): Flow<List<TransactionListItem>> {
-        return remote.getOrdersForTailor(tailorId)
+    override fun getOrdersForTailor(): Flow<List<TransactionListItem>> {
+        return remote.getOrdersForTailor()
     }
 
     override fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> {
@@ -35,5 +36,9 @@ class AppRepositoryImpl(
 
     override fun getTransactionDetails(transactionListItem: TransactionListItem): Flow<Transaction> {
         return remote.getTransactionDetails(transactionListItem)
+    }
+
+    override fun getCatalog(): Flow<List<Product>> {
+        return remote.getCatalog()
     }
 }

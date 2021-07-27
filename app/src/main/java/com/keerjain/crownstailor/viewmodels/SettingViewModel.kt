@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModel
 import com.keerjain.crownstailor.data.AppRepository
 
 class SettingViewModel(private val repos: AppRepository) : ViewModel() {
+    fun getProductList() = repos.getCatalog()
+
     fun setProductList() {
 
     }

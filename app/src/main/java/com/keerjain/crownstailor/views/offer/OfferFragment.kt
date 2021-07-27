@@ -52,7 +52,7 @@ class OfferFragment : Fragment() {
         showListLoading(true)
 
         lifecycleScope.launchWhenCreated {
-            viewModel.getOffers(1).collectLatest { list ->
+            viewModel.getOffers().collectLatest { list ->
                 viewAdapter.setOffers(list)
 
                 withContext(Dispatchers.Main) {

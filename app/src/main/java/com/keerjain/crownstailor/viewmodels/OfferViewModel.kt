@@ -6,7 +6,7 @@ import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import kotlinx.coroutines.flow.Flow
 
 class OfferViewModel(private val repos: AppRepository) : ViewModel() {
-    fun getOffers(tailorId: Long): Flow<List<OfferListItem>> {
-        return repos.getOfferForTailor(tailorId)
+    fun getOffers(): Flow<List<OfferListItem>> {
+        return repos.getOfferForTailor()
     }
 }

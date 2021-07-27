@@ -18,6 +18,8 @@ class SessionManager(context: Context) {
         editor.commit()
     }
 
+    fun getToken() = pref.getString(KEY_TOKEN, "null")
+
     fun logout() {
         editor.clear()
         editor.commit()

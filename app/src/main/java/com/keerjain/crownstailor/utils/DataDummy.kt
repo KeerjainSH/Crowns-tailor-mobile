@@ -14,7 +14,7 @@ import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.utils.enums.Status
 
 object DataDummy {
-    fun generateDummyOffer(tailorId: Long): List<OfferListItem> {
+    fun generateDummyOffer(): List<OfferListItem> {
         val list = ArrayList<OfferListItem>()
 
         list.add(
@@ -24,10 +24,8 @@ object DataDummy {
                 offerDate = "5 Juni 2021",
                 customerDetail = CustomerDetail(
                     userId = 1L,
-                    userFullName = "Rita Kusuma",
                     username = "ritakusuma23",
                     email = "ritakusuma23@gmail.com",
-                    photoProfile = "https://picsum.photos/400"
                 )
             )
         )
@@ -39,10 +37,8 @@ object DataDummy {
                 offerDate = "5 Juni 2021",
                 customerDetail = CustomerDetail(
                     userId = 1L,
-                    userFullName = "Rio Darwin",
                     username = "riodarwin",
                     email = "riodarwin@gmail.com",
-                    photoProfile = "https://picsum.photos/400"
                 )
             )
         )
@@ -54,10 +50,8 @@ object DataDummy {
                 offerDate = "6 Juni 2021",
                 customerDetail = CustomerDetail(
                     userId = 1L,
-                    userFullName = "Abdi Cipta",
                     username = "abdicipta11",
                     email = "abdicipta11@gmail.com",
-                    photoProfile = "https://picsum.photos/400"
                 )
             )
         )
@@ -65,7 +59,7 @@ object DataDummy {
         return list
     }
 
-    fun generateDummyOrder(tailorId: Long): List<TransactionListItem> {
+    fun generateDummyOrder(): List<TransactionListItem> {
         val list = ArrayList<TransactionListItem>()
 
         list.add(
@@ -210,10 +204,8 @@ object DataDummy {
         ),
         customerDetail = CustomerDetail(
             userId = 1L,
-            userFullName = "Michael Ricky",
             username = "djtyranix",
             email = "djtyranix@gmail.com",
-            photoProfile = "https://picsum.photos/512"
         ),
         shipmentDetail = ShipmentDetail(
             receiverName = "Toni",

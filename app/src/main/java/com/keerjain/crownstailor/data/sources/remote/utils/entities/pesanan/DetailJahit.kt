@@ -26,7 +26,7 @@ data class DetailJahit(
     val instruksiPembuatan: String? = null,
 
     @field:SerializedName("pinggang")
-    val pinggang: Int? = null,
+    val pinggang: Double? = null,
 
     @field:SerializedName("nama_lengkap")
     val namaLengkap: String? = null,

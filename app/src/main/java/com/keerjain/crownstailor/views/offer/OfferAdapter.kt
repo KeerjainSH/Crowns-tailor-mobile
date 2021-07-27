@@ -49,13 +49,13 @@ class OfferAdapter : RecyclerView.Adapter<OfferAdapter.OfferViewHolder>() {
     inner class OfferViewHolder(private val binding: OfferListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(offer: OfferListItem) {
-            binding.tvUserName.text = offer.customerDetail.userFullName
+            binding.tvUserName.text = offer.customerDetail.username
             binding.tvOfferDate.text = offer.offerDate
             binding.tvOfferType.text = binding.tvOfferType.context.resources.getString(
                 R.string.offer_type_list,
                 offer.productName
             )
-            binding.userProfilePhoto.setProfilePicture(offer.customerDetail.photoProfile)
+//            binding.userProfilePhoto.setProfilePicture(offer.customerDetail.photoProfile)
         }
     }
 }

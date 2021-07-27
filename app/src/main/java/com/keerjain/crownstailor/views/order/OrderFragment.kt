@@ -116,7 +116,7 @@ class OrderFragment : Fragment() {
         searchTextView.textSize = 14f
 
         lifecycleScope.launchWhenCreated {
-            viewModel.getOrders(1).collectLatest { list ->
+            viewModel.getOrders().collectLatest { list ->
                 viewAdapter.setOrdersList(list)
 
                 withContext(Dispatchers.Main) {

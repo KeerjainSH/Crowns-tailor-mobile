@@ -4,10 +4,7 @@ import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
 import com.keerjain.crownstailor.data.sources.remote.posts.IsiHargaPost
 import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
-import com.keerjain.crownstailor.data.sources.remote.responses.DetailPenjahitResponse
-import com.keerjain.crownstailor.data.sources.remote.responses.LoginResponse
-import com.keerjain.crownstailor.data.sources.remote.responses.PesananDetailResponse
-import com.keerjain.crownstailor.data.sources.remote.responses.PesananResponse
+import com.keerjain.crownstailor.data.sources.remote.responses.*
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -28,19 +25,19 @@ interface ApiService {
     suspend fun fillPrice(
         @Header("Authorization") token: String,
         @Body data: IsiHargaPost
-    )
+    ) : Response<IsiHargaResponse>
 
     @POST("pesanan/terimaTawar")
     suspend fun acceptOffer(
         @Header("Authorization") token: String,
         @Body data: IdPesananPost
-    )
+    ) : Response<StatusTawarResponse>
 
     @POST("pesanan/tolakTawar")
     suspend fun declineOffer(
         @Header("Authorization") token: String,
         @Body data: IdPesananPost
-    )
+    ) : Response<StatusTawarResponse>
 
     @GET("pesanan/{id}")
     suspend fun getOrderDetails(
@@ -57,4 +54,22 @@ interface ApiService {
     suspend fun register(
         @Body data: RegistrationData
     ) : Response<LoginResponse>
+
+    @GET("pesanan/pembayaranBelumValid")
+    suspend fun getOffers(
+        @Header("Authorization") token: String,
+    ) : Response<AllPesananResponse>
+
+    @GET("pesanan/pembayaranValid")
+    suspend fun getOrders(
+        @Header("Authorization") token: String,
+    ) : Response<AllPesananResponse>
+
+    @GET("katalog")
+    suspend fun getCatalog() : Response<CatalogResponse>
+
+    @GET("pembeli/{id}")
+    suspend fun getCustomerDetails(
+        @Path("id") id: Long,
+    ) : Response<CustomerDetailResponse>
 }
