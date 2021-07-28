@@ -16,6 +16,7 @@ import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Deta
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailPesanan
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.PesananBaju
 import com.keerjain.crownstailor.utils.enums.OfferStatus
+import com.keerjain.crownstailor.utils.enums.Status
 
 object DataMapper {
     fun mapProductListToProductIdList(input: List<Product>) = input.map {
@@ -75,12 +76,22 @@ object DataMapper {
     }
 
     fun mapStatusToOfferStatus(input: Int?): OfferStatus {
-        return if (input == 1 || input == null) {
-            OfferStatus.NEW_OFFER
-        } else if (input == 2) (
-            OfferStatus.PRICE_SENT
-        ) else {
-            OfferStatus.PRICE_ACCEPTED
+        return if (input == null) {
+            OfferStatus.OFFER_NEW
+        } else if (input == 1) (
+            OfferStatus.OFFER_RESPONSE_SENT
+        ) else if (input == 2) {
+            OfferStatus.OFFER_NEW_PRICE
+        } else {
+            OfferStatus.OFFER_ACCEPTED
+        }
+    }
+
+    fun mapStatusToOrderStatus(input: Int): Status {
+        return if (input == 4) {
+            Status.PAID_ORDER
+        } else {
+            Status.FINISHED
         }
     }
 }

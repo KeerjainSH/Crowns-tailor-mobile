@@ -3,20 +3,17 @@ package com.keerjain.crownstailor.utils.enums
 import com.keerjain.crownstailor.R
 
 enum class OfferStatus {
-    NEW_OFFER {
+    OFFER_NEW {
         override fun getStringResources() = R.string.new_offer
     },
-    PRICE_SENT {
-        override fun getStringResources() = R.string.price_sent
+    OFFER_RESPONSE_SENT {
+        override fun getStringResources() = R.string.response_sent
     },
-    PRICE_DECLINED {
-        override fun getStringResources() = R.string.price_declined
-    },
-    PRICE_ACCEPTED {
-        override fun getStringResources() = R.string.price_accepted
-    },
-    NEW_PRICE {
+    OFFER_NEW_PRICE {
         override fun getStringResources() = R.string.new_price
+    },
+    OFFER_ACCEPTED {
+        override fun getStringResources() = R.string.price_accepted
     };
 
     abstract fun getStringResources(): Int

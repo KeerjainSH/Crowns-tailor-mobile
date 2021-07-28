@@ -76,7 +76,7 @@
                 android:textSize="12sp" />
 
             <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/filter_pesanan_baru"
+                android:id="@+id/filter_pesanan_terbayar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="4dp"
@@ -84,33 +84,7 @@
                 android:button="@android:color/transparent"
                 android:fontFamily="@font/lato"
                 android:paddingHorizontal="16dp"
-                android:text="@string/pesanan_baru"
-                android:textColor="@drawable/filter_text_selector"
-                android:textSize="12sp" />
-
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/filter_dikerjakan"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/filter_selector"
-                android:button="@android:color/transparent"
-                android:fontFamily="@font/lato"
-                android:paddingHorizontal="16dp"
-                android:text="@string/dikerjakan"
-                android:textColor="@drawable/filter_text_selector"
-                android:textSize="12sp" />
-
-            <androidx.appcompat.widget.AppCompatRadioButton
-                android:id="@+id/filter_dikirim"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="4dp"
-                android:background="@drawable/filter_selector"
-                android:button="@android:color/transparent"
-                android:fontFamily="@font/lato"
-                android:paddingHorizontal="16dp"
-                android:text="@string/dikirim"
+                android:text="@string/pesanan_dibayar"
                 android:textColor="@drawable/filter_text_selector"
                 android:textSize="12sp" />
 

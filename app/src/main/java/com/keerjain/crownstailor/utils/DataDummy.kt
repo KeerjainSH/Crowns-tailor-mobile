@@ -76,7 +76,7 @@ object DataDummy {
                 2L,
                 "Seragam SMP",
                 "https://picsum.photos/400",
-                Status.ON_DELIVERY
+                Status.PAID_ORDER
             )
         )
 
@@ -85,7 +85,7 @@ object DataDummy {
                 3L,
                 "Seragam SMA",
                 "https://picsum.photos/400",
-                Status.ON_PROGRESS
+                Status.PAID_ORDER
             )
         )
 
@@ -94,7 +94,7 @@ object DataDummy {
                 4L,
                 "Seragam SMA",
                 "https://picsum.photos/400",
-                Status.NEW_ORDER
+                Status.FINISHED
             )
         )
 

@@ -95,17 +95,17 @@ class OfferDetailFragment : Fragment() {
 
     private fun checkOfferStatus(offerDetail: Offer) {
         when (offerDetail.offerStatus) {
-            OfferStatus.NEW_OFFER -> {
+            OfferStatus.OFFER_NEW -> {
                 showPriceForm(offerDetail)
                 showLoading(false)
             }
 
-            OfferStatus.PRICE_SENT, OfferStatus.PRICE_ACCEPTED, OfferStatus.PRICE_DECLINED -> {
+            OfferStatus.OFFER_RESPONSE_SENT, OfferStatus.OFFER_ACCEPTED -> {
                 showOfferStatus(offerDetail)
                 showLoading(false)
             }
 
-            OfferStatus.NEW_PRICE -> {
+            OfferStatus.OFFER_NEW_PRICE -> {
                 showOfferForm(offerDetail)
                 showLoading(false)
             }

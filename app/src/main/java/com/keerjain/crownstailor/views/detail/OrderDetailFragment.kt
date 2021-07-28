@@ -63,31 +63,6 @@ class OrderDetailFragment : Fragment() {
             viewModel.getTransactionDetails(transaction).collectLatest {
                 bindInformation(it)
                 viewAdapter.setProductList(it.productList)
-
-                when (it.transactionStatus) {
-                    Status.NEW_ORDER -> {
-                        binding.btnStartWorking.visibility = View.VISIBLE
-                        binding.btnSendPackage.visibility = View.GONE
-
-                        binding.btnStartWorking.setOnClickListener {
-                            startWorking()
-                        }
-                    }
-
-                    Status.ON_PROGRESS -> {
-                        binding.btnStartWorking.visibility = View.GONE
-                        binding.btnSendPackage.visibility = View.VISIBLE
-
-                        binding.btnSendPackage.setOnClickListener {
-                            sendOrder()
-                        }
-                    }
-
-                    Status.ON_DELIVERY, Status.FINISHED -> {
-                        binding.btnStartWorking.visibility = View.GONE
-                        binding.btnSendPackage.visibility = View.GONE
-                    }
-                }
             }
         }
 
@@ -122,21 +97,9 @@ class OrderDetailFragment : Fragment() {
         binding.tvStatusDetail.text = resources.getString(status.getStringResources())
 
         when (status) {
-            Status.NEW_ORDER -> {
+            Status.PAID_ORDER -> {
                 binding.tvStatusDetail.setBackgroundResource(
                     R.drawable.status_baru
-                )
-            }
-
-            Status.ON_PROGRESS -> {
-                binding.tvStatusDetail.setBackgroundResource(
-                    R.drawable.status_dikerjakan
-                )
-            }
-
-            Status.ON_DELIVERY -> {
-                binding.tvStatusDetail.setBackgroundResource(
-                    R.drawable.status_dikirim
                 )
             }
 

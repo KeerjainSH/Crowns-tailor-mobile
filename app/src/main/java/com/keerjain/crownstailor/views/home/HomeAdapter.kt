@@ -60,21 +60,9 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
             binding.tvStatus.text = binding.tvStatus.context.resources.getString(status.getStringResources())
 
             when(status) {
-                Status.NEW_ORDER -> {
+                Status.PAID_ORDER -> {
                     binding.tvStatus.setBackgroundResource(
                         R.drawable.status_baru
-                    )
-                }
-
-                Status.ON_PROGRESS -> {
-                    binding.tvStatus.setBackgroundResource(
-                        R.drawable.status_dikerjakan
-                    )
-                }
-
-                Status.ON_DELIVERY -> {
-                    binding.tvStatus.setBackgroundResource(
-                        R.drawable.status_dikirim
                     )
                 }
 

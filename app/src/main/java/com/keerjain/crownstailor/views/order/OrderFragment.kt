@@ -59,15 +59,7 @@ class OrderFragment : Fragment() {
             onRadioButtonClicked(it)
         }
 
-        binding.filterPesananBaru.setOnClickListener {
-            onRadioButtonClicked(it)
-        }
-
-        binding.filterDikerjakan.setOnClickListener {
-            onRadioButtonClicked(it)
-        }
-
-        binding.filterDikirim.setOnClickListener {
+        binding.filterPesananTerbayar.setOnClickListener {
             onRadioButtonClicked(it)
         }
 
@@ -146,24 +138,10 @@ class OrderFragment : Fragment() {
                     }
                 }
 
-                R.id.filter_pesanan_baru -> {
+                R.id.filter_pesanan_terbayar -> {
                     if (checked) {
-                        viewAdapter.filterWithStatus(Status.NEW_ORDER)
-                        Log.d("FilterButton", "NEW ORDER")
-                    }
-                }
-
-                R.id.filter_dikerjakan -> {
-                    if (checked) {
-                        viewAdapter.filterWithStatus(Status.ON_PROGRESS)
-                        Log.d("FilterButton", "ON PROGRESS")
-                    }
-                }
-
-                R.id.filter_dikirim -> {
-                    if (checked) {
-                        viewAdapter.filterWithStatus(Status.ON_DELIVERY)
-                        Log.d("FilterButton", "ON DELIVERY")
+                        viewAdapter.filterWithStatus(Status.PAID_ORDER)
+                        Log.d("FilterButton", "PAID ORDER")
                     }
                 }
 
