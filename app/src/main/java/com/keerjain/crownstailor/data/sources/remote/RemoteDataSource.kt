@@ -19,6 +19,7 @@ import com.keerjain.crownstailor.data.sources.remote.responses.Data
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
 import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.utils.SessionManager
@@ -148,7 +149,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             productDetail = ProductDetail(
                                 productId = data.baju?.id!!.toLong(),
                                 productName = data.baju.nama.toString(),
-                                productPhoto = data.baju.foto.toString()
+                                productPhoto = data.baju.foto.toString(),
+                                productDescription = data.baju.deskripsi.toString()
                             ),
                             orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
                             designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
@@ -177,8 +179,12 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
         )
 
         if (token != null && token != "null") {
-            api.acceptOffer(token, data)
-            emit(true)
+            val response = api.acceptOffer(token, data)
+            if (response.isSuccessful) {
+                emit(true)
+            } else {
+                emit(false)
+            }
         } else {
             emit(false)
             Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
@@ -192,23 +198,34 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
         )
 
         if (token != null && token != "null") {
-            api.declineOffer(token, data)
-            emit(true)
+            val response = api.declineOffer(token, data)
+
+            if (response.isSuccessful) {
+                emit(true)
+            } else {
+                emit(false)
+            }
         } else {
             emit(false)
             Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
         }
     }
 
-    fun setPrice(prices: OfferPrices): Flow<Boolean> = flow {
+    fun setPrice(prices: OfferPrices): Flow<Penawaran> = flow {
         val token = sessionManager.getToken()
         val data = DataMapper.mapOfferPriceToPostHarga(prices)
 
         if (token != null && token != "null") {
-            api.fillPrice(token, data)
-            emit(true)
+            val response = api.fillPrice(token, data)
+
+            if (response.isSuccessful) {
+                val penawaran = response.body()?.data?.penawaran
+                emit(penawaran as Penawaran)
+            } else {
+                emit(Penawaran())
+            }
         } else {
-            emit(false)
+            emit(Penawaran())
         }
     }
 

@@ -170,7 +170,8 @@ object DataDummy {
                 productDetail = ProductDetail(
                     productId = 1L,
                     productName = transactionListItem.productName,
-                    productPhoto = transactionListItem.productPhoto
+                    productPhoto = transactionListItem.productPhoto,
+                    productDescription = "Test"
                 ),
                 orderDetail = OrderDetail(
                     armSize = 36f,
@@ -186,7 +187,8 @@ object DataDummy {
                 productDetail = ProductDetail(
                     productId = 1L,
                     productName = transactionListItem.productName,
-                    productPhoto = transactionListItem.productPhoto
+                    productPhoto = transactionListItem.productPhoto,
+                    productDescription = "Test"
                 ),
                 orderDetail = OrderDetail(
                     armSize = 34f,

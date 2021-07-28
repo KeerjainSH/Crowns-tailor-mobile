@@ -122,7 +122,7 @@
     <string name="status">Status</string>
     <string name="dummy_offer_status">Harga dan Estimasi telah Diatur</string>
     <string name="new_offer">Tawaran Baru</string>
-    <string name="price_sent">Harga dan Estimasi telah Diatur</string>
+    <string name="price_sent">Harga telah diberikan</string>
     <string name="price_declined">Tawaran Ditolak</string>
     <string name="price_accepted">Tawaran Diterima</string>
     <string name="new_price">Harga Baru</string>
@@ -160,4 +160,10 @@
     <string name="design_number">Desain %1$s</string>
     <string name="response_sent">Tawaran sudah ditanggapi</string>
     <string name="pesanan_dibayar">Pesanan dibayar</string>
+    <string name="harga_baru">Harga Baru</string>
+    <string name="tolak_tawaran">Tolak Tawaran</string>
+    <string name="terima_tawaran">Terima Tawaran</string>
+    <string name="error_input_price">Terjadi kesalahan saat mengirim data. Coba lagi dalam beberapa saat.</string>
+    <string name="offer_accepted">Penawaran diterima</string>
+    <string name="deskripsi">Deskripsi</string>
 </resources>

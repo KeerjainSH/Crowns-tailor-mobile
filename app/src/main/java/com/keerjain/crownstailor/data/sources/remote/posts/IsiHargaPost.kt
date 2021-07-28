@@ -13,17 +13,17 @@ data class IsiHargaPost (
 
     @SerializedName("biaya_jahit")
     @Expose
-    val biayaJahit: Int?,
+    val biayaJahit: Float?,
 
     @SerializedName("biaya_material")
     @Expose
-    val biayaMaterial: Int?,
+    val biayaMaterial: Float?,
 
     @SerializedName("biaya_kirim")
     @Expose
-    val biayaKirim: Int?,
+    val biayaKirim: Float?,
 
     @SerializedName("biaya_jemput")
     @Expose
-    val biayaJemput: Int?,
+    val biayaJemput: Float?,
 ) : Parcelable

@@ -4,11 +4,13 @@ import com.keerjain.crownstailor.data.AppRepository
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
+import com.keerjain.crownstailor.data.entities.offer.OfferPrices
 import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.RemoteDataSource
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
 import kotlinx.coroutines.flow.Flow
 
 class AppRepositoryImpl(
@@ -40,5 +42,17 @@ class AppRepositoryImpl(
 
     override fun getCatalog(): Flow<List<Product>> {
         return remote.getCatalog()
+    }
+
+    override fun acceptOffer(offer: Offer): Flow<Boolean> {
+        return remote.acceptOffer(offer.offerId.toInt())
+    }
+
+    override fun declineOffer(offer: Offer): Flow<Boolean> {
+        return remote.declineOffer(offer.offerId.toInt())
+    }
+
+    override fun setPrice(prices: OfferPrices): Flow<Penawaran> {
+        return remote.setPrice(prices)
     }
 }

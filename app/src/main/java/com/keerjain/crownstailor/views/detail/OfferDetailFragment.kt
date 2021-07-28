@@ -18,12 +18,17 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.detail.DesignDetail
 import com.keerjain.crownstailor.data.entities.offer.Offer
+import com.keerjain.crownstailor.data.entities.offer.OfferPrices
 import com.keerjain.crownstailor.databinding.OfferDetailFragmentBinding
+import com.keerjain.crownstailor.utils.ExtensionFunctions.formatToCurrency
 import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
 import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.viewmodels.OfferDetailViewModel
 import com.keerjain.crownstailor.views.MainActivity
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OfferDetailFragment : Fragment() {
@@ -75,6 +80,7 @@ class OfferDetailFragment : Fragment() {
             val offer = args.offer
 
             viewModel.getOfferDetail(offer).collectLatest { offerDetail ->
+                viewModel.setOffer(offerDetail)
                 sizeAdapter.setSizeList(offerDetail.orderDetail)
                 designAdapter.setDesignList(offerDetail.designDetail)
 
@@ -86,6 +92,7 @@ class OfferDetailFragment : Fragment() {
                 })
 
                 binding.tvOfferProductName.text = offerDetail.productDetail.productName
+                binding.tvProductDescription.text = offerDetail.productDetail.productDescription
                 binding.imgOfferProduct.loadPicture(offerDetail.productDetail.productPhoto)
 
                 checkOfferStatus(offerDetail)
@@ -125,21 +132,128 @@ class OfferDetailFragment : Fragment() {
     private fun showPriceForm(offerDetail: Offer) {
         binding.offerPriceNotGiven.visibility = View.VISIBLE
         binding.offerPriceGiven.visibility = View.GONE
+        binding.offerPriceUpdated.visibility = View.GONE
+
         binding.btnConfirmOffer.setOnClickListener {
-            Toast.makeText(
-                requireContext(),
-                resources.getString(R.string.price_sent),
-                Toast.LENGTH_SHORT
-            ).show()
+            showLoading(true)
+            val offer = viewModel.getOffer()
+            val prices = OfferPrices(
+                idPesanan = offer.offerId.toInt(),
+                biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
+                biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
+                biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
+                biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
+            )
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.setPrices(prices).collectLatest { penawaran ->
+                    if (penawaran.id != null) {
+                        withContext(Dispatchers.Main) {
+                            binding.offerPriceNotGiven.visibility = View.GONE
+                            binding.offerPriceGiven.visibility = View.VISIBLE
+                            binding.offerPriceUpdated.visibility = View.GONE
+                            binding.tvOfferPrice.text = penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
+                            binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.price_sent),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showLoading(false)
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.error_input_price),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showLoading(false)
+                        }
+                    }
+                }
+            }
         }
     }
 
     private fun showOfferStatus(offerDetail: Offer) {
         binding.offerPriceNotGiven.visibility = View.GONE
         binding.offerPriceGiven.visibility = View.VISIBLE
-        binding.tvOfferPrice.text = offerDetail.offerAmount.toString()
+        binding.offerPriceUpdated.visibility = View.GONE
+        binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+        binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
     }
 
     private fun showOfferForm(offerDetail: Offer) {
+        binding.offerPriceNotGiven.visibility = View.GONE
+        binding.offerPriceGiven.visibility = View.GONE
+        binding.offerPriceUpdated.visibility = View.VISIBLE
+        binding.tvOfferNewPrice.text = offerDetail.offerAmount?.formatToCurrency()
+
+        binding.btnConfirmNewOffer.setOnClickListener {
+            showLoading(true)
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.acceptOffer().collectLatest { isOkay ->
+                    if (isOkay) {
+                        withContext(Dispatchers.Main) {
+                            binding.offerPriceNotGiven.visibility = View.GONE
+                            binding.offerPriceGiven.visibility = View.VISIBLE
+                            binding.offerPriceUpdated.visibility = View.GONE
+                            binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+                            binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.offer_accepted),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showLoading(false)
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.error_input_price),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showLoading(false)
+                        }
+                    }
+                }
+            }
+        }
+
+        binding.btnDeclineNewOffer.setOnClickListener {
+            showLoading(true)
+
+            lifecycleScope.launch(Dispatchers.IO) {
+                viewModel.declineOffer().collectLatest { isOkay ->
+                    if (isOkay) {
+                        withContext(Dispatchers.Main) {
+                            binding.offerPriceNotGiven.visibility = View.GONE
+                            binding.offerPriceGiven.visibility = View.VISIBLE
+                            binding.offerPriceUpdated.visibility = View.GONE
+                            binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+                            binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.offer_accepted),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showLoading(false)
+                        }
+                    } else {
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(
+                                requireContext(),
+                                resources.getString(R.string.error_input_price),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                            showLoading(false)
+                        }
+                    }
+                }
+            }
+        }
     }
 }

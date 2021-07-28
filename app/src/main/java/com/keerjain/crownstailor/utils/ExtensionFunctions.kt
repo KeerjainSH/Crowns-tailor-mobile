@@ -10,6 +10,8 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.keerjain.crownstailor.R
 import de.hdodenhof.circleimageview.CircleImageView
+import java.text.NumberFormat
+import java.util.*
 
 object ExtensionFunctions {
     fun CircleImageView.setProfilePicture(url: String) {
@@ -34,6 +36,14 @@ object ExtensionFunctions {
                     .fallback(R.drawable.ic_broken_image)
             }
             .into(this)
+    }
+
+    fun Float.formatToCurrency(): String {
+        val currencyFormatter = NumberFormat.getCurrencyInstance()
+        currencyFormatter.maximumFractionDigits = 2
+        currencyFormatter.currency = Currency.getInstance("IDR")
+
+        return currencyFormatter.format(this)
     }
 
     fun Fragment.hideKeyboard() {

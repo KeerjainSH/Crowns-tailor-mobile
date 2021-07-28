@@ -8,4 +8,5 @@ data class ProductDetail(
     val productId: Long,
     val productName: String,
     val productPhoto: String,
+    val productDescription: String?,
 ) : Parcelable

@@ -14,6 +14,7 @@ import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.databinding.OrderDetailFragmentBinding
+import com.keerjain.crownstailor.utils.ExtensionFunctions.formatToCurrency
 import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.viewmodels.OrderDetailViewModel
 import com.keerjain.crownstailor.views.MainActivity
@@ -74,10 +75,6 @@ class OrderDetailFragment : Fragment() {
     }
 
     private fun bindInformation(transaction: Transaction) {
-        val currencyFormatter = NumberFormat.getCurrencyInstance()
-        currencyFormatter.maximumFractionDigits = 2
-        currencyFormatter.currency = Currency.getInstance("IDR")
-
         binding.tvInvoiceNo.text =
             resources.getString(R.string.invoice_number, transaction.trxId.toString())
         binding.tvNamaPenerima.text = transaction.shipmentDetail.receiverName
@@ -85,13 +82,13 @@ class OrderDetailFragment : Fragment() {
         binding.tvAlamatPenerima.text = transaction.shipmentDetail.receiverAddress
 
         binding.tvTotalAmount.text =
-            currencyFormatter.format(transaction.totalAmount)
+            transaction.totalAmount.formatToCurrency()
 
         binding.tvShipmentFee.text =
-            currencyFormatter.format(transaction.shipmentDetail.shipmentFee)
+            transaction.shipmentDetail.shipmentFee.formatToCurrency()
 
         binding.tvPaymentTotal.text =
-            currencyFormatter.format(transaction.totalAmount + transaction.shipmentDetail.shipmentFee)
+            (transaction.totalAmount + transaction.shipmentDetail.shipmentFee).formatToCurrency()
 
         val status = transaction.transactionStatus
         binding.tvStatusDetail.text = resources.getString(status.getStringResources())
