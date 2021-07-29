@@ -1,18 +1,14 @@
 package com.keerjain.crownstailor.views.detail
 
-import android.content.Intent
-import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.navigation.fragment.navArgs
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.databinding.FragmentOrderInstructionBinding
-import com.keerjain.crownstailor.databinding.OrderDetailFragmentBinding
 import com.keerjain.crownstailor.views.MainActivity
 
 class OrderInstructionFragment : Fragment() {

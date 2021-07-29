@@ -62,7 +62,7 @@ interface ApiService {
     @GET("katalog")
     suspend fun getCatalog() : Response<CatalogResponse>
 
-    @GET("pembeli/{id}")
+    @GET("pembeli/id-pembeli/{id}")
     suspend fun getCustomerDetails(
         @Path("id") id: Long,
     ) : Response<CustomerDetailResponse>

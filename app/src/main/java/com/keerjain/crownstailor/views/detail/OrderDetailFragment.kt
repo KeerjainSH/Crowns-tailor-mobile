@@ -20,8 +20,6 @@ import com.keerjain.crownstailor.viewmodels.OrderDetailViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import kotlinx.coroutines.flow.collectLatest
 import org.koin.android.ext.android.inject
-import java.text.NumberFormat
-import java.util.*
 
 class OrderDetailFragment : Fragment() {
 
@@ -63,7 +61,7 @@ class OrderDetailFragment : Fragment() {
         lifecycleScope.launchWhenCreated {
             viewModel.getTransactionDetails(transaction).collectLatest {
                 bindInformation(it)
-                viewAdapter.setProductList(it.productList)
+                viewAdapter.setProductList(it.orderDetail)
             }
         }
 
@@ -77,18 +75,15 @@ class OrderDetailFragment : Fragment() {
     private fun bindInformation(transaction: Transaction) {
         binding.tvInvoiceNo.text =
             resources.getString(R.string.invoice_number, transaction.trxId.toString())
-        binding.tvNamaPenerima.text = transaction.shipmentDetail.receiverName
-        binding.tvHpPenerima.text = transaction.shipmentDetail.receiverPhoneNumber
-        binding.tvAlamatPenerima.text = transaction.shipmentDetail.receiverAddress
+//        binding.tvNamaPenerima.text = transaction.shipmentDetail?.receiverName
+//        binding.tvHpPenerima.text = transaction.shipmentDetail?.receiverPhoneNumber
+//        binding.tvAlamatPenerima.text = transaction.shipmentDetail?.receiverAddress
 
         binding.tvTotalAmount.text =
-            transaction.totalAmount.formatToCurrency()
-
-        binding.tvShipmentFee.text =
-            transaction.shipmentDetail.shipmentFee.formatToCurrency()
+            transaction.totalAmount?.formatToCurrency()
 
         binding.tvPaymentTotal.text =
-            (transaction.totalAmount + transaction.shipmentDetail.shipmentFee).formatToCurrency()
+            transaction.totalAmount?.formatToCurrency()
 
         val status = transaction.transactionStatus
         binding.tvStatusDetail.text = resources.getString(status.getStringResources())

@@ -74,11 +74,12 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
         val response = api.register(registrationData)
 
         if (response.isSuccessful) {
-            emit(true)
             val session = DataMapper.mapRegistrationDataToSessionData(registrationData)
+            val token = "Bearer " + response.body()?.data?.token.toString()
             session.userId = response.body()?.data?.idUser
-            session.token = response.body()?.data?.token
+            session.token = token
             sessionManager.createLoginSession(session)
+            emit(true)
         } else {
             emit(false)
         }
@@ -178,29 +179,56 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             if (data != null) {
                 val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
                 if (userResponse?.isSuccessful as Boolean) {
-                    val offer = data.id?.toLong()?.let {
-                        Offer(
-                            offerId = it,
-                            customer = CustomerDetail(
-                                userId = data.idKonsumen.toLong(),
-                                username = userResponse.body()?.data?.username.toString(),
-                                email = userResponse.body()?.data?.email.toString()
-                            ),
-                            productDetail = ProductDetail(
-                                productId = data.baju?.id!!.toLong(),
-                                productName = data.baju.nama.toString(),
-                                productPhoto = data.baju.foto.toString(),
-                                productDescription = data.baju.deskripsi.toString()
-                            ),
-                            orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
-                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
-                            offerDate = data.createdAt.toString(),
-                            offerAmount = data.biayaTotal?.toFloat(),
-                            offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
-                        )
-                    }
+                    val offerResponse = data.penawaran
+                    if (offerResponse != null) {
+                        val offer = data.id?.toLong()?.let {
+                            Offer(
+                                offerId = it,
+                                customer = CustomerDetail(
+                                    userId = data.idKonsumen.toLong(),
+                                    username = userResponse.body()?.data?.username.toString(),
+                                    email = userResponse.body()?.data?.email.toString()
+                                ),
+                                productDetail = ProductDetail(
+                                    productId = data.baju?.id!!.toLong(),
+                                    productName = data.baju.nama.toString(),
+                                    productPhoto = data.baju.foto.toString(),
+                                    productDescription = data.baju.deskripsi.toString()
+                                ),
+                                orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                                designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                                offerDate = data.createdAt.toString(),
+                                offerAmount = offerResponse.jumlahPenawaran?.toFloat(),
+                                offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran.statusPenawaran?.toInt())
+                            )
+                        }
 
-                    emit(offer as Offer)
+                        emit(offer as Offer)
+                    } else {
+                        val offer = data.id?.toLong()?.let {
+                            Offer(
+                                offerId = it,
+                                customer = CustomerDetail(
+                                    userId = data.idKonsumen.toLong(),
+                                    username = userResponse.body()?.data?.username.toString(),
+                                    email = userResponse.body()?.data?.email.toString()
+                                ),
+                                productDetail = ProductDetail(
+                                    productId = data.baju?.id!!.toLong(),
+                                    productName = data.baju.nama.toString(),
+                                    productPhoto = data.baju.foto.toString(),
+                                    productDescription = data.baju.deskripsi.toString()
+                                ),
+                                orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                                designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                                offerDate = data.createdAt.toString(),
+                                offerAmount = data.biayaTotal?.toFloat(),
+                                offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
+                            )
+                        }
+
+                        emit(offer as Offer)
+                    }
                 } else {
                     val offer = data.id?.toLong()?.let {
                         Offer(
@@ -231,9 +259,85 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
     }
 
     fun getTransactionDetails(transactionListItem: TransactionListItem): Flow<Transaction> = flow {
-        val transaction = DataDummy.generateTransactionDetails(transactionListItem)
+        val response = api.getOrderDetails(
+            sessionManager.getToken().toString(),
+            transactionListItem.trxId.toInt()
+        )
 
-        emit(transaction)
+        if (response.isSuccessful) {
+            val data = response.body()?.data
+
+            if (data != null) {
+                val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
+                if (userResponse?.isSuccessful as Boolean) {
+                    val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
+                    val transaction = data.id?.toLong()?.let {
+                        Transaction(
+                            trxId = it,
+                            customerDetail = CustomerDetail(
+                                userId = data.idKonsumen.toLong(),
+                                username = userResponse.body()?.data?.username.toString(),
+                                email = userResponse.body()?.data?.email.toString()
+                            ),
+                            productDetail = ProductDetail(
+                                productId = data.baju?.id!!.toLong(),
+                                productName = data.baju.nama.toString(),
+                                productPhoto = data.baju.foto.toString(),
+                                productDescription = data.baju.deskripsi.toString()
+                            ),
+                            orderDetail = DataMapper.mapOrderDetailsListToProductListItem(
+                                orderList,
+                                ProductDetail(
+                                    productId = data.baju.id.toLong(),
+                                    productName = data.baju.nama.toString(),
+                                    productPhoto = data.baju.foto.toString(),
+                                    productDescription = data.baju.deskripsi.toString()
+                                )
+                            ),
+                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                            totalAmount = data.biayaTotal?.toFloat(),
+                            transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
+                            shipmentDetail = null
+                        )
+                    }
+
+                    emit(transaction as Transaction)
+                } else {
+                    val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
+                    val transaction = data.id?.toLong()?.let {
+                        Transaction(
+                            trxId = it,
+                            customerDetail = CustomerDetail(
+                                userId = data.idKonsumen.toLong(),
+                                username = "null",
+                                email = "null"
+                            ),
+                            productDetail = ProductDetail(
+                                productId = data.baju?.id!!.toLong(),
+                                productName = data.baju.nama.toString(),
+                                productPhoto = data.baju.foto.toString(),
+                                productDescription = data.baju.deskripsi.toString()
+                            ),
+                            orderDetail = DataMapper.mapOrderDetailsListToProductListItem(
+                                orderList,
+                                ProductDetail(
+                                    productId = data.baju.id.toLong(),
+                                    productName = data.baju.nama.toString(),
+                                    productPhoto = data.baju.foto.toString(),
+                                    productDescription = data.baju.deskripsi.toString()
+                                )
+                            ),
+                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                            totalAmount = data.biayaTotal?.toFloat(),
+                            transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
+                            shipmentDetail = null
+                        )
+                    }
+
+                    emit(transaction as Transaction)
+                }
+            }
+        }
     }
 
     fun acceptOffer(idPesanan: Int): Flow<Boolean> = flow {

@@ -61,11 +61,29 @@
         android:layout_height="0dp"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/btn_continue_to_bank_account"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView17"
         tools:listitem="@layout/product_checkbox_list" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/select_product_loading"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="32dp"
+        android:visibility="visible"
+        android:gravity="center"
+        app:layout_constraintBottom_toTopOf="@+id/btn_continue_to_bank_account"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView17"
+        app:lottie_autoPlay="true"
+        app:lottie_fileName="loading_small.json" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_continue_to_bank_account"

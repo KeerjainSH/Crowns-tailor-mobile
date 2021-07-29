@@ -3,7 +3,6 @@ package com.keerjain.crownstailor.views.detail
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.databinding.OrderDetailListItemBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture

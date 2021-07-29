@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.detail.DesignDetail
-import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.databinding.DesignListItemBinding
 
 class DesignAdapter : RecyclerView.Adapter<DesignAdapter.DesignViewHolder>() {

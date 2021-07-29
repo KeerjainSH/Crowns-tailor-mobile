@@ -8,5 +8,5 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ProductListItem(
     val productDetail: ProductDetail,
-    val orderDetail: OrderDetail
+    val orderDetail: OrderDetail,
 ) : Parcelable

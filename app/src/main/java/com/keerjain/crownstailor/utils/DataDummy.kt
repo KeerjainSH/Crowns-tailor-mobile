@@ -4,13 +4,10 @@ import com.keerjain.crownstailor.data.entities.detail.CustomerDetail
 import com.keerjain.crownstailor.data.entities.detail.OrderDetail
 import com.keerjain.crownstailor.data.entities.detail.ProductDetail
 import com.keerjain.crownstailor.data.entities.detail.ShipmentDetail
-import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.product.Product
-import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
-import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.utils.enums.Status
 
 object DataDummy {
@@ -163,56 +160,56 @@ object DataDummy {
 //        offerStatus = OfferStatus.NEW_OFFER,
 //    )
 
-    fun generateTransactionDetails(transactionListItem: TransactionListItem) = Transaction(
-        trxId = transactionListItem.trxId,
-        productList = arrayListOf(
-            ProductListItem(
-                productDetail = ProductDetail(
-                    productId = 1L,
-                    productName = transactionListItem.productName,
-                    productPhoto = transactionListItem.productPhoto,
-                    productDescription = "Test"
-                ),
-                orderDetail = OrderDetail(
-                    armSize = 36f,
-                    waistSize = 102f,
-                    chestSize = 78f,
-                    neckSize = 27f,
-                    bodyHeight = 180f,
-                    bodyWeight = 85f,
-                    instructions = "-",
-                )
-            ),
-            ProductListItem(
-                productDetail = ProductDetail(
-                    productId = 1L,
-                    productName = transactionListItem.productName,
-                    productPhoto = transactionListItem.productPhoto,
-                    productDescription = "Test"
-                ),
-                orderDetail = OrderDetail(
-                    armSize = 34f,
-                    waistSize = 98f,
-                    chestSize = 74f,
-                    neckSize = 24f,
-                    bodyHeight = 182f,
-                    bodyWeight = 76f,
-                    instructions = "-",
-                )
-            ),
-        ),
-        customerDetail = CustomerDetail(
-            userId = 1L,
-            username = "djtyranix",
-            email = "djtyranix@gmail.com",
-        ),
-        shipmentDetail = ShipmentDetail(
-            receiverName = "Toni",
-            receiverPhoneNumber = "081822394023",
-            receiverAddress = "Jalan Guntur Raya No. 46, Setiabudi, RT.8/RW.2, Guntur, Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, 12960",
-            shipmentFee = 9000f
-        ),
-        totalAmount = 120000f,
-        transactionStatus = transactionListItem.transactionStatus
-    )
+//    fun generateTransactionDetails(transactionListItem: TransactionListItem) = Transaction(
+//        trxId = transactionListItem.trxId,
+//        productList = arrayListOf(
+//            ProductListItem(
+//                productDetail = ProductDetail(
+//                    productId = 1L,
+//                    productName = transactionListItem.productName,
+//                    productPhoto = transactionListItem.productPhoto,
+//                    productDescription = "Test"
+//                ),
+//                orderDetail = OrderDetail(
+//                    armSize = 36f,
+//                    waistSize = 102f,
+//                    chestSize = 78f,
+//                    neckSize = 27f,
+//                    bodyHeight = 180f,
+//                    bodyWeight = 85f,
+//                    instructions = "-",
+//                )
+//            ),
+//            ProductListItem(
+//                productDetail = ProductDetail(
+//                    productId = 1L,
+//                    productName = transactionListItem.productName,
+//                    productPhoto = transactionListItem.productPhoto,
+//                    productDescription = "Test"
+//                ),
+//                orderDetail = OrderDetail(
+//                    armSize = 34f,
+//                    waistSize = 98f,
+//                    chestSize = 74f,
+//                    neckSize = 24f,
+//                    bodyHeight = 182f,
+//                    bodyWeight = 76f,
+//                    instructions = "-",
+//                )
+//            ),
+//        ),
+//        customerDetail = CustomerDetail(
+//            userId = 1L,
+//            username = "djtyranix",
+//            email = "djtyranix@gmail.com",
+//        ),
+//        shipmentDetail = ShipmentDetail(
+//            receiverName = "Toni",
+//            receiverPhoneNumber = "081822394023",
+//            receiverAddress = "Jalan Guntur Raya No. 46, Setiabudi, RT.8/RW.2, Guntur, Setiabudi, Kota Jakarta Selatan, Daerah Khusus Ibukota Jakarta, 12960",
+//            shipmentFee = 9000f
+//        ),
+//        totalAmount = 120000f,
+//        transactionStatus = transactionListItem.transactionStatus
+//    )
 }

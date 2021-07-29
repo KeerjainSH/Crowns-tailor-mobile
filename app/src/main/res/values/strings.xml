@@ -167,4 +167,6 @@
     <string name="offer_accepted">Penawaran diterima</string>
     <string name="deskripsi">Deskripsi</string>
     <string name="no_new_order">Tidak ada pesanan baru.</string>
+    <string name="offer_declined">Penawaran ditolak</string>
+    <string name="last_price">Harga Terakhir</string>
 </resources>

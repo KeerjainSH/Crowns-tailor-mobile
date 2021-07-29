@@ -306,7 +306,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
-                    android:text="@string/your_price"
+                    android:text="@string/last_price"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
                     android:textColor="@color/black" />

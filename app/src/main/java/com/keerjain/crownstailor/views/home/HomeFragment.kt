@@ -57,31 +57,33 @@ class HomeFragment : Fragment() {
         binding.tvWelcomeGreetings.text = resources.getString(R.string.welcome_message, sessionManager.getSessionData()?.name)
         showListLoading(true)
 
-        lifecycleScope.launchWhenCreated {
-            viewModel.getOrders().collectLatest { list ->
+        if (SessionManager(requireContext()).getLoginState()) {
+            lifecycleScope.launchWhenCreated {
+                viewModel.getOrders().collectLatest { list ->
 
-                if (list.isNullOrEmpty()) {
-                    withContext(Dispatchers.Main) {
-                        showListLoading(false)
-                        binding.noNewOrder.visibility = View.VISIBLE
-                        binding.rvRecentOrder.visibility = View.GONE
-                    }
-                } else {
-                    viewAdapter.setOrdersList(list)
+                    if (list.isNullOrEmpty()) {
+                        withContext(Dispatchers.Main) {
+                            showListLoading(false)
+                            binding.noNewOrder.visibility = View.VISIBLE
+                            binding.rvRecentOrder.visibility = View.GONE
+                        }
+                    } else {
+                        viewAdapter.setOrdersList(list)
 
-                    withContext(Dispatchers.Main) {
-                        binding.noNewOrder.visibility = View.GONE
-                        showListLoading(false)
+                        withContext(Dispatchers.Main) {
+                            binding.noNewOrder.visibility = View.GONE
+                            showListLoading(false)
+                        }
                     }
                 }
             }
-        }
 
-        viewAdapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
-            override fun onItemClicked(data: TransactionListItem) {
-                showDetail(data)
-            }
-        })
+            viewAdapter.setOnItemClickCallback(object : HomeAdapter.OnItemClickCallback {
+                override fun onItemClicked(data: TransactionListItem) {
+                    showDetail(data)
+                }
+            })
+        }
     }
 
     private fun showDetail(data: TransactionListItem) {

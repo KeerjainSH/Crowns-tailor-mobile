@@ -237,7 +237,7 @@ class OfferDetailFragment : Fragment() {
                             binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
                             Toast.makeText(
                                 requireContext(),
-                                resources.getString(R.string.offer_accepted),
+                                resources.getString(R.string.offer_declined),
                                 Toast.LENGTH_SHORT
                             ).show()
                             showLoading(false)

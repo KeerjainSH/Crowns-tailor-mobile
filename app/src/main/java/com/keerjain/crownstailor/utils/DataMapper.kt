@@ -1,20 +1,15 @@
 package com.keerjain.crownstailor.utils
 
 import com.keerjain.crownstailor.data.entities.detail.*
-import com.keerjain.crownstailor.data.entities.offer.Offer
-import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.offer.OfferPrices
+import com.keerjain.crownstailor.data.entities.product.Product
+import com.keerjain.crownstailor.data.entities.product.ProductListItem
+import com.keerjain.crownstailor.data.sources.remote.posts.IsiHargaPost
 import com.keerjain.crownstailor.data.sources.remote.posts.ListIdBajuItem
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
-import com.keerjain.crownstailor.data.entities.product.Product
-import com.keerjain.crownstailor.data.sources.remote.posts.IsiHargaPost
-import com.keerjain.crownstailor.data.sources.remote.responses.CatalogResponse
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
-import com.keerjain.crownstailor.data.sources.remote.responses.UserResponse
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
-import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailPesanan
-import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.PesananBaju
 import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.utils.enums.Status
 
@@ -79,8 +74,8 @@ object DataMapper {
         return if (input == null) {
             OfferStatus.OFFER_NEW
         } else if (input == 1) (
-            OfferStatus.OFFER_RESPONSE_SENT
-        ) else if (input == 2) {
+                OfferStatus.OFFER_RESPONSE_SENT
+                ) else if (input == 2) {
             OfferStatus.OFFER_NEW_PRICE
         } else {
             OfferStatus.OFFER_ACCEPTED
@@ -93,5 +88,15 @@ object DataMapper {
         } else {
             Status.FINISHED
         }
+    }
+
+    fun mapOrderDetailsListToProductListItem(
+        list: List<OrderDetail>,
+        productDetail: ProductDetail
+    ) = list.map {
+        ProductListItem(
+            productDetail = productDetail,
+            orderDetail = it
+        )
     }
 }
