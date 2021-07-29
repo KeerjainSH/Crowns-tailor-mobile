@@ -80,6 +80,11 @@ class OrderFragment : Fragment() {
         searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextChange(newText: String?): Boolean {
                 viewAdapter.filter.filter(newText)
+                if (viewAdapter.itemCount == 0) {
+                    showEmptyListAnim(true)
+                } else {
+                    showEmptyListAnim(false)
+                }
                 return true
             }
 
@@ -112,9 +117,13 @@ class OrderFragment : Fragment() {
                 viewAdapter.setOrdersList(list)
 
                 withContext(Dispatchers.Main) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        showListLoading(false)
-                    }, 1000)
+                    showListLoading(false)
+
+                    if (list.isNullOrEmpty()) {
+                        showEmptyListAnim(true)
+                    } else {
+                        showEmptyListAnim(false)
+                    }
                 }
             }
         }
@@ -126,7 +135,7 @@ class OrderFragment : Fragment() {
         })
     }
 
-    fun onRadioButtonClicked(view: View) {
+    private fun onRadioButtonClicked(view: View) {
         if (view is RadioButton) {
             val checked = view.isChecked
 
@@ -152,6 +161,12 @@ class OrderFragment : Fragment() {
                     }
                 }
             }
+
+            if (viewAdapter.itemCount == 0) {
+                showEmptyListAnim(true)
+            } else {
+                showEmptyListAnim(false)
+            }
         }
     }
 
@@ -173,6 +188,20 @@ class OrderFragment : Fragment() {
             binding.rvOrderList.visibility = View.GONE
         } else {
             binding.rvOrderList.visibility = View.VISIBLE
+            binding.shimmerOrder.visibility = View.GONE
+        }
+    }
+
+    private fun showEmptyListAnim(state: Boolean) {
+        if (state) {
+            binding.animOrderEmpty.visibility = View.VISIBLE
+            binding.orderEmptyList.visibility = View.VISIBLE
+            binding.rvOrderList.visibility = View.GONE
+            binding.shimmerOrder.visibility = View.GONE
+        } else {
+            binding.rvOrderList.visibility = View.VISIBLE
+            binding.orderEmptyList.visibility = View.GONE
+            binding.animOrderEmpty.visibility = View.GONE
             binding.shimmerOrder.visibility = View.GONE
         }
     }

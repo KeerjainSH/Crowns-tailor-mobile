@@ -111,6 +111,23 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             if (offer != null) {
                                 list.add(offer)
                             }
+                        } else {
+                            val offer = data.id?.let {
+                                OfferListItem(
+                                    offerId = it.toLong(),
+                                    productName = data.baju?.nama.toString(),
+                                    customerDetail = CustomerDetail(
+                                        userId = data.idKonsumen.toLong(),
+                                        username = "null",
+                                        email = "null"
+                                    ),
+                                    offerDate = data.penawaran?.createdAt.toString()
+                                )
+                            }
+
+                            if (offer != null) {
+                                list.add(offer)
+                            }
                         }
                     }
                 }
@@ -121,9 +138,32 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
     }
 
     fun getOrdersForTailor(): Flow<List<TransactionListItem>> = flow {
-        val list = DataDummy.generateDummyOrder()
+        val response = api.getOrders(sessionManager.getToken().toString())
 
-        emit(list)
+        if (response.isSuccessful) {
+            val listApi = response.body()?.data
+            val list = ArrayList<TransactionListItem>()
+            if (!listApi.isNullOrEmpty()) {
+                for (data in listApi) {
+                    if (data != null) {
+                        val transaction = data.id?.let {
+                            TransactionListItem(
+                                trxId = it.toLong(),
+                                productName = data.baju?.nama.toString(),
+                                productPhoto = data.baju?.foto.toString(),
+                                transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt())
+                            )
+                        }
+
+                        if (transaction != null) {
+                            list.add(transaction)
+                        }
+                    }
+                }
+            }
+
+            emit(list)
+        }
     }
 
     fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> = flow {
@@ -145,6 +185,30 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 userId = data.idKonsumen.toLong(),
                                 username = userResponse.body()?.data?.username.toString(),
                                 email = userResponse.body()?.data?.email.toString()
+                            ),
+                            productDetail = ProductDetail(
+                                productId = data.baju?.id!!.toLong(),
+                                productName = data.baju.nama.toString(),
+                                productPhoto = data.baju.foto.toString(),
+                                productDescription = data.baju.deskripsi.toString()
+                            ),
+                            orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                            offerDate = data.createdAt.toString(),
+                            offerAmount = data.biayaTotal?.toFloat(),
+                            offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
+                        )
+                    }
+
+                    emit(offer as Offer)
+                } else {
+                    val offer = data.id?.toLong()?.let {
+                        Offer(
+                            offerId = it,
+                            customer = CustomerDetail(
+                                userId = data.idKonsumen.toLong(),
+                                username = "null",
+                                email = "null"
                             ),
                             productDetail = ProductDetail(
                                 productId = data.baju?.id!!.toLong(),

@@ -59,12 +59,20 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             viewModel.getOrders().collectLatest { list ->
-                viewAdapter.setOrdersList(list)
 
-                withContext(Dispatchers.Main) {
-                    Handler(Looper.getMainLooper()).postDelayed({
+                if (list.isNullOrEmpty()) {
+                    withContext(Dispatchers.Main) {
                         showListLoading(false)
-                    }, 1000)
+                        binding.noNewOrder.visibility = View.VISIBLE
+                        binding.rvRecentOrder.visibility = View.GONE
+                    }
+                } else {
+                    viewAdapter.setOrdersList(list)
+
+                    withContext(Dispatchers.Main) {
+                        binding.noNewOrder.visibility = View.GONE
+                        showListLoading(false)
+                    }
                 }
             }
         }

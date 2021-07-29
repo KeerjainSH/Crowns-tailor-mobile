@@ -55,6 +55,12 @@ class OfferFragment : Fragment() {
             viewModel.getOffers().collectLatest { list ->
                 viewAdapter.setOffers(list)
                 showListLoading(false)
+
+                if (list.isNullOrEmpty()) {
+                    showEmptyListAnim(true)
+                } else {
+                    showEmptyListAnim(false)
+                }
             }
         }
 
@@ -82,6 +88,20 @@ class OfferFragment : Fragment() {
             binding.rvOfferList.visibility = View.GONE
         } else {
             binding.rvOfferList.visibility = View.VISIBLE
+            binding.shimmerOffer.visibility = View.GONE
+        }
+    }
+
+    private fun showEmptyListAnim(state: Boolean) {
+        if (state) {
+            binding.animOfferEmpty.visibility = View.VISIBLE
+            binding.offerEmptyList.visibility = View.VISIBLE
+            binding.rvOfferList.visibility = View.GONE
+            binding.shimmerOffer.visibility = View.GONE
+        } else {
+            binding.rvOfferList.visibility = View.VISIBLE
+            binding.offerEmptyList.visibility = View.GONE
+            binding.animOfferEmpty.visibility = View.GONE
             binding.shimmerOffer.visibility = View.GONE
         }
     }

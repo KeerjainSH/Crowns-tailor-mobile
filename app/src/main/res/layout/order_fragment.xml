@@ -141,4 +141,32 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/anim_order_empty"
+        android:visibility="gone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
+        android:layout_marginBottom="100dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView"
+        app:lottie_fileName="empty.json"
+        app:lottie_autoPlay="true" />
+
+    <TextView
+        android:id="@+id/order_empty_list"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:text="@string/no_new_order"
+        android:textAlignment="center"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/anim_order_empty"
+        app:layout_constraintEnd_toEndOf="@+id/anim_order_empty"
+        app:layout_constraintStart_toStartOf="@+id/anim_order_empty" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
