@@ -2,6 +2,7 @@ package com.keerjain.crownstailor.utils
 
 import android.app.Activity
 import android.content.Context
+import android.text.Editable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
@@ -59,4 +60,6 @@ object ExtensionFunctions {
         val inputMethodManager = getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
         inputMethodManager.hideSoftInputFromWindow(view.windowToken, 0)
     }
+
+    fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
 }

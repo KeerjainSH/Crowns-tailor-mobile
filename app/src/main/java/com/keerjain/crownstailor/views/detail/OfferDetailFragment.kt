@@ -28,6 +28,7 @@ import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
 import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.viewmodels.OfferDetailViewModel
 import com.keerjain.crownstailor.views.MainActivity
+import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -174,6 +175,21 @@ class OfferDetailFragment : Fragment() {
         }
     }
 
+    private fun isPriceFormValidated() : Boolean = nonEmptyList(
+        binding.etEstimation,
+        binding.etHargaJahit,
+        binding.etHargaJemput,
+        binding.etHargaKirim,
+        binding.etHargaMaterial
+    ) { view, msg ->
+        view.error = msg
+        Toast.makeText(
+            requireContext(),
+            resources.getString(R.string.input_error),
+            Toast.LENGTH_SHORT
+        ).show()
+    }
+
     private fun showPriceForm(offerDetail: Offer) {
         binding.offerPriceNotGiven.visibility = View.VISIBLE
         binding.offerPriceGiven.visibility = View.GONE
@@ -181,44 +197,49 @@ class OfferDetailFragment : Fragment() {
 
         binding.btnConfirmOffer.setOnClickListener {
             showLoading(true)
-            val offer = viewModel.getOffer()
-            val prices = OfferPrices(
-                idPesanan = offer.offerId.toInt(),
-                biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
-                biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
-                biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
-                biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
-                hari = binding.etEstimation.text.toString()
-            )
 
-            lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.setPrices(prices).collectLatest { penawaran ->
-                    if (penawaran.id != null) {
-                        withContext(Dispatchers.Main) {
-                            binding.offerPriceNotGiven.visibility = View.GONE
-                            binding.offerPriceGiven.visibility = View.VISIBLE
-                            binding.offerPriceUpdated.visibility = View.GONE
-                            binding.tvOfferPrice.text = penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
-                            binding.tvOfferEstimation.text = penawaran.hariTawar
-                            binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
-                            Toast.makeText(
-                                requireContext(),
-                                resources.getString(R.string.price_sent),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            showLoading(false)
-                        }
-                    } else {
-                        withContext(Dispatchers.Main) {
-                            Toast.makeText(
-                                requireContext(),
-                                resources.getString(R.string.error_input_price),
-                                Toast.LENGTH_SHORT
-                            ).show()
-                            showLoading(false)
+            if (isPriceFormValidated()) {
+                val offer = viewModel.getOffer()
+                val prices = OfferPrices(
+                    idPesanan = offer.offerId.toInt(),
+                    biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
+                    biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
+                    biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
+                    biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
+                    hari = binding.etEstimation.text.toString()
+                )
+
+                lifecycleScope.launch(Dispatchers.IO) {
+                    viewModel.setPrices(prices).collectLatest { penawaran ->
+                        if (penawaran.id != null) {
+                            withContext(Dispatchers.Main) {
+                                binding.offerPriceNotGiven.visibility = View.GONE
+                                binding.offerPriceGiven.visibility = View.VISIBLE
+                                binding.offerPriceUpdated.visibility = View.GONE
+                                binding.tvOfferPrice.text = penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
+                                binding.tvOfferEstimation.text = penawaran.hariTawar
+                                binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                                Toast.makeText(
+                                    requireContext(),
+                                    resources.getString(R.string.price_sent),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                showLoading(false)
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    resources.getString(R.string.error_input_price),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+                                showLoading(false)
+                            }
                         }
                     }
                 }
+            } else {
+                showLoading(false)
             }
         }
     }
