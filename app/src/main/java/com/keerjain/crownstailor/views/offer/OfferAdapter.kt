@@ -55,7 +55,7 @@ class OfferAdapter : RecyclerView.Adapter<OfferAdapter.OfferViewHolder>() {
                 R.string.offer_type_list,
                 offer.productName
             )
-//            binding.userProfilePhoto.setProfilePicture(offer.customerDetail.photoProfile)
+            binding.userProfilePhoto.setProfilePicture("https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png")
         }
     }
 }

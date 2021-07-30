@@ -17,24 +17,25 @@ object ExtensionFunctions {
     fun CircleImageView.setProfilePicture(url: String) {
         Glide.with(this.context)
             .load(url)
-            .apply {
-                RequestOptions().override(400, 400)
-                    .placeholder(ShimmerDrawableInit.shimmerDrawable)
+            .apply(
+                RequestOptions()
+                    .override(400, 400)
+                    .placeholder(ShimmerDrawableInit.getShimmerDrawable())
                     .error(R.drawable.ic_profile_picture)
                     .fallback(R.drawable.ic_broken_image)
-            }
+            )
             .into(this)
     }
 
     fun ImageView.loadPicture(url: String) {
         Glide.with(this.context)
             .load(url)
-            .apply {
+            .apply(
                 RequestOptions()
-                    .placeholder(ShimmerDrawableInit.shimmerDrawable)
+                    .placeholder(ShimmerDrawableInit.getShimmerDrawable())
                     .error(R.drawable.ic_broken_image)
                     .fallback(R.drawable.ic_broken_image)
-            }
+            )
             .into(this)
     }
 

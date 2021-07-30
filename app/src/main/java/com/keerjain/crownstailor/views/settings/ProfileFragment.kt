@@ -55,7 +55,7 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.profilePicture.setProfilePicture("https://picsum.photos/512")
+        binding.profilePicture.setProfilePicture("https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png")
         binding.tvProfileName.text = sessionManager.getSessionData()?.name
 
         (activity as MainActivity).goToSettings()
