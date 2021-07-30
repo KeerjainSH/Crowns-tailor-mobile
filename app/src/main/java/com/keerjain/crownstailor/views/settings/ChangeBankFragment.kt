@@ -10,10 +10,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.databinding.FragmentChangeBankBinding
+import com.keerjain.crownstailor.utils.ExtensionFunctions.toEditable
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.android.ext.android.inject
@@ -45,9 +47,32 @@ class ChangeBankFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showLoading(true)
+
         currentActivity.setSupportActionBar(binding.topAppBar)
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         currentActivity.removeBottomBar()
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.getProfile().collectLatest { profile ->
+                withContext(Dispatchers.Main) {
+                    binding.etBankName.text = profile.bank?.toEditable()
+                    binding.etAccountHolder.text = profile.namaPemilikRekening?.toEditable()
+                    binding.etAccountNumber.text = profile.noRekening?.toEditable()
+                    showLoading(false)
+                }
+            }
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.changeBankLoading.visibility = View.VISIBLE
+            binding.linearLayoutCompat.visibility = View.GONE
+        } else {
+            binding.linearLayoutCompat.visibility = View.VISIBLE
+            binding.changeBankLoading.visibility = View.GONE
+        }
     }
 
     private fun validateData() {
@@ -66,11 +91,17 @@ class ChangeBankFragment : Fragment() {
 
         if (isValidated) {
             lifecycleScope.launch(Dispatchers.IO) {
-                viewModel.setBankAccount()
+                viewModel.getProfile().collectLatest { profile ->
+                    profile.bank = binding.etBankName.text.toString()
+                    profile.noRekening = binding.etAccountNumber.text.toString()
+                    profile.namaPemilikRekening = binding.etAccountHolder.text.toString()
 
-                val toProfileFragment = ChangeBankFragmentDirections.actionChangeBankFragmentToNavigationOther()
-                withContext(Dispatchers.Main) {
-                    view?.findNavController()?.navigate(toProfileFragment)
+                    viewModel.updateProfile(profile)
+
+                    val toProfileFragment = ChangeBankFragmentDirections.actionChangeBankFragmentToNavigationOther()
+                    withContext(Dispatchers.Main) {
+                        view?.findNavController()?.navigate(toProfileFragment)
+                    }
                 }
             }
         }

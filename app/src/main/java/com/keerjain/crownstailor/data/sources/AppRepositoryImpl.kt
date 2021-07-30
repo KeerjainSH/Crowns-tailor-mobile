@@ -10,6 +10,7 @@ import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.RemoteDataSource
+import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
 import kotlinx.coroutines.flow.Flow
 
@@ -54,5 +55,13 @@ class AppRepositoryImpl(
 
     override fun setPrice(prices: OfferPrices): Flow<Penawaran> {
         return remote.setPrice(prices)
+    }
+
+    override fun getTailorDetails(): Flow<ProfileUpdatePost> {
+        return remote.getTailorDetails()
+    }
+
+    override fun updateTailorDetails(profile: ProfileUpdatePost): Flow<Boolean> {
+        return remote.updateTailorProfile(profile)
     }
 }

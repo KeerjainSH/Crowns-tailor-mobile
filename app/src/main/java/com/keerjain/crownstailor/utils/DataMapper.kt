@@ -6,8 +6,11 @@ import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.data.sources.remote.posts.IsiHargaPost
 import com.keerjain.crownstailor.data.sources.remote.posts.ListIdBajuItem
+import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.penjahit.DetailPenjahit
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.penjahit.KatalogItem
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.LokasiPenjemputan
@@ -112,4 +115,27 @@ object DataMapper {
             type = it.tipe!!,
         )
     }
+
+    private fun mapKatalogItemListToListIdBajuItem(input: List<KatalogItem>) = input.map {
+        ListIdBajuItem(
+            idBaju = it.id
+        )
+    }
+
+    fun mapDetailPenjahitToProfileUpdatePost(input: DetailPenjahit) =
+        ProfileUpdatePost(
+            kota = input.kota,
+            noHp = input.noHp,
+            listIdBaju = mapKatalogItemListToListIdBajuItem(input.katalog as List<KatalogItem>),
+            noRekening = input.noRekening,
+            namaPemilikRekening = input.namaRek,
+            bank = input.bank,
+            nama = input.nama,
+            jenisKelamin = input.jenisKelamin,
+            tanggalLahir = input.tanggalLahir,
+            alamat = input.alamat,
+            kecamatan = input.kecamatan,
+            kodepos = input.kodepos,
+            provinsi = input.provinsi,
+        )
 }

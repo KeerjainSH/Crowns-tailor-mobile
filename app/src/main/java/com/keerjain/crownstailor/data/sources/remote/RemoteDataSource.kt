@@ -15,8 +15,10 @@ import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.api.ApiService
 import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
 import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
+import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
 import com.keerjain.crownstailor.data.sources.remote.responses.Data
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.penjahit.DetailPenjahit
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.LokasiPenjemputan
@@ -425,5 +427,23 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
         } else {
             emit(ArrayList<Product>())
         }
+    }
+
+    fun getTailorDetails(): Flow<ProfileUpdatePost> = flow {
+        val response = api.getPenjahitDetails(
+            sessionManager.getToken().toString(),
+            sessionManager.getUserId()
+        )
+
+        if (response.isSuccessful) {
+            val profile = DataMapper.mapDetailPenjahitToProfileUpdatePost(response.body()?.data as DetailPenjahit)
+            emit(profile)
+        } else {
+            emit(ProfileUpdatePost())
+        }
+    }
+
+    fun updateTailorProfile(profile: ProfileUpdatePost): Flow<Boolean> = flow {
+        emit(true)
     }
 }

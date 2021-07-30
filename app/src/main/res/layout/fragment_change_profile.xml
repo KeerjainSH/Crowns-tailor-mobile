@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".views.settings.ChangeProfileFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -64,285 +65,442 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
-            <TextView
-                android:id="@+id/textView18"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginHorizontal="16dp"
-                android:fontFamily="@font/lato"
-                android:layout_gravity="start"
-                android:text="@string/full_name"
-                android:textColor="@color/black" />
-
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_full_name"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/main_change_details_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_nama_lengkap_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_nama_lengkap_anda"
-                android:inputType="textPersonName"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp" />
+                android:visibility="gone"
+                android:orientation="vertical" >
 
-            <TextView
-                android:id="@+id/textView19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:fontFamily="@font/lato"
-                android:layout_gravity="start"
-                android:text="@string/address"
-                android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/textView18"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:fontFamily="@font/lato"
+                    android:layout_gravity="start"
+                    android:text="@string/full_name"
+                    android:textColor="@color/black" />
 
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_address"
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_full_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_nama_lengkap_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_nama_lengkap_anda"
+                    android:inputType="textPersonName"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:fontFamily="@font/lato"
+                    android:layout_gravity="start"
+                    android:text="@string/address"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_address"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_alamat_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_alamat_anda"
+                    android:inputType="textPostalAddress"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView21"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/subdistrict"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_kecamatan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_kecamatan_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_kecamatan_anda"
+                    android:inputType="textPostalAddress"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/district"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_kabupaten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_kabupaten_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_kabupaten_anda"
+                    android:inputType="textPostalAddress"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/province"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_provinsi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_provinsi_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_provinsi_anda"
+                    android:inputType="textPostalAddress"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView24"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/postal_code"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_postal_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_kode_pos_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_kode_pos_anda"
+                    android:inputType="number"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/textView25"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/phone_number"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/et_postal_code"
+                    app:layout_constraintStart_toStartOf="@+id/et_postal_code"
+                    app:layout_constraintTop_toBottomOf="@+id/et_postal_code" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_phone_number"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_nomor_hp_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_nomor_hp_anda"
+                    android:inputType="phone"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView25"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/textView25"
+                    app:layout_constraintTop_toBottomOf="@+id/textView25" />
+
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/birth_date"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/gender_spinner"
+                    app:layout_constraintStart_toStartOf="@+id/gender_spinner"
+                    app:layout_constraintTop_toBottomOf="@+id/gender_spinner" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_birth_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_tanggal_lahir_anda"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_tanggal_lahir_anda"
+                    android:inputType="date"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp"
+                    app:layout_constraintEnd_toEndOf="@+id/textView26"
+                    app:layout_constraintStart_toStartOf="@+id/textView26"
+                    app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+                <TextView
+                    android:id="@+id/textView20"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/gender"
+                    android:textColor="@color/black"
+                    app:layout_constraintEnd_toEndOf="@+id/et_address"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="@+id/et_address"
+                    app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
+
+                <Spinner
+                    android:id="@+id/gender_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:background="@drawable/shape_dropdown"
+                    android:entries="@array/gender"
+                    android:gravity="center_vertical"
+                    android:popupBackground="@drawable/shape_search"
+                    android:spinnerMode="dropdown"
+                    android:theme="@style/SpinnerTheme"
+                    app:layout_constraintEnd_toEndOf="@+id/textView20"
+                    app:layout_constraintStart_toStartOf="@+id/textView20"
+                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btn_save_profile_data"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="32dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/button_bg_gradient"
+                    android:fontFamily="@font/lato"
+                    android:letterSpacing="0"
+                    android:paddingHorizontal="120dp"
+                    android:text="@string/simpan_data"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="14sp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <com.facebook.shimmer.ShimmerFrameLayout
+                android:id="@+id/change_profile_loading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_alamat_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_alamat_anda"
-                android:inputType="textPostalAddress"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp" />
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/textView21"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/subdistrict"
-                android:textColor="@color/black" />
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
 
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_kecamatan"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_kecamatan_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_kecamatan_anda"
-                android:inputType="textPostalAddress"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/shimmer_textView18"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:fontFamily="@font/lato"
+                        android:layout_gravity="start"
+                        android:text="@string/full_name"
+                        android:textColor="#FFAAAAAA"
+                        android:background="#FFAAAAAA" />
 
-            <TextView
-                android:id="@+id/textView22"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/district"
-                android:textColor="@color/black" />
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/shimmer_et_full_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:autofillHints="@string/masukkan_nama_lengkap_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:inputType="textPersonName"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="14sp" />
 
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_kabupaten"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_kabupaten_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_kabupaten_anda"
-                android:inputType="textPostalAddress"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/shimmer_textView19"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:fontFamily="@font/lato"
+                        android:layout_gravity="start"
+                        android:text="@string/address"
+                        android:textColor="#FFAAAAAA"
+                        android:background="#FFAAAAAA" />
 
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/province"
-                android:textColor="@color/black" />
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/shimmer_et_address"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:autofillHints="@string/masukkan_alamat_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="14sp" />
 
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_provinsi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_provinsi_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_provinsi_anda"
-                android:inputType="textPostalAddress"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/shimmer_textView21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/lato"
+                        android:text="@string/subdistrict"
+                        android:textColor="#FFAAAAAA"
+                        android:background="#FFAAAAAA" />
 
-            <TextView
-                android:id="@+id/textView24"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/postal_code"
-                android:textColor="@color/black" />
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/shimmer_et_kecamatan"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:autofillHints="@string/masukkan_kecamatan_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="14sp" />
 
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_postal_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_kode_pos_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_kode_pos_anda"
-                android:inputType="number"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp" />
+                    <TextView
+                        android:id="@+id/shimmer_textView22"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/lato"
+                        android:text="@string/district"
+                        android:textColor="#FFAAAAAA"
+                        android:background="#FFAAAAAA" />
 
-            <TextView
-                android:id="@+id/textView25"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/phone_number"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/et_postal_code"
-                app:layout_constraintStart_toStartOf="@+id/et_postal_code"
-                app:layout_constraintTop_toBottomOf="@+id/et_postal_code" />
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/shimmer_et_kabupaten"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:autofillHints="@string/masukkan_kabupaten_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="14sp" />
 
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_phone_number"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_nomor_hp_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_nomor_hp_anda"
-                android:inputType="phone"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView25"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/textView25"
-                app:layout_constraintTop_toBottomOf="@+id/textView25" />
+                    <TextView
+                        android:id="@+id/shimmer_textView23"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:layout_gravity="start"
+                        android:fontFamily="@font/lato"
+                        android:text="@string/province"
+                        android:textColor="#FFAAAAAA"
+                        android:background="#FFAAAAAA"/>
 
-            <TextView
-                android:id="@+id/textView26"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/birth_date"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/gender_spinner"
-                app:layout_constraintStart_toStartOf="@+id/gender_spinner"
-                app:layout_constraintTop_toBottomOf="@+id/gender_spinner" />
-
-            <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
-                android:id="@+id/et_birth_date"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:autofillHints="@string/masukkan_tanggal_lahir_anda"
-                android:background="@drawable/shape_edittext_bg"
-                android:ems="10"
-                android:fontFamily="@font/lato"
-                android:hint="@string/masukkan_tanggal_lahir_anda"
-                android:inputType="date"
-                android:paddingHorizontal="12dp"
-                android:paddingVertical="12dp"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toEndOf="@+id/textView26"
-                app:layout_constraintStart_toStartOf="@+id/textView26"
-                app:layout_constraintTop_toBottomOf="@+id/textView26" />
-
-            <TextView
-                android:id="@+id/textView20"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginHorizontal="16dp"
-                android:layout_gravity="start"
-                android:fontFamily="@font/lato"
-                android:text="@string/gender"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="@+id/et_address"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/et_address"
-                app:layout_constraintTop_toBottomOf="@+id/et_phone_number" />
-
-            <Spinner
-                android:id="@+id/gender_spinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:layout_marginHorizontal="16dp"
-                android:background="@drawable/shape_dropdown"
-                android:entries="@array/gender"
-                android:gravity="center_vertical"
-                android:popupBackground="@drawable/shape_search"
-                android:spinnerMode="dropdown"
-                android:theme="@style/SpinnerTheme"
-                app:layout_constraintEnd_toEndOf="@+id/textView20"
-                app:layout_constraintStart_toStartOf="@+id/textView20"
-                app:layout_constraintTop_toBottomOf="@+id/textView20" />
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_save_profile_data"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="16dp"
-                android:background="@drawable/button_bg_gradient"
-                android:fontFamily="@font/lato"
-                android:letterSpacing="0"
-                android:paddingHorizontal="120dp"
-                android:text="@string/simpan_data"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="14sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                    <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                        android:id="@+id/shimmer_et_provinsi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginHorizontal="16dp"
+                        android:autofillHints="@string/masukkan_provinsi_anda"
+                        android:background="@drawable/shape_edittext_bg"
+                        android:ems="10"
+                        android:fontFamily="@font/lato"
+                        android:inputType="textPostalAddress"
+                        android:paddingHorizontal="12dp"
+                        android:paddingVertical="12dp"
+                        android:textSize="14sp" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </com.facebook.shimmer.ShimmerFrameLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </ScrollView>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

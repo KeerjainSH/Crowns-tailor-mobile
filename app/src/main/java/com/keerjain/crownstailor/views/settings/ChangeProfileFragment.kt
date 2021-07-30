@@ -14,10 +14,12 @@ import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.databinding.FragmentChangeProfileBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.hideKeyboard
+import com.keerjain.crownstailor.utils.ExtensionFunctions.toEditable
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -68,9 +70,44 @@ class ChangeProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        showLoading(true)
+
         currentActivity.setSupportActionBar(binding.topAppBar)
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
         currentActivity.removeBottomBar()
+
+        lifecycleScope.launchWhenCreated {
+            viewModel.getProfile().collectLatest { profile ->
+                binding.etAddress.text = profile.alamat?.toEditable()
+                binding.etBirthDate.text = profile.tanggalLahir?.toEditable()
+                binding.etFullName.text = profile.nama?.toEditable()
+                binding.etKecamatan.text = profile.kecamatan?.toEditable()
+                binding.etKabupaten.text = profile.kota?.toEditable()
+                binding.etProvinsi.text = profile.provinsi?.toEditable()
+                binding.etPostalCode.text = profile.kodepos?.toEditable()
+                binding.etPhoneNumber.text = profile.noHp?.toEditable()
+
+                if (profile.jenisKelamin != null) {
+                    if (profile.jenisKelamin == "l") {
+                        binding.genderSpinner.setSelection(0)
+                    } else {
+                        binding.genderSpinner.setSelection(1)
+                    }
+                }
+
+                showLoading(false)
+            }
+        }
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.changeProfileLoading.visibility = View.VISIBLE
+            binding.mainChangeDetailsView.visibility = View.GONE
+        } else {
+            binding.mainChangeDetailsView.visibility = View.VISIBLE
+            binding.changeProfileLoading.visibility = View.GONE
+        }
     }
 
     private fun showDateDialog() {
@@ -120,14 +157,32 @@ class ChangeProfileFragment : Fragment() {
     }
 
     private suspend fun saveDataAndNext() {
-        viewModel.setProfile()
+        viewModel.getProfile().collectLatest { profile ->
+            val genderArray = resources.getStringArray(R.array.gender)
 
-        val toProfileFragment =
-            ChangeProfileFragmentDirections.actionChangeProfileFragmentToNavigationOther()
+            profile.nama = binding.etFullName.text.toString()
+            profile.alamat = binding.etAddress.text.toString()
+            profile.kecamatan = binding.etKecamatan.text.toString()
+            profile.kota = binding.etKabupaten.text.toString()
+            profile.provinsi = binding.etProvinsi.text.toString()
+            profile.kodepos = binding.etPostalCode.text.toString()
+            profile.noHp = binding.etPhoneNumber.text.toString()
+            profile.tanggalLahir = binding.etBirthDate.text.toString()
+            profile.jenisKelamin = if (binding.genderSpinner.selectedItem.toString() == genderArray[0]) {
+                "l"
+            } else {
+                "p"
+            }
 
-        withContext(Dispatchers.Main) {
-            this@ChangeProfileFragment.hideKeyboard()
-            view?.findNavController()?.navigate(toProfileFragment)
+            viewModel.updateProfile(profile)
+
+            val toProfileFragment =
+                ChangeProfileFragmentDirections.actionChangeProfileFragmentToNavigationOther()
+
+            withContext(Dispatchers.Main) {
+                this@ChangeProfileFragment.hideKeyboard()
+                view?.findNavController()?.navigate(toProfileFragment)
+            }
         }
     }
 }

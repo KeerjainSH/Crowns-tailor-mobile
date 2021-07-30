@@ -15,6 +15,7 @@ import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.databinding.FragmentChangeProductBinding
 import com.keerjain.crownstailor.databinding.FragmentRegisterChooseProductsBinding
 import com.keerjain.crownstailor.utils.DataDummy
+import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
 import com.keerjain.crownstailor.views.LoginActivity
 import com.keerjain.crownstailor.views.MainActivity
@@ -61,13 +62,10 @@ class ChangeProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showLoading(true)
         lifecycleScope.launchWhenCreated {
-            viewModel.getProductList().collectLatest { list ->
-                viewAdapter.setProductList(list)
-
-                withContext(Dispatchers.Main) {
-                    Handler(Looper.getMainLooper()).postDelayed({
-                        showLoading(false)
-                    }, 500)
+            viewModel.getProfile().collectLatest { profile ->
+                viewModel.getProductList().collectLatest { list ->
+                    viewAdapter.setProductList(list)
+                    showLoading(false)
                 }
             }
         }
@@ -88,11 +86,15 @@ class ChangeProductFragment : Fragment() {
             ).show()
         } else {
             lifecycleScope.launch(Dispatchers.Default) {
-                viewModel.setProductList()
+                viewModel.getProfile().collectLatest { profile ->
+                    profile.listIdBaju = DataMapper.mapProductListToProductIdList(list)
 
-                val toProfileFragment = ChangeProductFragmentDirections.actionChangeProductFragmentToNavigationOther()
-                withContext(Dispatchers.Main) {
-                    view?.findNavController()?.navigate(toProfileFragment)
+                    viewModel.updateProfile(profile)
+
+                    val toProfileFragment = ChangeProductFragmentDirections.actionChangeProductFragmentToNavigationOther()
+                    withContext(Dispatchers.Main) {
+                        view?.findNavController()?.navigate(toProfileFragment)
+                    }
                 }
             }
         }

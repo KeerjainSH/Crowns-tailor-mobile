@@ -8,6 +8,7 @@ import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
+import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
 import kotlinx.coroutines.flow.Flow
 
@@ -22,4 +23,6 @@ interface AppRepository {
     fun acceptOffer(offer: Offer): Flow<Boolean>
     fun declineOffer(offer: Offer): Flow<Boolean>
     fun setPrice(prices: OfferPrices): Flow<Penawaran>
+    fun getTailorDetails(): Flow<ProfileUpdatePost>
+    fun updateTailorDetails(profile: ProfileUpdatePost): Flow<Boolean>
 }

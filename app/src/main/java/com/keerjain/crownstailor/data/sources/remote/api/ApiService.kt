@@ -9,11 +9,16 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
-    @GET("penjahit/id-penjahit/{id}")
+    @GET("penjahit/{id}")
     suspend fun getPenjahitDetails(
         @Header("Authorization") token: String,
         @Path("id") id: Int,
     ) : Response<DetailPenjahitResponse>
+
+    @POST("penjahit/updateProfil")
+    suspend fun updatePenjahitDetails(
+        @Header("Authorization") token: String,
+    )
 
     @POST("pesanan/updateHarga")
     suspend fun fillPrice(
