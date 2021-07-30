@@ -13,7 +13,7 @@ data class Transaction(
     val orderDetail: List<ProductListItem>,
     val designDetail: List<DesignDetail>,
     val customerDetail: CustomerDetail,
-    val shipmentDetail: ShipmentDetail?,
+    val shipmentDetail: List<ShipmentDetail>?,
     val totalAmount: Float?,
     val transactionStatus: Status,
 ) : Parcelable

@@ -139,25 +139,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
-                android:text="@string/kain_dan_bahan"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="24dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tv_fabric_type"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:textSize="12sp"
-                android:text="@string/from_seller"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
                 android:text="@string/design"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
@@ -170,6 +151,17 @@
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 tools:listitem="@layout/design_list_item" />
+
+            <TextView
+                android:id="@+id/tv_order_no_design"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/lato"
+                android:textSize="12sp"
+                android:visibility="gone"
+                android:text="@string/no_specific_design"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/offer_price_not_given"

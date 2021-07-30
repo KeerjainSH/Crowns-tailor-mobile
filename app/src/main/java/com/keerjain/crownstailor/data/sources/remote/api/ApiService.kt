@@ -9,7 +9,7 @@ import retrofit2.Response
 import retrofit2.http.*
 
 interface ApiService {
-    @GET("penjahit/{id}")
+    @GET("penjahit/id-penjahit/{id}")
     suspend fun getPenjahitDetails(
         @Header("Authorization") token: String,
         @Path("id") id: Int,
@@ -54,7 +54,7 @@ interface ApiService {
         @Header("Authorization") token: String,
     ) : Response<AllPesananResponse>
 
-    @GET("pesanan/pembayaranValid")
+    @GET("pesanan/pembayaranValidSelesai")
     suspend fun getOrders(
         @Header("Authorization") token: String,
     ) : Response<AllPesananResponse>

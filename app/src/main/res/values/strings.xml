@@ -166,7 +166,9 @@
     <string name="error_input_price">Terjadi kesalahan saat mengirim data. Coba lagi dalam beberapa saat.</string>
     <string name="offer_accepted">Penawaran diterima</string>
     <string name="deskripsi">Deskripsi</string>
-    <string name="no_new_order">Tidak ada pesanan baru.</string>
+    <string name="no_new_order">Tidak ada pesanan.</string>
     <string name="offer_declined">Penawaran ditolak</string>
     <string name="last_price">Harga Terakhir</string>
+    <string name="title_design_order">Desain Kustom</string>
+    <string name="detail_penjemputan">Detail Penjemputan</string>
 </resources>

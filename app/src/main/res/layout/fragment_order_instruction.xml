@@ -185,25 +185,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
-                android:text="@string/design"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="16dp"
-                android:textColor="@color/black" />
-
-            <TextView
-                android:id="@+id/tv_design_link_instruction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:textSize="12sp"
-                android:text="@string/no_specific_design"
-                android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
                 android:text="@string/instruksi"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="16dp"

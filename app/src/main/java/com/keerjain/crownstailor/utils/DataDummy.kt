@@ -11,50 +11,50 @@ import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.utils.enums.Status
 
 object DataDummy {
-    fun generateDummyOffer(): List<OfferListItem> {
-        val list = ArrayList<OfferListItem>()
-
-        list.add(
-            OfferListItem(
-                offerId = 1L,
-                productName = "Seragam SMP",
-                offerDate = "5 Juni 2021",
-                customerDetail = CustomerDetail(
-                    userId = 1L,
-                    username = "ritakusuma23",
-                    email = "ritakusuma23@gmail.com",
-                )
-            )
-        )
-
-        list.add(
-            OfferListItem(
-                offerId = 2L,
-                productName = "Seragam SMA",
-                offerDate = "5 Juni 2021",
-                customerDetail = CustomerDetail(
-                    userId = 1L,
-                    username = "riodarwin",
-                    email = "riodarwin@gmail.com",
-                )
-            )
-        )
-
-        list.add(
-            OfferListItem(
-                offerId = 3L,
-                productName = "Seragam SMA",
-                offerDate = "6 Juni 2021",
-                customerDetail = CustomerDetail(
-                    userId = 1L,
-                    username = "abdicipta11",
-                    email = "abdicipta11@gmail.com",
-                )
-            )
-        )
-
-        return list
-    }
+//    fun generateDummyOffer(): List<OfferListItem> {
+//        val list = ArrayList<OfferListItem>()
+//
+//        list.add(
+//            OfferListItem(
+//                offerId = 1L,
+//                productName = "Seragam SMP",
+//                offerDate = "5 Juni 2021",
+//                customerDetail = CustomerDetail(
+//                    userId = 1L,
+//                    username = "ritakusuma23",
+//                    email = "ritakusuma23@gmail.com",
+//                )
+//            )
+//        )
+//
+//        list.add(
+//            OfferListItem(
+//                offerId = 2L,
+//                productName = "Seragam SMA",
+//                offerDate = "5 Juni 2021",
+//                customerDetail = CustomerDetail(
+//                    userId = 1L,
+//                    username = "riodarwin",
+//                    email = "riodarwin@gmail.com",
+//                )
+//            )
+//        )
+//
+//        list.add(
+//            OfferListItem(
+//                offerId = 3L,
+//                productName = "Seragam SMA",
+//                offerDate = "6 Juni 2021",
+//                customerDetail = CustomerDetail(
+//                    userId = 1L,
+//                    username = "abdicipta11",
+//                    email = "abdicipta11@gmail.com",
+//                )
+//            )
+//        )
+//
+//        return list
+//    }
 
     fun generateDummyOrder(): List<TransactionListItem> {
         val list = ArrayList<TransactionListItem>()

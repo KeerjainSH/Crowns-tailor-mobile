@@ -19,6 +19,7 @@ import com.keerjain.crownstailor.data.sources.remote.responses.Data
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.LokasiPenjemputan
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
 import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
@@ -103,7 +104,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                     customerDetail = CustomerDetail(
                                         userId = data.idKonsumen.toLong(),
                                         username = userResponse.body()?.data?.username.toString(),
-                                        email = userResponse.body()?.data?.email.toString()
+                                        email = userResponse.body()?.data?.email.toString(),
+                                        name = userResponse.body()?.data?.name.toString()
                                     ),
                                     offerDate = data.penawaran?.createdAt.toString()
                                 )
@@ -120,7 +122,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                     customerDetail = CustomerDetail(
                                         userId = data.idKonsumen.toLong(),
                                         username = "null",
-                                        email = "null"
+                                        email = "null",
+                                        name = "null"
                                     ),
                                     offerDate = data.penawaran?.createdAt.toString()
                                 )
@@ -187,7 +190,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 customer = CustomerDetail(
                                     userId = data.idKonsumen.toLong(),
                                     username = userResponse.body()?.data?.username.toString(),
-                                    email = userResponse.body()?.data?.email.toString()
+                                    email = userResponse.body()?.data?.email.toString(),
+                                    name = userResponse.body()?.data?.name.toString()
                                 ),
                                 productDetail = ProductDetail(
                                     productId = data.baju?.id!!.toLong(),
@@ -211,7 +215,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 customer = CustomerDetail(
                                     userId = data.idKonsumen.toLong(),
                                     username = userResponse.body()?.data?.username.toString(),
-                                    email = userResponse.body()?.data?.email.toString()
+                                    email = userResponse.body()?.data?.email.toString(),
+                                    name = userResponse.body()?.data?.name.toString()
                                 ),
                                 productDetail = ProductDetail(
                                     productId = data.baju?.id!!.toLong(),
@@ -236,7 +241,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             customer = CustomerDetail(
                                 userId = data.idKonsumen.toLong(),
                                 username = "null",
-                                email = "null"
+                                email = "null",
+                                name = "null"
                             ),
                             productDetail = ProductDetail(
                                 productId = data.baju?.id!!.toLong(),
@@ -277,7 +283,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             customerDetail = CustomerDetail(
                                 userId = data.idKonsumen.toLong(),
                                 username = userResponse.body()?.data?.username.toString(),
-                                email = userResponse.body()?.data?.email.toString()
+                                email = userResponse.body()?.data?.email.toString(),
+                                name = userResponse.body()?.data?.name.toString()
                             ),
                             productDetail = ProductDetail(
                                 productId = data.baju?.id!!.toLong(),
@@ -297,7 +304,10 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                             totalAmount = data.biayaTotal?.toFloat(),
                             transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
-                            shipmentDetail = null
+                            shipmentDetail = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
+                                data.lokasiPenjemputan as List<LokasiPenjemputan>,
+                                userResponse.body()?.data?.name.toString(),
+                            )
                         )
                     }
 
@@ -310,7 +320,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             customerDetail = CustomerDetail(
                                 userId = data.idKonsumen.toLong(),
                                 username = "null",
-                                email = "null"
+                                email = "null",
+                                name = "null",
                             ),
                             productDetail = ProductDetail(
                                 productId = data.baju?.id!!.toLong(),

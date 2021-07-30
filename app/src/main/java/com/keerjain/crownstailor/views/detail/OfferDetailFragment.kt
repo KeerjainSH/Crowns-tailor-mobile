@@ -82,7 +82,13 @@ class OfferDetailFragment : Fragment() {
             viewModel.getOfferDetail(offer).collectLatest { offerDetail ->
                 viewModel.setOffer(offerDetail)
                 sizeAdapter.setSizeList(offerDetail.orderDetail)
-                designAdapter.setDesignList(offerDetail.designDetail)
+
+                if (offerDetail.designDetail.isNullOrEmpty()) {
+                    binding.rvDesignList.visibility = View.GONE
+                    binding.tvOrderNoDesign.visibility = View.VISIBLE
+                } else {
+                    designAdapter.setDesignList(offerDetail.designDetail)
+                }
 
                 designAdapter.setOnItemClickCallback(object : DesignAdapter.OnItemClickCallback {
                     override fun onItemClicked(data: DesignDetail) {

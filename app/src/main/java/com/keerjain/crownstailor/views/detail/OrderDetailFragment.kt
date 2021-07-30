@@ -1,16 +1,18 @@
 package com.keerjain.crownstailor.views.detail
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.R
+import com.keerjain.crownstailor.data.entities.detail.DesignDetail
 import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.databinding.OrderDetailFragmentBinding
@@ -28,6 +30,7 @@ class OrderDetailFragment : Fragment() {
     private val viewModel by inject<OrderDetailViewModel>()
     private lateinit var currentActivity: MainActivity
     private lateinit var viewAdapter: OrderDetailAdapter
+    private lateinit var designViewAdapter: DesignAdapter
     private val args: OrderDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -40,10 +43,17 @@ class OrderDetailFragment : Fragment() {
         currentActivity.removeBottomBar()
 
         viewAdapter = OrderDetailAdapter()
+        designViewAdapter = DesignAdapter()
 
         binding.rvOrderDetail.apply {
             layoutManager = LinearLayoutManager(requireContext())
             adapter = viewAdapter
+            setHasFixedSize(true)
+        }
+
+        binding.rvOrderDesign.apply {
+            layoutManager = LinearLayoutManager(requireContext())
+            adapter = designViewAdapter
             setHasFixedSize(true)
         }
 
@@ -52,6 +62,8 @@ class OrderDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        showLoading(true)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
         currentActivity.supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -62,6 +74,15 @@ class OrderDetailFragment : Fragment() {
             viewModel.getTransactionDetails(transaction).collectLatest {
                 bindInformation(it)
                 viewAdapter.setProductList(it.orderDetail)
+
+                if (it.designDetail.isNullOrEmpty()) {
+                    binding.rvOrderDesign.visibility = View.GONE
+                    binding.tvOrderNoDesign.visibility = View.VISIBLE
+                } else {
+                    designViewAdapter.setDesignList(it.designDetail)
+                }
+
+                showLoading(false)
             }
         }
 
@@ -70,17 +91,53 @@ class OrderDetailFragment : Fragment() {
                 showOrderInstruction(data)
             }
         })
+
+        designViewAdapter.setOnItemClickCallback(object : DesignAdapter.OnItemClickCallback {
+            override fun onItemClicked(data: DesignDetail) {
+                val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(data.foto))
+                startActivity(toBrowser)
+            }
+
+        })
+    }
+
+    private fun showLoading(state: Boolean) {
+        if (state) {
+            binding.shimmerOrderDetail.visibility = View.VISIBLE
+            binding.mainOrderDetailView.visibility = View.GONE
+        } else {
+            binding.mainOrderDetailView.visibility = View.VISIBLE
+            binding.shimmerOrderDetail.visibility = View.GONE
+        }
     }
 
     private fun bindInformation(transaction: Transaction) {
         binding.tvInvoiceNo.text =
             resources.getString(R.string.invoice_number, transaction.trxId.toString())
-//        binding.tvNamaPenerima.text = transaction.shipmentDetail?.receiverName
-//        binding.tvHpPenerima.text = transaction.shipmentDetail?.receiverPhoneNumber
-//        binding.tvAlamatPenerima.text = transaction.shipmentDetail?.receiverAddress
 
-        binding.tvTotalAmount.text =
-            transaction.totalAmount?.formatToCurrency()
+        if (transaction.shipmentDetail.isNullOrEmpty()) {
+            binding.tvTitlePengiriman.visibility = View.GONE
+            binding.tablePengiriman.visibility = View.GONE
+            binding.tvTitlePenjemputan.visibility = View.GONE
+            binding.tablePenjemputan.visibility = View.GONE
+            binding.hrPengiriman.visibility = View.GONE
+        } else {
+            for (lokasi in transaction.shipmentDetail) {
+                if (lokasi.type == 1) {
+                    binding.tvTitlePenjemputan.visibility = View.VISIBLE
+                    binding.tablePenjemputan.visibility = View.VISIBLE
+                    binding.hrPengiriman.visibility = View.VISIBLE
+                    binding.tvJemputNamaPenerima.text = lokasi.receiverName
+                    binding.tvJemputAlamatPenerima.text = lokasi.receiverAddress
+                } else if (lokasi.type == 2) {
+                    binding.tvTitlePengiriman.visibility = View.VISIBLE
+                    binding.tablePengiriman.visibility = View.VISIBLE
+                    binding.hrPengiriman.visibility = View.VISIBLE
+                    binding.tvNamaPenerima.text = lokasi.receiverName
+                    binding.tvAlamatPenerima.text = lokasi.receiverAddress
+                }
+            }
+        }
 
         binding.tvPaymentTotal.text =
             transaction.totalAmount?.formatToCurrency()
@@ -109,15 +166,5 @@ class OrderDetailFragment : Fragment() {
                 productListItem
             )
         view?.findNavController()?.navigate(toOrderInstruction)
-    }
-
-    private fun startWorking() {
-        Toast.makeText(requireContext(), "Started Working", Toast.LENGTH_SHORT).show()
-        viewModel.startWorking()
-    }
-
-    private fun sendOrder() {
-        Toast.makeText(requireContext(), "Order Sent", Toast.LENGTH_SHORT).show()
-        viewModel.sendOrder()
     }
 }

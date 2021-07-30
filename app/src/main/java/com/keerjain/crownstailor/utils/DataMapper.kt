@@ -10,6 +10,7 @@ import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
+import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.LokasiPenjemputan
 import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.utils.enums.Status
 
@@ -97,6 +98,17 @@ object DataMapper {
         ProductListItem(
             productDetail = productDetail,
             orderDetail = it
+        )
+    }
+
+    fun mapLokasiPenjemputanListToShipmentDetailList(
+        input: List<LokasiPenjemputan>,
+        name: String,
+    ) = input.map {
+        ShipmentDetail(
+            receiverName = name,
+            receiverAddress = "${it.alamat}, ${it.kecamatan}, ${it.kota}, ${it.provinsi} ${it.kodePos}",
+            type = it.tipe!!,
         )
     }
 }

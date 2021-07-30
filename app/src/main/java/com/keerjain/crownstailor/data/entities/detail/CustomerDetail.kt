@@ -8,4 +8,5 @@ data class CustomerDetail(
     val userId: Long,
     val username: String,
     val email: String,
+    val name: String,
 ) : Parcelable

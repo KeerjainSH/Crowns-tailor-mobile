@@ -6,7 +6,6 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class ShipmentDetail(
     val receiverName: String,
-    val receiverPhoneNumber: String,
     val receiverAddress: String,
-    val shipmentFee: Float,
+    val type: Int,
 ) : Parcelable
