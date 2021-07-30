@@ -109,6 +109,7 @@ class RegisterDetailTailorFragment : Fragment() {
     private suspend fun saveDataAndNext() {
         val args: RegisterDetailTailorFragmentArgs by navArgs()
         val data = args.registrationData
+        val genderArray = resources.getStringArray(R.array.gender)
 
         data.nama = binding.etFullName.text.toString()
         data.alamat = binding.etAddress.text.toString()
@@ -118,7 +119,7 @@ class RegisterDetailTailorFragment : Fragment() {
         data.kodepos = binding.etPostalCode.text.toString()
         data.noHp = binding.etPhoneNumber.text.toString()
         data.tanggalLahir = binding.etBirthDate.text.toString()
-        data.jenisKelamin = if (binding.genderSpinner.selectedItem.toString() == "Man") {
+        data.jenisKelamin = if (binding.genderSpinner.selectedItem.toString() == genderArray[0]) {
             "l"
         } else {
             "p"
