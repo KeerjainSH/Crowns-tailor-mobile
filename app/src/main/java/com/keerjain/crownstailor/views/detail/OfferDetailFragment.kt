@@ -271,6 +271,7 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceGiven.visibility = View.VISIBLE
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+                            binding.tvOfferEstimation.text = offerDetail.offerEstimation
                             binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
                             Toast.makeText(
                                 requireContext(),
@@ -304,6 +305,7 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceGiven.visibility = View.VISIBLE
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+                            binding.tvOfferEstimation.text = offerDetail.offerEstimation
                             binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
                             Toast.makeText(
                                 requireContext(),
