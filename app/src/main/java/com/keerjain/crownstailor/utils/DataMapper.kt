@@ -40,7 +40,8 @@ object DataMapper {
         biayaJahit = input.biayaJahit,
         biayaJemput = input.biayaJemput,
         biayaKirim = input.biayaKirim,
-        biayaMaterial = input.biayaMaterial
+        biayaMaterial = input.biayaMaterial,
+        hari = input.hari,
     )
 
     fun mapCatalogResponseListToProductList(input: List<DataItem>) = input.map {

@@ -203,6 +203,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                                 offerDate = data.createdAt.toString(),
                                 offerAmount = offerResponse.jumlahPenawaran?.toFloat(),
+                                offerEstimation = offerResponse.hariTawar,
                                 offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran.statusPenawaran?.toInt())
                             )
                         }
@@ -228,6 +229,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                                 offerDate = data.createdAt.toString(),
                                 offerAmount = data.biayaTotal?.toFloat(),
+                                offerEstimation = null,
                                 offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
                             )
                         }
@@ -254,6 +256,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                             designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                             offerDate = data.createdAt.toString(),
                             offerAmount = data.biayaTotal?.toFloat(),
+                            offerEstimation = null,
                             offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
                         )
                     }

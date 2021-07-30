@@ -26,4 +26,8 @@ data class IsiHargaPost (
     @SerializedName("biaya_jemput")
     @Expose
     val biayaJemput: Float?,
+
+    @SerializedName("hari")
+    @Expose
+    val hari: String?,
 ) : Parcelable

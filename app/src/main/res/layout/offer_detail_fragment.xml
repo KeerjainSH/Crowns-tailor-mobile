@@ -270,6 +270,33 @@
                     android:paddingVertical="12dp"
                     android:textSize="14sp" />
 
+                <TextView
+                    android:id="@+id/textView26"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_gravity="start"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/working_estimation"
+                    android:textColor="@color/black" />
+
+                <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
+                    android:id="@+id/et_estimation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginHorizontal="16dp"
+                    android:autofillHints="@string/masukkan_estimasi"
+                    android:background="@drawable/shape_edittext_bg"
+                    android:ems="10"
+                    android:fontFamily="@font/lato"
+                    android:hint="@string/masukkan_estimasi"
+                    android:inputType="date"
+                    android:paddingHorizontal="12dp"
+                    android:paddingVertical="12dp"
+                    android:textSize="14sp" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_confirm_offer"
                     android:layout_width="match_parent"
@@ -305,6 +332,25 @@
 
                 <TextView
                     android:id="@+id/tv_offer_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/dummy_price"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/estimasi_terakhir"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/lato" />
+
+                <TextView
+                    android:id="@+id/tv_offer_estimation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"
@@ -356,6 +402,25 @@
 
                 <TextView
                     android:id="@+id/tv_offer_new_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/dummy_price"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:text="@string/estimasi_baru"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/lato" />
+
+                <TextView
+                    android:id="@+id/tv_offer_new_estimation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/lato"

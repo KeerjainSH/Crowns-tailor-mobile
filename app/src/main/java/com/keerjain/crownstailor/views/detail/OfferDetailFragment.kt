@@ -1,14 +1,17 @@
 package com.keerjain.crownstailor.views.detail
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.InputType
 import android.text.method.LinkMovementMethod
 import android.text.method.MovementMethod
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -30,6 +33,8 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
+import java.util.*
 
 class OfferDetailFragment : Fragment() {
 
@@ -39,6 +44,9 @@ class OfferDetailFragment : Fragment() {
     private lateinit var currentActivity: MainActivity
     private lateinit var sizeAdapter: SizeAdapter
     private lateinit var designAdapter: DesignAdapter
+    private lateinit var datePickerDialog: DatePickerDialog
+    private lateinit var dateFormatter: SimpleDateFormat
+    private lateinit var tvEstimation: TextView
     private val args: OfferDetailFragmentArgs by navArgs()
 
     override fun onCreateView(
@@ -64,6 +72,20 @@ class OfferDetailFragment : Fragment() {
             adapter = designAdapter
             setHasFixedSize(true)
         }
+
+        binding.etEstimation.inputType = InputType.TYPE_NULL
+        binding.etEstimation.setOnClickListener {
+            showDateDialog()
+        }
+        binding.etEstimation.onFocusChangeListener =
+            View.OnFocusChangeListener { v, hasFocus ->
+                if (hasFocus) {
+                    showDateDialog()
+                }
+            }
+
+        dateFormatter = SimpleDateFormat("dd-MM-yyyy", Locale.US)
+        tvEstimation = binding.etEstimation
 
         return binding.root
     }
@@ -104,6 +126,23 @@ class OfferDetailFragment : Fragment() {
                 checkOfferStatus(offerDetail)
             }
         }
+    }
+
+    private fun showDateDialog() {
+        val calendar = Calendar.getInstance()
+        datePickerDialog = DatePickerDialog(
+            activity as MainActivity,
+            { _, year, monthOfYear, dayOfMonth ->
+                val newDate = Calendar.getInstance()
+                newDate.set(year, monthOfYear, dayOfMonth)
+                tvEstimation.text = dateFormatter.format(newDate.time).toString()
+            },
+            calendar.get(Calendar.YEAR),
+            calendar.get(Calendar.MONTH),
+            calendar.get(Calendar.DAY_OF_MONTH)
+        )
+
+        datePickerDialog.show()
     }
 
     private fun checkOfferStatus(offerDetail: Offer) {
@@ -149,6 +188,7 @@ class OfferDetailFragment : Fragment() {
                 biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
                 biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
                 biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
+                hari = binding.etEstimation.text.toString()
             )
 
             lifecycleScope.launch(Dispatchers.IO) {
@@ -159,6 +199,7 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceGiven.visibility = View.VISIBLE
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
+                            binding.tvOfferEstimation.text = penawaran.hariTawar
                             binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
                             Toast.makeText(
                                 requireContext(),
@@ -187,6 +228,7 @@ class OfferDetailFragment : Fragment() {
         binding.offerPriceGiven.visibility = View.VISIBLE
         binding.offerPriceUpdated.visibility = View.GONE
         binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+        binding.tvOfferEstimation.text = offerDetail.offerEstimation
         binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
     }
 
@@ -195,6 +237,7 @@ class OfferDetailFragment : Fragment() {
         binding.offerPriceGiven.visibility = View.GONE
         binding.offerPriceUpdated.visibility = View.VISIBLE
         binding.tvOfferNewPrice.text = offerDetail.offerAmount?.formatToCurrency()
+        binding.tvOfferNewEstimation.text = offerDetail.offerEstimation
 
         binding.btnConfirmNewOffer.setOnClickListener {
             showLoading(true)

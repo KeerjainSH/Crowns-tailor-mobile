@@ -17,5 +17,6 @@ data class Offer(
     val designDetail: List<DesignDetail>,
     val offerDate: String,
     val offerAmount: Float?,
+    val offerEstimation: String?,
     val offerStatus: OfferStatus,
 ) : Parcelable

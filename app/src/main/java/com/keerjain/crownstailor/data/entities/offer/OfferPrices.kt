@@ -6,4 +6,5 @@ data class OfferPrices(
     val biayaMaterial: Float?,
     val biayaKirim: Float?,
     val biayaJemput: Float?,
+    val hari: String,
 )

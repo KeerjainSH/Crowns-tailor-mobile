@@ -20,7 +20,7 @@ import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -32,7 +32,7 @@ class ChangeProfileFragment : Fragment() {
     private lateinit var dateFormatter: SimpleDateFormat
     private lateinit var tvBirthDate: TextView
     private lateinit var currentActivity: MainActivity
-    private val viewModel by inject<SettingViewModel>()
+    private val viewModel by viewModel<SettingViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
