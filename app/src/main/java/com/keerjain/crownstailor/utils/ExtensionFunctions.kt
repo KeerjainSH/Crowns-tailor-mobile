@@ -6,6 +6,8 @@ import android.text.Editable
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -62,4 +64,24 @@ object ExtensionFunctions {
     }
 
     fun String.toEditable(): Editable =  Editable.Factory.getInstance().newEditable(this)
+
+    fun TextView.showLoading(state: Boolean) {
+        if (state) {
+            this.background = ShimmerDrawableInit.getShimmerDrawable()
+            this.setTextColor(
+                ContextCompat.getColor(
+                    this.context,
+                    android.R.color.transparent
+                )
+            )
+        } else {
+            this.background = null
+            this.setTextColor(
+                ContextCompat.getColor(
+                    this.context,
+                    R.color.black
+                )
+            )
+        }
+    }
 }

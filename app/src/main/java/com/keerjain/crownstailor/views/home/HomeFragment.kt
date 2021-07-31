@@ -7,6 +7,7 @@ import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -15,7 +16,9 @@ import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.HomeFragmentBinding
 import com.keerjain.crownstailor.utils.ActivityObserver
+import com.keerjain.crownstailor.utils.ExtensionFunctions.showLoading
 import com.keerjain.crownstailor.utils.SessionManager
+import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.viewmodels.HomeViewModel
 import com.keerjain.crownstailor.views.MainActivity
 import kotlinx.coroutines.Dispatchers
@@ -53,6 +56,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding.tvPesananBaru.showLoading(true)
+        binding.tvPenawaranBaru.showLoading(true)
+        binding.tvTotalPesanan.showLoading(true)
+        binding.tvPesananSelesai.showLoading(true)
+
         currentActivity.setSupportActionBar(binding.topAppBar)
         binding.tvWelcomeGreetings.text = resources.getString(R.string.welcome_message, sessionManager.getSessionData()?.name)
         showListLoading(true)
@@ -75,6 +83,28 @@ class HomeFragment : Fragment() {
                             showListLoading(false)
                         }
                     }
+
+                    val finished = list.filter { it.transactionStatus == Status.FINISHED }
+                    val new = list.filter { it.transactionStatus == Status.PAID_ORDER }
+                    val total = list.size
+
+                    binding.tvPesananBaru.text = new.size.toString()
+                    binding.tvPesananBaru.showLoading(false)
+
+                    binding.tvPesananSelesai.text = finished.size.toString()
+                    binding.tvPesananSelesai.showLoading(false)
+
+                    binding.tvTotalPesanan.text = total.toString()
+                    binding.tvTotalPesanan.showLoading(false)
+                }
+            }
+            
+            lifecycleScope.launchWhenCreated { 
+                viewModel.getOffers().collectLatest {
+                    val totalOffer = it.size.toString()
+
+                    binding.tvPenawaranBaru.text = totalOffer
+                    binding.tvPenawaranBaru.showLoading(false)
                 }
             }
 

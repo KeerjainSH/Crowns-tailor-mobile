@@ -24,7 +24,7 @@
     <string name="title_other">Lainnya</string>
     <string name="search_hint">Cari pesanan…</string>
     <string name="semua">Semua</string>
-    <string name="pesanan_baru">Pesanan baru</string>
+    <string name="pesanan_baru">Pesanan Baru</string>
     <string name="dikerjakan">Dikerjakan</string>
     <string name="dikirim">Dikirim</string>
     <string name="selesai">Selesai</string>
@@ -176,4 +176,6 @@
     <string name="estimasi_terakhir">Estimasi Terakhir</string>
     <string name="update_success">Update data sukses!</string>
     <string name="update_error">Update data error. Silakan coba lagi dalam beberapa saat.</string>
+    <string name="pesanan_selesai">Pesanan Selesai</string>
+    <string name="total_pesanan">Total Pesanan</string>
 </resources>
