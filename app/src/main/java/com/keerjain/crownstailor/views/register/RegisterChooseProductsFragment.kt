@@ -15,10 +15,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.product.Product
 import com.keerjain.crownstailor.databinding.FragmentRegisterChooseProductsBinding
-import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.viewmodels.RegisterViewModel
-import com.keerjain.crownstailor.viewmodels.SettingViewModel
 import com.keerjain.crownstailor.views.LoginActivity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest

@@ -33,14 +33,18 @@
         android:id="@+id/tv_profile_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginStart="64dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="64dp"
         android:fontFamily="@font/lato_bold"
         android:text="@string/dummy_name"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/profile_picture"
-        app:layout_constraintStart_toStartOf="@+id/profile_picture"
+        android:maxLines="2"
+        android:ellipsize="end"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
 
     <TextView

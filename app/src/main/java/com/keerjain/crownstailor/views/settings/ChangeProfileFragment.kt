@@ -44,6 +44,7 @@ class ChangeProfileFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             binding.btnSaveProfileData.setOnClickListener {
+                showLoading(true)
                 validateData()
             }
 
@@ -174,14 +175,35 @@ class ChangeProfileFragment : Fragment() {
                 "p"
             }
 
-            viewModel.updateProfile(profile)
+            viewModel.updateProfile(profile).collectLatest { isSuccessful ->
+                if (isSuccessful) {
+                    val toProfileFragment =
+                        ChangeProfileFragmentDirections.actionChangeProfileFragmentToNavigationOther()
 
-            val toProfileFragment =
-                ChangeProfileFragmentDirections.actionChangeProfileFragmentToNavigationOther()
+                    withContext(Dispatchers.Main) {
+                        this@ChangeProfileFragment.hideKeyboard()
 
-            withContext(Dispatchers.Main) {
-                this@ChangeProfileFragment.hideKeyboard()
-                view?.findNavController()?.navigate(toProfileFragment)
+                        Toast.makeText(
+                            requireContext(),
+                            resources.getString(R.string.update_success),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        showLoading(false)
+
+                        view?.findNavController()?.navigate(toProfileFragment)
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        Toast.makeText(
+                            requireContext(),
+                            resources.getString(R.string.update_error),
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        showLoading(false)
+                    }
+                }
             }
         }
     }

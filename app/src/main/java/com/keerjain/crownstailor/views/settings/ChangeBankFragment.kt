@@ -35,6 +35,7 @@ class ChangeBankFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             binding.btnSaveBankData.setOnClickListener {
+                showLoading(true)
                 validateData()
             }
         }
@@ -96,11 +97,31 @@ class ChangeBankFragment : Fragment() {
                     profile.noRekening = binding.etAccountNumber.text.toString()
                     profile.namaPemilikRekening = binding.etAccountHolder.text.toString()
 
-                    viewModel.updateProfile(profile)
+                    viewModel.updateProfile(profile).collectLatest { isSuccessful ->
+                        if (isSuccessful) {
+                            val toProfileFragment = ChangeBankFragmentDirections.actionChangeBankFragmentToNavigationOther()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    resources.getString(R.string.update_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                    val toProfileFragment = ChangeBankFragmentDirections.actionChangeBankFragmentToNavigationOther()
-                    withContext(Dispatchers.Main) {
-                        view?.findNavController()?.navigate(toProfileFragment)
+                                showLoading(false)
+
+                                view?.findNavController()?.navigate(toProfileFragment)
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    resources.getString(R.string.update_error),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                showLoading(false)
+                            }
+                        }
                     }
                 }
             }

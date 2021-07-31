@@ -1,8 +1,6 @@
 package com.keerjain.crownstailor.views.settings
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,11 +11,8 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.databinding.FragmentChangeProductBinding
-import com.keerjain.crownstailor.databinding.FragmentRegisterChooseProductsBinding
-import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
-import com.keerjain.crownstailor.views.LoginActivity
 import com.keerjain.crownstailor.views.MainActivity
 import com.keerjain.crownstailor.views.register.ProductAdapter
 import kotlinx.coroutines.Dispatchers
@@ -50,6 +45,7 @@ class ChangeProductFragment : Fragment() {
         }
 
         binding.btnSaveProductData.setOnClickListener {
+            showLoading(true)
             validateData()
         }
 
@@ -89,11 +85,31 @@ class ChangeProductFragment : Fragment() {
                 viewModel.getProfile().collectLatest { profile ->
                     profile.listIdBaju = DataMapper.mapProductListToProductIdList(list)
 
-                    viewModel.updateProfile(profile)
+                    viewModel.updateProfile(profile).collectLatest { isSuccessful ->
+                        if (isSuccessful) {
+                            val toProfileFragment = ChangeProductFragmentDirections.actionChangeProductFragmentToNavigationOther()
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    resources.getString(R.string.update_success),
+                                    Toast.LENGTH_SHORT
+                                ).show()
 
-                    val toProfileFragment = ChangeProductFragmentDirections.actionChangeProductFragmentToNavigationOther()
-                    withContext(Dispatchers.Main) {
-                        view?.findNavController()?.navigate(toProfileFragment)
+                                showLoading(false)
+
+                                view?.findNavController()?.navigate(toProfileFragment)
+                            }
+                        } else {
+                            withContext(Dispatchers.Main) {
+                                Toast.makeText(
+                                    requireContext(),
+                                    resources.getString(R.string.update_error),
+                                    Toast.LENGTH_SHORT
+                                ).show()
+
+                                showLoading(false)
+                            }
+                        }
                     }
                 }
             }

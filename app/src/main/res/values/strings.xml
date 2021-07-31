@@ -174,4 +174,6 @@
     <string name="masukkan_estimasi">Masukkan Estimasi Pengerjaan</string>
     <string name="estimasi_baru">Estimasi Baru</string>
     <string name="estimasi_terakhir">Estimasi Terakhir</string>
+    <string name="update_success">Update data sukses!</string>
+    <string name="update_error">Update data error. Silakan coba lagi dalam beberapa saat.</string>
 </resources>

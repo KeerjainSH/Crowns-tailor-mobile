@@ -22,6 +22,11 @@ class SessionManager(context: Context) {
 
     fun getUserId() = pref.getInt(KEY_USER_ID, 0)
 
+    fun changeLoginFullName(fullName: String) {
+        editor.putString(KEY_FULL_NAME, fullName)
+        editor.commit()
+    }
+
     fun logout() {
         editor.clear()
         editor.commit()

@@ -2,7 +2,6 @@ package com.keerjain.crownstailor.data.sources.remote
 
 import android.util.Log
 import com.keerjain.crownstailor.data.entities.detail.CustomerDetail
-import com.keerjain.crownstailor.data.entities.detail.OrderDetail
 import com.keerjain.crownstailor.data.entities.detail.ProductDetail
 import com.keerjain.crownstailor.data.entities.detail.TailorCredentials
 import com.keerjain.crownstailor.data.entities.offer.Offer
@@ -16,17 +15,14 @@ import com.keerjain.crownstailor.data.sources.remote.api.ApiService
 import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
 import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
 import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
-import com.keerjain.crownstailor.data.sources.remote.responses.Data
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.penjahit.DetailPenjahit
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DetailJahit
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.LokasiPenjemputan
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
-import com.keerjain.crownstailor.utils.DataDummy
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.utils.SessionManager
-import com.keerjain.crownstailor.utils.SessionManager.Companion.KEY_TOKEN
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 
@@ -444,6 +440,13 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
     }
 
     fun updateTailorProfile(profile: ProfileUpdatePost): Flow<Boolean> = flow {
-        emit(true)
+        val response = api.updatePenjahitDetails(sessionManager.getToken().toString(), profile)
+
+        if (response.isSuccessful) {
+            val fullName = response.body()?.data?.nama.toString()
+            sessionManager.changeLoginFullName(fullName)
+        }
+
+        emit(response.isSuccessful)
     }
 }

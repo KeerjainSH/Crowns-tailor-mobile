@@ -1,9 +1,6 @@
 package com.keerjain.crownstailor.data.sources.remote.api
 
-import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
-import com.keerjain.crownstailor.data.sources.remote.posts.IsiHargaPost
-import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
-import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
+import com.keerjain.crownstailor.data.sources.remote.posts.*
 import com.keerjain.crownstailor.data.sources.remote.responses.*
 import retrofit2.Response
 import retrofit2.http.*
@@ -18,7 +15,8 @@ interface ApiService {
     @POST("penjahit/updateProfil")
     suspend fun updatePenjahitDetails(
         @Header("Authorization") token: String,
-    )
+        @Body data: ProfileUpdatePost,
+    ) : Response<DetailPenjahitResponse>
 
     @POST("pesanan/updateHarga")
     suspend fun fillPrice(
