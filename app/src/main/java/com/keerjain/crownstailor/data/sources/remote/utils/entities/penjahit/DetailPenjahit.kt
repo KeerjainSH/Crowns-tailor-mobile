@@ -56,5 +56,8 @@ data class DetailPenjahit(
     val email: String? = null,
 
     @field:SerializedName("username")
-    val username: String? = null
+    val username: String? = null,
+
+    @SerializedName("rating")
+    val rating: Float? = null
 ) : Parcelable

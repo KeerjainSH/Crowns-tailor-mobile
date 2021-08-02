@@ -4,97 +4,123 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".views.settings.ProfileFragment">
 
-    <ImageView
-        android:contentDescription="@string/profile_header"
-        android:id="@+id/imageView2"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main_setting_view"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
-        android:src="@drawable/profile_bg"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:visibility="gone">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/profile_picture"
-        android:layout_width="125dp"
-        android:layout_height="125dp"
-        android:layout_marginTop="60dp"
-        android:src="#FFAAAAAA"
-        app:civ_border_color="#FFC4C4C4"
-        app:civ_border_width="2dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView2" />
+        <ImageView
+            android:contentDescription="@string/profile_header"
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:src="@drawable/profile_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/tv_profile_name"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="64dp"
-        android:fontFamily="@font/lato_bold"
-        android:text="@string/dummy_name"
-        android:textAlignment="center"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:maxLines="2"
-        android:ellipsize="end"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/profile_picture"
+            android:layout_width="125dp"
+            android:layout_height="125dp"
+            android:layout_marginTop="60dp"
+            android:src="#FFAAAAAA"
+            app:civ_border_color="#FFC4C4C4"
+            app:civ_border_width="2dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.496"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/imageView2" />
 
-    <TextView
-        android:id="@+id/tv_join_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/lato"
-        android:text="@string/penjahit"
-        app:layout_constraintEnd_toEndOf="@+id/tv_profile_name"
-        app:layout_constraintStart_toStartOf="@+id/tv_profile_name"
-        app:layout_constraintTop_toBottomOf="@+id/tv_profile_name" />
+        <TextView
+            android:id="@+id/tv_profile_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="64dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="64dp"
+            android:fontFamily="@font/lato_bold"
+            android:text="@string/dummy_name"
+            android:textAlignment="center"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:maxLines="2"
+            android:ellipsize="end"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/profile_picture" />
 
-    <LinearLayout
+        <TextView
+            android:id="@+id/tv_rating"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/lato"
+            android:text="@string/dummy_rating"
+            android:gravity="center_vertical"
+            android:drawablePadding="4dp"
+            app:layout_constraintEnd_toEndOf="@+id/tv_profile_name"
+            app:layout_constraintStart_toStartOf="@+id/tv_profile_name"
+            app:layout_constraintTop_toBottomOf="@+id/tv_profile_name"
+            app:drawableStartCompat="@drawable/ic_star_gold" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_logout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_rating"
+            app:layout_constraintVertical_bias="0.0"
+            android:orientation="vertical">
+
+            <androidx.fragment.app.FragmentContainerView
+                android:id="@+id/preference_screen_fragment_container"
+                android:name="com.keerjain.crownstailor.views.settings.SettingsFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_logout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:text="@string/logout"
+            android:background="@drawable/button_bg_gradient"
+            android:textAllCaps="false"
+            android:fontFamily="@font/lato"
+            android:letterSpacing="0"
+            android:drawableStart="@drawable/ic_exit"
+            android:paddingHorizontal="120dp"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            android:drawablePadding="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/setting_loading"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@+id/btn_logout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_join_date"
-        app:layout_constraintVertical_bias="0.0"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <androidx.fragment.app.FragmentContainerView
-            android:id="@+id/preference_screen_fragment_container"
-            android:name="com.keerjain.crownstailor.views.settings.SettingsFragment"
+        <com.airbnb.lottie.LottieAnimationView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </LinearLayout>
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_logout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="@string/logout"
-        android:background="@drawable/button_bg_gradient"
-        android:textAllCaps="false"
-        android:fontFamily="@font/lato"
-        android:letterSpacing="0"
-        android:drawableStart="@drawable/ic_exit"
-        android:paddingHorizontal="120dp"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:drawablePadding="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="match_parent"
+            android:layout_marginVertical="64dp"
+            android:layout_marginHorizontal="64dp"
+            app:lottie_autoPlay="true"
+            app:lottie_fileName="loading_small.json" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,10 +24,10 @@
 
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/offer_view_loading"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior" >
+        android:visibility="gone"
+        app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <include layout="@layout/offer_detail_fragment_placeholder" />
     </com.facebook.shimmer.ShimmerFrameLayout>
@@ -108,9 +108,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
-                    android:textSize="12sp"
                     android:fontFamily="@font/lato"
                     android:text="@string/dummy_instruction"
+                    android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/textView28"
                     app:layout_constraintStart_toStartOf="@+id/textView28"
@@ -121,27 +121,27 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:text="@string/ukuran"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/ukuran"
                 android:textColor="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_size_list"
-                android:nestedScrollingEnabled="false"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"
                 tools:listitem="@layout/size_layout" />
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:text="@string/design"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/design"
                 android:textColor="@color/black" />
 
             <androidx.recyclerview.widget.RecyclerView
@@ -156,35 +156,73 @@
                 android:id="@+id/tv_order_no_design"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/lato"
-                android:textSize="12sp"
-                android:visibility="gone"
-                android:text="@string/no_specific_design"
                 android:layout_marginHorizontal="16dp"
-                android:layout_marginTop="8dp" />
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/no_specific_design"
+                android:textSize="12sp"
+                android:visibility="gone" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/detail_pengiriman"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_offer_delivery"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/pesanan_dijemput_pembeli"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="24dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/detail_penjemputan"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_offer_take"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="8dp"
+                android:fontFamily="@font/lato"
+                android:text="@string/pesanan_dijemput"
+                android:textSize="12sp" />
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/offer_price_not_given"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/sew_price"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/sew_price"
                     android:textColor="@color/black" />
 
                 <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
                     android:id="@+id/et_harga_jahit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
                     android:autofillHints="@string/masukkan_harga_anda"
                     android:background="@drawable/shape_edittext_bg"
                     android:ems="10"
@@ -198,18 +236,18 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/material_price"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/material_price"
                     android:textColor="@color/black" />
 
                 <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
                     android:id="@+id/et_harga_material"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
                     android:autofillHints="@string/masukkan_harga_anda"
                     android:background="@drawable/shape_edittext_bg"
                     android:ems="10"
@@ -221,23 +259,26 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_harga_kirim"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/delivery_price"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/delivery_price"
+                    android:visibility="gone"
                     android:textColor="@color/black" />
 
                 <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
                     android:id="@+id/et_harga_kirim"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
                     android:autofillHints="@string/masukkan_harga_anda"
                     android:background="@drawable/shape_edittext_bg"
                     android:ems="10"
+                    android:visibility="gone"
                     android:fontFamily="@font/lato"
                     android:hint="@string/masukkan_harga_anda"
                     android:inputType="number"
@@ -246,20 +287,23 @@
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_harga_jemput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/take_price"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/take_price"
+                    android:visibility="gone"
                     android:textColor="@color/black" />
 
                 <com.keerjain.crownstailor.utils.customviews.ClearFocusEditText
                     android:id="@+id/et_harga_jemput"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:visibility="gone"
                     android:autofillHints="@string/masukkan_harga_anda"
                     android:background="@drawable/shape_edittext_bg"
                     android:ems="10"
@@ -274,9 +318,9 @@
                     android:id="@+id/textView26"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_marginHorizontal="16dp"
                     android:layout_gravity="start"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
                     android:fontFamily="@font/lato"
                     android:text="@string/working_estimation"
                     android:textColor="@color/black" />
@@ -285,8 +329,8 @@
                     android:id="@+id/et_estimation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
                     android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
                     android:autofillHints="@string/masukkan_estimasi"
                     android:background="@drawable/shape_edittext_bg"
                     android:ems="10"
@@ -318,132 +362,132 @@
                 android:id="@+id/offer_price_given"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/last_price"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/last_price"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_offer_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:textSize="12sp"
-                    android:text="@string/dummy_price"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_price"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
                     android:text="@string/estimasi_terakhir"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/lato" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_offer_estimation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:textSize="12sp"
-                    android:text="@string/dummy_price"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_price"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:text="@string/status"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/status"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_offer_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/status_baru"
                     android:fontFamily="@font/lato"
-                    android:textSize="12sp"
                     android:paddingHorizontal="16dp"
                     android:paddingVertical="4dp"
                     android:text="@string/dummy_offer_status"
                     android:textColor="@color/white"
-                    android:background="@drawable/status_baru"
-                    android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp" />
+                    android:textSize="12sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/offer_price_updated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
                     android:text="@string/harga_baru"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/lato" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_offer_new_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:textSize="12sp"
-                    android:text="@string/dummy_price"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_price"
+                    android:textSize="12sp" />
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
                     android:text="@string/estimasi_baru"
-                    android:textColor="@color/black"
-                    android:fontFamily="@font/lato" />
+                    android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_offer_new_estimation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/lato"
-                    android:textSize="12sp"
-                    android:text="@string/dummy_price"
                     android:layout_marginHorizontal="16dp"
-                    android:layout_marginTop="8dp" />
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_price"
+                    android:textSize="12sp" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
-                    android:weightSum="2" >
+                    android:weightSum="2">
 
                     <androidx.appcompat.widget.AppCompatButton
                         android:id="@+id/btn_confirm_new_offer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:layout_marginStart="16dp"
-                        android:layout_marginEnd="8dp"
                         android:layout_marginTop="24dp"
+                        android:layout_marginEnd="8dp"
                         android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
                         android:background="@drawable/button_bg_gradient"
                         android:fontFamily="@font/lato"
                         android:letterSpacing="0"
@@ -457,11 +501,11 @@
                         android:id="@+id/btn_decline_new_offer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:layout_marginEnd="16dp"
                         android:layout_marginStart="8dp"
                         android:layout_marginTop="24dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="16dp"
+                        android:layout_weight="1"
                         android:background="@drawable/button_bg_outline"
                         android:fontFamily="@font/lato"
                         android:letterSpacing="0"

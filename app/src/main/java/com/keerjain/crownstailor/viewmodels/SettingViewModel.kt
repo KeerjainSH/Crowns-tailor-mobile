@@ -11,4 +11,6 @@ class SettingViewModel(private val repos: AppRepository) : ViewModel() {
     fun getProfile() = repos.getTailorDetails()
 
     fun updateProfile(profile: ProfileUpdatePost) = repos.updateTailorDetails(profile)
+
+    fun getRating() = repos.getRating()
 }

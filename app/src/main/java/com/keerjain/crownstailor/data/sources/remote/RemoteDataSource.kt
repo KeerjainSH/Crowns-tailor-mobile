@@ -39,183 +39,237 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             credentials.password
         )
 
-        val response = api.login(data)
+        try {
+            val response = api.login(data)
 
-        if (response.isSuccessful) {
+            if (response.isSuccessful) {
 
-            val session = DataMapper.mapCredentialsToSessionData(credentials)
-            val id = response.body()?.data?.idUser
+                val session = DataMapper.mapCredentialsToSessionData(credentials)
+                val id = response.body()?.data?.idUser
 
-            if (id != null) {
-                val token = "Bearer " + response.body()?.data?.token.toString()
-                val detailResponse = api.getPenjahitDetails(token, id)
-                if (detailResponse.isSuccessful) {
-                    session.name = detailResponse.body()?.data?.nama.toString()
-                    session.userId = response.body()?.data?.idUser
-                    session.token = token
-                    sessionManager.createLoginSession(session)
-                    emit(true)
+                if (id != null) {
+                    val token = "Bearer " + response.body()?.data?.token.toString()
+                    val detailResponse = api.getPenjahitDetails(token, id)
+                    if (detailResponse.isSuccessful) {
+                        session.name = detailResponse.body()?.data?.nama.toString()
+                        session.userId = response.body()?.data?.idUser
+                        session.token = token
+                        sessionManager.createLoginSession(session)
+                        emit(true)
+                    } else {
+                        Log.d("Detail", "Not Successful")
+                        emit(false)
+                    }
                 } else {
-                    Log.d("Detail", "Not Successful")
+                    Log.d("ID", "ID Null")
                     emit(false)
                 }
             } else {
-                Log.d("ID", "ID Null")
+                Log.d("Response", "Response Unsuccessful")
                 emit(false)
             }
-        } else {
-            Log.d("Response", "Response Unsuccessful")
+        } catch (e: Exception) {
             emit(false)
         }
     }
 
     fun registerUser(registrationData: RegistrationData): Flow<Boolean> = flow {
-        val response = api.register(registrationData)
 
-        if (response.isSuccessful) {
-            val session = DataMapper.mapRegistrationDataToSessionData(registrationData)
-            val token = "Bearer " + response.body()?.data?.token.toString()
-            session.userId = response.body()?.data?.idUser
-            session.token = token
-            sessionManager.createLoginSession(session)
-            emit(true)
-        } else {
+        try {
+            val response = api.register(registrationData)
+
+            if (response.isSuccessful) {
+                val session = DataMapper.mapRegistrationDataToSessionData(registrationData)
+                val token = "Bearer " + response.body()?.data?.token.toString()
+                session.userId = response.body()?.data?.idUser
+                session.token = token
+                sessionManager.createLoginSession(session)
+                emit(true)
+            } else {
+                emit(false)
+            }
+        } catch (e: Exception) {
             emit(false)
         }
     }
 
     fun getOfferForTailor(): Flow<List<OfferListItem>> = flow {
-        val response = api.getOffers(sessionManager.getToken().toString())
 
-        if (response.isSuccessful) {
-            val listApi = response.body()?.data
-            val list = ArrayList<OfferListItem>()
-            if (!listApi.isNullOrEmpty()) {
-                for (data in listApi) {
-                    if (data != null) {
-                        val userResponse = data.idKonsumen?.let { api.getCustomerDetails(it.toLong()) }
-                        if (userResponse?.isSuccessful as Boolean) {
-                            val offer = data.id?.let {
-                                OfferListItem(
-                                    offerId = it.toLong(),
+        try {
+            val response = api.getOffers(sessionManager.getToken().toString())
+
+            if (response.isSuccessful) {
+                val listApi = response.body()?.data
+                val list = ArrayList<OfferListItem>()
+                if (!listApi.isNullOrEmpty()) {
+                    for (data in listApi) {
+                        if (data != null) {
+                            val userResponse = data.idKonsumen?.let { api.getCustomerDetails(it.toLong()) }
+                            if (userResponse?.isSuccessful as Boolean) {
+                                val offer = data.id?.let {
+                                    OfferListItem(
+                                        offerId = it.toLong(),
+                                        productName = data.baju?.nama.toString(),
+                                        customerDetail = CustomerDetail(
+                                            userId = data.idKonsumen.toLong(),
+                                            username = userResponse.body()?.data?.username.toString(),
+                                            email = userResponse.body()?.data?.email.toString(),
+                                            name = userResponse.body()?.data?.name.toString()
+                                        ),
+                                        offerDate = data.penawaran?.createdAt.toString()
+                                    )
+                                }
+
+                                if (offer != null) {
+                                    list.add(offer)
+                                }
+                            } else {
+                                val offer = data.id?.let {
+                                    OfferListItem(
+                                        offerId = it.toLong(),
+                                        productName = data.baju?.nama.toString(),
+                                        customerDetail = CustomerDetail(
+                                            userId = data.idKonsumen.toLong(),
+                                            username = "null",
+                                            email = "null",
+                                            name = "null"
+                                        ),
+                                        offerDate = data.penawaran?.createdAt.toString()
+                                    )
+                                }
+
+                                if (offer != null) {
+                                    list.add(offer)
+                                }
+                            }
+                        }
+                    }
+                }
+
+                emit(list)
+            }
+        } catch (e: Exception) {
+            emit(ArrayList<OfferListItem>())
+        }
+    }
+
+    fun getOrdersForTailor(): Flow<List<TransactionListItem>> = flow {
+        try {
+            val response = api.getOrders(sessionManager.getToken().toString())
+
+            if (response.isSuccessful) {
+                val listApi = response.body()?.data
+                val list = ArrayList<TransactionListItem>()
+                if (!listApi.isNullOrEmpty()) {
+                    for (data in listApi) {
+                        if (data != null) {
+                            val transaction = data.id?.let {
+                                TransactionListItem(
+                                    trxId = it.toLong(),
                                     productName = data.baju?.nama.toString(),
-                                    customerDetail = CustomerDetail(
+                                    productPhoto = data.baju?.foto.toString(),
+                                    transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt())
+                                )
+                            }
+
+                            if (transaction != null) {
+                                list.add(transaction)
+                            }
+                        }
+                    }
+                }
+
+                emit(list)
+            }
+        } catch (e: Exception) {
+            emit(ArrayList<TransactionListItem>())
+        }
+    }
+
+    fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> = flow {
+        try {
+            val response = api.getOrderDetails(
+                sessionManager.getToken().toString(),
+                offerListItem.offerId.toInt()
+            )
+
+            if (response.isSuccessful) {
+                val data = response.body()?.data
+
+                if (data != null) {
+                    val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
+                    if (userResponse?.isSuccessful as Boolean) {
+                        val offerResponse = data.penawaran
+                        if (offerResponse != null) {
+                            val offer = data.id?.toLong()?.let {
+                                Offer(
+                                    offerId = it,
+                                    customer = CustomerDetail(
                                         userId = data.idKonsumen.toLong(),
                                         username = userResponse.body()?.data?.username.toString(),
                                         email = userResponse.body()?.data?.email.toString(),
                                         name = userResponse.body()?.data?.name.toString()
                                     ),
-                                    offerDate = data.penawaran?.createdAt.toString()
-                                )
-                            }
-
-                            if (offer != null) {
-                                list.add(offer)
-                            }
-                        } else {
-                            val offer = data.id?.let {
-                                OfferListItem(
-                                    offerId = it.toLong(),
-                                    productName = data.baju?.nama.toString(),
-                                    customerDetail = CustomerDetail(
-                                        userId = data.idKonsumen.toLong(),
-                                        username = "null",
-                                        email = "null",
-                                        name = "null"
+                                    productDetail = ProductDetail(
+                                        productId = data.baju?.id!!.toLong(),
+                                        productName = data.baju.nama.toString(),
+                                        productPhoto = data.baju.foto.toString(),
+                                        productDescription = data.baju.deskripsi.toString()
                                     ),
-                                    offerDate = data.penawaran?.createdAt.toString()
+                                    orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                                    designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                                    offerDate = data.createdAt.toString(),
+                                    offerAmount = offerResponse.jumlahPenawaran?.toFloat(),
+                                    offerEstimation = offerResponse.hariTawar,
+                                    offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran.statusPenawaran?.toInt()),
+                                    lokasiPenjemputan = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
+                                        data.lokasiPenjemputan as List<LokasiPenjemputan>,
+                                        userResponse.body()?.data?.name.toString()
+                                    )
                                 )
                             }
 
-                            if (offer != null) {
-                                list.add(offer)
+                            emit(offer as Offer)
+                        } else {
+                            val offer = data.id?.toLong()?.let {
+                                Offer(
+                                    offerId = it,
+                                    customer = CustomerDetail(
+                                        userId = data.idKonsumen.toLong(),
+                                        username = userResponse.body()?.data?.username.toString(),
+                                        email = userResponse.body()?.data?.email.toString(),
+                                        name = userResponse.body()?.data?.name.toString()
+                                    ),
+                                    productDetail = ProductDetail(
+                                        productId = data.baju?.id!!.toLong(),
+                                        productName = data.baju.nama.toString(),
+                                        productPhoto = data.baju.foto.toString(),
+                                        productDescription = data.baju.deskripsi.toString()
+                                    ),
+                                    orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                                    designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                                    offerDate = data.createdAt.toString(),
+                                    offerAmount = data.biayaTotal?.toFloat(),
+                                    offerEstimation = null,
+                                    offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt()),
+                                    lokasiPenjemputan = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
+                                        data.lokasiPenjemputan as List<LokasiPenjemputan>,
+                                        userResponse.body()?.data?.name.toString()
+                                    )
+                                )
                             }
+
+                            emit(offer as Offer)
                         }
-                    }
-                }
-            }
-
-            emit(list)
-        }
-    }
-
-    fun getOrdersForTailor(): Flow<List<TransactionListItem>> = flow {
-        val response = api.getOrders(sessionManager.getToken().toString())
-
-        if (response.isSuccessful) {
-            val listApi = response.body()?.data
-            val list = ArrayList<TransactionListItem>()
-            if (!listApi.isNullOrEmpty()) {
-                for (data in listApi) {
-                    if (data != null) {
-                        val transaction = data.id?.let {
-                            TransactionListItem(
-                                trxId = it.toLong(),
-                                productName = data.baju?.nama.toString(),
-                                productPhoto = data.baju?.foto.toString(),
-                                transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt())
-                            )
-                        }
-
-                        if (transaction != null) {
-                            list.add(transaction)
-                        }
-                    }
-                }
-            }
-
-            emit(list)
-        }
-    }
-
-    fun getOfferDetails(offerListItem: OfferListItem): Flow<Offer> = flow {
-        val response = api.getOrderDetails(
-            sessionManager.getToken().toString(),
-            offerListItem.offerId.toInt()
-        )
-
-        if (response.isSuccessful) {
-            val data = response.body()?.data
-
-            if (data != null) {
-                val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
-                if (userResponse?.isSuccessful as Boolean) {
-                    val offerResponse = data.penawaran
-                    if (offerResponse != null) {
-                        val offer = data.id?.toLong()?.let {
-                            Offer(
-                                offerId = it,
-                                customer = CustomerDetail(
-                                    userId = data.idKonsumen.toLong(),
-                                    username = userResponse.body()?.data?.username.toString(),
-                                    email = userResponse.body()?.data?.email.toString(),
-                                    name = userResponse.body()?.data?.name.toString()
-                                ),
-                                productDetail = ProductDetail(
-                                    productId = data.baju?.id!!.toLong(),
-                                    productName = data.baju.nama.toString(),
-                                    productPhoto = data.baju.foto.toString(),
-                                    productDescription = data.baju.deskripsi.toString()
-                                ),
-                                orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
-                                designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
-                                offerDate = data.createdAt.toString(),
-                                offerAmount = offerResponse.jumlahPenawaran?.toFloat(),
-                                offerEstimation = offerResponse.hariTawar,
-                                offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran.statusPenawaran?.toInt())
-                            )
-                        }
-
-                        emit(offer as Offer)
                     } else {
                         val offer = data.id?.toLong()?.let {
                             Offer(
                                 offerId = it,
                                 customer = CustomerDetail(
                                     userId = data.idKonsumen.toLong(),
-                                    username = userResponse.body()?.data?.username.toString(),
-                                    email = userResponse.body()?.data?.email.toString(),
-                                    name = userResponse.body()?.data?.name.toString()
+                                    username = "null",
+                                    email = "null",
+                                    name = "null"
                                 ),
                                 productDetail = ProductDetail(
                                     productId = data.baju?.id!!.toLong(),
@@ -228,225 +282,250 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 offerDate = data.createdAt.toString(),
                                 offerAmount = data.biayaTotal?.toFloat(),
                                 offerEstimation = null,
-                                offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
+                                offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt()),
+                                lokasiPenjemputan = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
+                                    data.lokasiPenjemputan as List<LokasiPenjemputan>,
+                                    "null"
+                                )
                             )
                         }
 
                         emit(offer as Offer)
                     }
-                } else {
-                    val offer = data.id?.toLong()?.let {
-                        Offer(
-                            offerId = it,
-                            customer = CustomerDetail(
-                                userId = data.idKonsumen.toLong(),
-                                username = "null",
-                                email = "null",
-                                name = "null"
-                            ),
-                            productDetail = ProductDetail(
-                                productId = data.baju?.id!!.toLong(),
-                                productName = data.baju.nama.toString(),
-                                productPhoto = data.baju.foto.toString(),
-                                productDescription = data.baju.deskripsi.toString()
-                            ),
-                            orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
-                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
-                            offerDate = data.createdAt.toString(),
-                            offerAmount = data.biayaTotal?.toFloat(),
-                            offerEstimation = null,
-                            offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
-                        )
-                    }
-
-                    emit(offer as Offer)
                 }
             }
+        } catch (e: Exception) {
+
         }
     }
 
     fun getTransactionDetails(transactionListItem: TransactionListItem): Flow<Transaction> = flow {
-        val response = api.getOrderDetails(
-            sessionManager.getToken().toString(),
-            transactionListItem.trxId.toInt()
-        )
+        try {
+            val response = api.getOrderDetails(
+                sessionManager.getToken().toString(),
+                transactionListItem.trxId.toInt()
+            )
 
-        if (response.isSuccessful) {
-            val data = response.body()?.data
+            if (response.isSuccessful) {
+                val data = response.body()?.data
 
-            if (data != null) {
-                val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
-                if (userResponse?.isSuccessful as Boolean) {
-                    val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
-                    val transaction = data.id?.toLong()?.let {
-                        Transaction(
-                            trxId = it,
-                            customerDetail = CustomerDetail(
-                                userId = data.idKonsumen.toLong(),
-                                username = userResponse.body()?.data?.username.toString(),
-                                email = userResponse.body()?.data?.email.toString(),
-                                name = userResponse.body()?.data?.name.toString()
-                            ),
-                            productDetail = ProductDetail(
-                                productId = data.baju?.id!!.toLong(),
-                                productName = data.baju.nama.toString(),
-                                productPhoto = data.baju.foto.toString(),
-                                productDescription = data.baju.deskripsi.toString()
-                            ),
-                            orderDetail = DataMapper.mapOrderDetailsListToProductListItem(
-                                orderList,
-                                ProductDetail(
-                                    productId = data.baju.id.toLong(),
+                if (data != null) {
+                    val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
+                    if (userResponse?.isSuccessful as Boolean) {
+                        val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
+                        val transaction = data.id?.toLong()?.let {
+                            Transaction(
+                                trxId = it,
+                                customerDetail = CustomerDetail(
+                                    userId = data.idKonsumen.toLong(),
+                                    username = userResponse.body()?.data?.username.toString(),
+                                    email = userResponse.body()?.data?.email.toString(),
+                                    name = userResponse.body()?.data?.name.toString()
+                                ),
+                                productDetail = ProductDetail(
+                                    productId = data.baju?.id!!.toLong(),
                                     productName = data.baju.nama.toString(),
                                     productPhoto = data.baju.foto.toString(),
                                     productDescription = data.baju.deskripsi.toString()
+                                ),
+                                orderDetail = DataMapper.mapOrderDetailsListToProductListItem(
+                                    orderList,
+                                    ProductDetail(
+                                        productId = data.baju.id.toLong(),
+                                        productName = data.baju.nama.toString(),
+                                        productPhoto = data.baju.foto.toString(),
+                                        productDescription = data.baju.deskripsi.toString()
+                                    )
+                                ),
+                                designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                                totalAmount = data.biayaTotal?.toFloat(),
+                                transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
+                                shipmentDetail = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
+                                    data.lokasiPenjemputan as List<LokasiPenjemputan>,
+                                    userResponse.body()?.data?.name.toString(),
                                 )
-                            ),
-                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
-                            totalAmount = data.biayaTotal?.toFloat(),
-                            transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
-                            shipmentDetail = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
-                                data.lokasiPenjemputan as List<LokasiPenjemputan>,
-                                userResponse.body()?.data?.name.toString(),
                             )
-                        )
-                    }
+                        }
 
-                    emit(transaction as Transaction)
-                } else {
-                    val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
-                    val transaction = data.id?.toLong()?.let {
-                        Transaction(
-                            trxId = it,
-                            customerDetail = CustomerDetail(
-                                userId = data.idKonsumen.toLong(),
-                                username = "null",
-                                email = "null",
-                                name = "null",
-                            ),
-                            productDetail = ProductDetail(
-                                productId = data.baju?.id!!.toLong(),
-                                productName = data.baju.nama.toString(),
-                                productPhoto = data.baju.foto.toString(),
-                                productDescription = data.baju.deskripsi.toString()
-                            ),
-                            orderDetail = DataMapper.mapOrderDetailsListToProductListItem(
-                                orderList,
-                                ProductDetail(
-                                    productId = data.baju.id.toLong(),
+                        emit(transaction as Transaction)
+                    } else {
+                        val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
+                        val transaction = data.id?.toLong()?.let {
+                            Transaction(
+                                trxId = it,
+                                customerDetail = CustomerDetail(
+                                    userId = data.idKonsumen.toLong(),
+                                    username = "null",
+                                    email = "null",
+                                    name = "null",
+                                ),
+                                productDetail = ProductDetail(
+                                    productId = data.baju?.id!!.toLong(),
                                     productName = data.baju.nama.toString(),
                                     productPhoto = data.baju.foto.toString(),
                                     productDescription = data.baju.deskripsi.toString()
-                                )
-                            ),
-                            designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
-                            totalAmount = data.biayaTotal?.toFloat(),
-                            transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
-                            shipmentDetail = null
-                        )
-                    }
+                                ),
+                                orderDetail = DataMapper.mapOrderDetailsListToProductListItem(
+                                    orderList,
+                                    ProductDetail(
+                                        productId = data.baju.id.toLong(),
+                                        productName = data.baju.nama.toString(),
+                                        productPhoto = data.baju.foto.toString(),
+                                        productDescription = data.baju.deskripsi.toString()
+                                    )
+                                ),
+                                designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
+                                totalAmount = data.biayaTotal?.toFloat(),
+                                transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
+                                shipmentDetail = null
+                            )
+                        }
 
-                    emit(transaction as Transaction)
+                        emit(transaction as Transaction)
+                    }
                 }
             }
+        } catch (e: Exception) {
+
         }
     }
 
     fun acceptOffer(idPesanan: Int): Flow<Boolean> = flow {
-        val token = sessionManager.getToken()
-        val data = IdPesananPost(
-            idPesanan
-        )
+        try {
+            val token = sessionManager.getToken()
+            val data = IdPesananPost(
+                idPesanan
+            )
 
-        if (token != null && token != "null") {
-            val response = api.acceptOffer(token, data)
-            if (response.isSuccessful) {
-                emit(true)
+            if (token != null && token != "null") {
+                val response = api.acceptOffer(token, data)
+                if (response.isSuccessful) {
+                    emit(true)
+                } else {
+                    emit(false)
+                }
             } else {
                 emit(false)
+                Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
             }
-        } else {
+        } catch (e: Exception) {
             emit(false)
-            Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
         }
     }
 
     fun declineOffer(idPesanan: Int): Flow<Boolean> = flow {
-        val token = sessionManager.getToken()
-        val data = IdPesananPost(
-            idPesanan
-        )
+        try {
+            val token = sessionManager.getToken()
+            val data = IdPesananPost(
+                idPesanan
+            )
 
-        if (token != null && token != "null") {
-            val response = api.declineOffer(token, data)
+            if (token != null && token != "null") {
+                val response = api.declineOffer(token, data)
 
-            if (response.isSuccessful) {
-                emit(true)
+                if (response.isSuccessful) {
+                    emit(true)
+                } else {
+                    emit(false)
+                }
             } else {
                 emit(false)
+                Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
             }
-        } else {
+        } catch (e: Exception) {
             emit(false)
-            Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
         }
     }
 
     fun setPrice(prices: OfferPrices): Flow<Penawaran> = flow {
-        val token = sessionManager.getToken()
-        val data = DataMapper.mapOfferPriceToPostHarga(prices)
+        try {
+            val token = sessionManager.getToken()
+            val data = DataMapper.mapOfferPriceToPostHarga(prices)
 
-        if (token != null && token != "null") {
-            val response = api.fillPrice(token, data)
+            if (token != null && token != "null") {
+                val response = api.fillPrice(token, data)
 
-            if (response.isSuccessful) {
-                val penawaran = response.body()?.data?.penawaran
-                emit(penawaran as Penawaran)
+                if (response.isSuccessful) {
+                    val penawaran = response.body()?.data?.penawaran
+                    emit(penawaran as Penawaran)
+                } else {
+                    emit(Penawaran())
+                }
             } else {
                 emit(Penawaran())
             }
-        } else {
+        } catch (e: Exception) {
             emit(Penawaran())
         }
     }
 
     fun getCatalog(): Flow<List<Product>> = flow {
-        val response = api.getCatalog()
+        try {
+            val response = api.getCatalog()
 
-        if (response.isSuccessful) {
-            val catalogResponse = response.body()
-            if (catalogResponse != null) {
-                val list = DataMapper.mapCatalogResponseListToProductList(catalogResponse.data as List<DataItem>)
-                emit(list as List<Product>)
+            if (response.isSuccessful) {
+                val catalogResponse = response.body()
+                if (catalogResponse != null) {
+                    val list = DataMapper.mapCatalogResponseListToProductList(catalogResponse.data as List<DataItem>)
+                    emit(list as List<Product>)
+                } else {
+                    emit(ArrayList<Product>())
+                }
             } else {
                 emit(ArrayList<Product>())
             }
-        } else {
+        } catch (e: Exception) {
             emit(ArrayList<Product>())
         }
     }
 
     fun getTailorDetails(): Flow<ProfileUpdatePost> = flow {
-        val response = api.getPenjahitDetails(
-            sessionManager.getToken().toString(),
-            sessionManager.getUserId()
-        )
+        try {
+            val response = api.getPenjahitDetails(
+                sessionManager.getToken().toString(),
+                sessionManager.getUserId()
+            )
 
-        if (response.isSuccessful) {
-            val profile = DataMapper.mapDetailPenjahitToProfileUpdatePost(response.body()?.data as DetailPenjahit)
-            emit(profile)
-        } else {
+            if (response.isSuccessful) {
+                val profile = DataMapper.mapDetailPenjahitToProfileUpdatePost(response.body()?.data as DetailPenjahit)
+                emit(profile)
+            } else {
+                emit(ProfileUpdatePost())
+            }
+        } catch (e: Exception) {
             emit(ProfileUpdatePost())
         }
     }
 
     fun updateTailorProfile(profile: ProfileUpdatePost): Flow<Boolean> = flow {
-        val response = api.updatePenjahitDetails(sessionManager.getToken().toString(), profile)
+        try {
+            val response = api.updatePenjahitDetails(sessionManager.getToken().toString(), profile)
 
-        if (response.isSuccessful) {
-            val fullName = response.body()?.data?.nama.toString()
-            sessionManager.changeLoginFullName(fullName)
+            if (response.isSuccessful) {
+                val fullName = response.body()?.data?.nama.toString()
+                sessionManager.changeLoginFullName(fullName)
+            }
+
+            emit(response.isSuccessful)
+        } catch (e: Exception) {
+            emit(false)
         }
+    }
 
-        emit(response.isSuccessful)
+    fun getRating(): Flow<Float> = flow {
+        try {
+            val response = api.getPenjahitDetails(
+                sessionManager.getToken().toString(),
+                sessionManager.getUserId()
+            )
+
+            if (response.isSuccessful) {
+                response.body()?.data?.rating?.let { emit(it) }
+            } else {
+                emit(-1f)
+            }
+        } catch (e: Exception) {
+            emit(-1f)
+        }
     }
 }

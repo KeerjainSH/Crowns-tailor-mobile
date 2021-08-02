@@ -50,7 +50,13 @@ class OfferAdapter : RecyclerView.Adapter<OfferAdapter.OfferViewHolder>() {
         RecyclerView.ViewHolder(binding.root) {
         fun bind(offer: OfferListItem) {
             binding.tvUserName.text = offer.customerDetail.username
-            binding.tvOfferDate.text = offer.offerDate
+
+            if (offer.offerDate != "null") {
+                binding.tvOfferDate.text = offer.offerDate
+            } else {
+                binding.tvOfferDate.text = ""
+            }
+
             binding.tvOfferType.text = binding.tvOfferType.context.resources.getString(
                 R.string.offer_type_list,
                 offer.productName

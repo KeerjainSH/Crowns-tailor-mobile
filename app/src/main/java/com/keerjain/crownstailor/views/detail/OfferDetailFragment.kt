@@ -113,6 +113,29 @@ class OfferDetailFragment : Fragment() {
                     designAdapter.setDesignList(offerDetail.designDetail)
                 }
 
+                val locations = offerDetail.lokasiPenjemputan
+
+                if (locations.isNullOrEmpty()) {
+                    binding.tvOfferDelivery.text = resources.getString(R.string.pesanan_dijemput_pembeli)
+                    binding.tvOfferTake.text = resources.getString(R.string.pesanan_diantar_pembeli)
+                    binding.etHargaJemput.visibility = View.GONE
+                    binding.etHargaKirim.visibility = View.GONE
+                    binding.tvHargaJemput.visibility = View.GONE
+                    binding.tvHargaKirim.visibility = View.GONE
+                } else {
+                    for (lokasi in locations) {
+                        if (lokasi.type == 1) { // Jemput
+                            binding.tvOfferTake.text = resources.getString(R.string.pesanan_dijemput)
+                            binding.etHargaJemput.visibility = View.VISIBLE
+                            binding.tvHargaJemput.visibility = View.VISIBLE
+                        } else if (lokasi.type == 2) {
+                            binding.tvOfferDelivery.text = resources.getString(R.string.pesanan_dikirim)
+                            binding.etHargaKirim.visibility = View.VISIBLE
+                            binding.tvHargaKirim.visibility = View.VISIBLE
+                        }
+                    }
+                }
+
                 designAdapter.setOnItemClickCallback(object : DesignAdapter.OnItemClickCallback {
                     override fun onItemClicked(data: DesignDetail) {
                         val toBrowser = Intent(Intent.ACTION_VIEW, Uri.parse(data.foto))

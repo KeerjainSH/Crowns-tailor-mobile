@@ -64,4 +64,8 @@ class AppRepositoryImpl(
     override fun updateTailorDetails(profile: ProfileUpdatePost): Flow<Boolean> {
         return remote.updateTailorProfile(profile)
     }
+
+    override fun getRating(): Flow<Float> {
+        return remote.getRating()
+    }
 }

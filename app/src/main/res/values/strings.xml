@@ -178,4 +178,9 @@
     <string name="update_error">Update data error. Silakan coba lagi dalam beberapa saat.</string>
     <string name="pesanan_selesai">Pesanan Selesai</string>
     <string name="total_pesanan">Total Pesanan</string>
+    <string name="pesanan_diantar_pembeli">Pesanan diantar pembeli</string>
+    <string name="pesanan_dijemput">Pesanan dijemput</string>
+    <string name="pesanan_dikirim">Pesanan dikirim</string>
+    <string name="pesanan_dijemput_pembeli">Pesanan dijemput pembeli</string>
+    <string name="dummy_rating">4.98</string>
 </resources>
