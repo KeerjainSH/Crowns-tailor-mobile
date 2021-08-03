@@ -173,14 +173,64 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/tv_offer_delivery"
+                android:id="@+id/tv_offer_no_delivery"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato"
-                android:text="@string/pesanan_dijemput_pembeli"
+                android:text="@string/tidak_perlu_dikirm"
                 android:textSize="12sp" />
+
+            <TableLayout
+                android:id="@+id/table_offer_pengiriman"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="1"
+                android:visibility="gone"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp">
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:textSize="12sp"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/nama_penerima" />
+
+                    <TextView
+                        android:id="@+id/tv_nama_penerima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/dummy_name"
+                        android:textSize="12sp" />
+                </TableRow>
+                <TableRow
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:textSize="12sp"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/alamat_penerima" />
+
+                    <TextView
+                        android:id="@+id/tv_alamat_penerima"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/dummy_address"
+                        android:textSize="12sp" />
+                </TableRow>
+            </TableLayout>
 
             <TextView
                 android:layout_width="match_parent"
@@ -192,14 +242,64 @@
                 android:textColor="@color/black" />
 
             <TextView
-                android:id="@+id/tv_offer_take"
+                android:id="@+id/tv_offer_no_take"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/lato"
-                android:text="@string/pesanan_dijemput"
+                android:text="@string/tidak_perlu_dijemput"
                 android:textSize="12sp" />
+
+            <TableLayout
+                android:id="@+id/table_offer_penjemputan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:shrinkColumns="1"
+                android:visibility="gone"
+                android:layout_marginHorizontal="16dp"
+                android:layout_marginTop="16dp">
+
+                <TableRow>
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:textSize="12sp"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/nama_kontak" />
+
+                    <TextView
+                        android:id="@+id/tv_nama_penerima_jemput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/dummy_name"
+                        android:textSize="12sp" />
+                </TableRow>
+                <TableRow
+                    android:layout_marginTop="8dp">
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:textSize="12sp"
+                        android:paddingEnd="16dp"
+                        android:paddingStart="0dp"
+                        android:text="@string/alamat_jemput" />
+
+                    <TextView
+                        android:id="@+id/tv_alamat_penerima_jemput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/lato"
+                        android:paddingHorizontal="8dp"
+                        android:text="@string/dummy_address"
+                        android:textSize="12sp" />
+                </TableRow>
+            </TableLayout>
 
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/offer_price_not_given"

@@ -49,6 +49,7 @@ class OfferDetailFragment : Fragment() {
     private lateinit var dateFormatter: SimpleDateFormat
     private lateinit var tvEstimation: TextView
     private val args: OfferDetailFragmentArgs by navArgs()
+    private var fillMode: Int = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -116,22 +117,31 @@ class OfferDetailFragment : Fragment() {
                 val locations = offerDetail.lokasiPenjemputan
 
                 if (locations.isNullOrEmpty()) {
-                    binding.tvOfferDelivery.text = resources.getString(R.string.pesanan_dijemput_pembeli)
-                    binding.tvOfferTake.text = resources.getString(R.string.pesanan_diantar_pembeli)
+                    binding.tvOfferNoDelivery.visibility = View.VISIBLE
+                    binding.tvOfferNoTake.visibility = View.VISIBLE
                     binding.etHargaJemput.visibility = View.GONE
                     binding.etHargaKirim.visibility = View.GONE
                     binding.tvHargaJemput.visibility = View.GONE
                     binding.tvHargaKirim.visibility = View.GONE
+                    fillMode = 0
                 } else {
                     for (lokasi in locations) {
                         if (lokasi.type == 1) { // Jemput
-                            binding.tvOfferTake.text = resources.getString(R.string.pesanan_dijemput)
+                            binding.tvOfferNoTake.visibility = View.GONE
                             binding.etHargaJemput.visibility = View.VISIBLE
                             binding.tvHargaJemput.visibility = View.VISIBLE
+                            binding.tableOfferPenjemputan.visibility = View.VISIBLE
+                            binding.tvNamaPenerimaJemput.text = lokasi.receiverName
+                            binding.tvAlamatPenerimaJemput.text = lokasi.receiverAddress
+                            fillMode += 1
                         } else if (lokasi.type == 2) {
-                            binding.tvOfferDelivery.text = resources.getString(R.string.pesanan_dikirim)
+                            binding.tvOfferNoDelivery.visibility = View.GONE
                             binding.etHargaKirim.visibility = View.VISIBLE
                             binding.tvHargaKirim.visibility = View.VISIBLE
+                            binding.tableOfferPengiriman.visibility = View.VISIBLE
+                            binding.tvNamaPenerima.text = lokasi.receiverName
+                            binding.tvAlamatPenerima.text = lokasi.receiverAddress
+                            fillMode += 2
                         }
                     }
                 }
@@ -198,19 +208,73 @@ class OfferDetailFragment : Fragment() {
         }
     }
 
-    private fun isPriceFormValidated() : Boolean = nonEmptyList(
-        binding.etEstimation,
-        binding.etHargaJahit,
-        binding.etHargaJemput,
-        binding.etHargaKirim,
-        binding.etHargaMaterial
-    ) { view, msg ->
-        view.error = msg
-        Toast.makeText(
-            requireContext(),
-            resources.getString(R.string.input_error),
-            Toast.LENGTH_SHORT
-        ).show()
+    private fun isPriceFormValidated() : Boolean {
+        return when(fillMode) {
+            0 -> {
+                nonEmptyList(
+                    binding.etEstimation,
+                    binding.etHargaJahit,
+                    binding.etHargaMaterial
+                ) { view, msg ->
+                    view.error = msg
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.input_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            1 -> {
+                nonEmptyList(
+                    binding.etEstimation,
+                    binding.etHargaJahit,
+                    binding.etHargaJemput,
+                    binding.etHargaMaterial
+                ) { view, msg ->
+                    view.error = msg
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.input_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            2 -> {
+                nonEmptyList(
+                    binding.etEstimation,
+                    binding.etHargaJahit,
+                    binding.etHargaKirim,
+                    binding.etHargaMaterial
+                ) { view, msg ->
+                    view.error = msg
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.input_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+
+            else -> {
+                nonEmptyList(
+                    binding.etEstimation,
+                    binding.etHargaJahit,
+                    binding.etHargaJemput,
+                    binding.etHargaKirim,
+                    binding.etHargaMaterial
+                ) { view, msg ->
+                    view.error = msg
+                    Toast.makeText(
+                        requireContext(),
+                        resources.getString(R.string.input_error),
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
     }
 
     private fun showPriceForm(offerDetail: Offer) {
@@ -223,14 +287,53 @@ class OfferDetailFragment : Fragment() {
 
             if (isPriceFormValidated()) {
                 val offer = viewModel.getOffer()
-                val prices = OfferPrices(
-                    idPesanan = offer.offerId.toInt(),
-                    biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
-                    biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
-                    biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
-                    biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
-                    hari = binding.etEstimation.text.toString()
-                )
+
+
+                val prices = when(fillMode) {
+                    0 -> {
+                        OfferPrices(
+                            idPesanan = offer.offerId.toInt(),
+                            biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
+                            biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
+                            biayaKirim = 0f,
+                            biayaJemput = 0f,
+                            hari = binding.etEstimation.text.toString()
+                        )
+                    }
+
+                    1 -> {
+                        OfferPrices(
+                            idPesanan = offer.offerId.toInt(),
+                            biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
+                            biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
+                            biayaKirim = 0f,
+                            biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
+                            hari = binding.etEstimation.text.toString()
+                        )
+                    }
+
+                    2 -> {
+                        OfferPrices(
+                            idPesanan = offer.offerId.toInt(),
+                            biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
+                            biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
+                            biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
+                            biayaJemput = 0f,
+                            hari = binding.etEstimation.text.toString()
+                        )
+                    }
+
+                    else -> {
+                        OfferPrices(
+                            idPesanan = offer.offerId.toInt(),
+                            biayaJahit = binding.etHargaJahit.text.toString().toFloat(),
+                            biayaMaterial = binding.etHargaMaterial.text.toString().toFloat(),
+                            biayaKirim = binding.etHargaKirim.text.toString().toFloat(),
+                            biayaJemput = binding.etHargaJemput.text.toString().toFloat(),
+                            hari = binding.etEstimation.text.toString()
+                        )
+                    }
+                }
 
                 lifecycleScope.launch(Dispatchers.IO) {
                     viewModel.setPrices(prices).collectLatest { penawaran ->

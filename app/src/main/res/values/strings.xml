@@ -183,4 +183,8 @@
     <string name="pesanan_dikirim">Pesanan dikirim</string>
     <string name="pesanan_dijemput_pembeli">Pesanan dijemput pembeli</string>
     <string name="dummy_rating">4.98</string>
+    <string name="tidak_perlu_dikirm">Tidak perlu dikirim</string>
+    <string name="tidak_perlu_dijemput">Tidak perlu dijemput</string>
+    <string name="alamat_jemput">Alamat Jemput</string>
+    <string name="nama_kontak">Nama Kontak</string>
 </resources>
