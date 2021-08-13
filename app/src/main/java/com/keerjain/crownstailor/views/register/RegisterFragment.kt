@@ -27,7 +27,6 @@ class RegisterFragment : Fragment(), View.OnClickListener {
         _binding = RegisterFragmentBinding.inflate(inflater, container, false)
 
         binding.registerButton.setOnClickListener(this)
-        binding.googleRegisterButton.setOnClickListener(this)
         binding.loginTextView.setOnClickListener(this)
 
         return binding.root

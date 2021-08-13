@@ -34,7 +34,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
         _binding = LoginFragmentBinding.inflate(inflater, container, false)
 
         binding.signInButton.setOnClickListener(this)
-        binding.googleSignInButton.setOnClickListener(this)
         binding.registerTextView.setOnClickListener(this)
 
         return binding.root
@@ -94,10 +93,6 @@ class LoginFragment : Fragment(), View.OnClickListener {
                         }
                     }
                 }
-            }
-
-            R.id.google_sign_in_button -> {
-
             }
 
             R.id.register_text_view -> {

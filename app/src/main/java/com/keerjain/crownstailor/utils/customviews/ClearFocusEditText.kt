@@ -4,6 +4,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.KeyEvent
 import androidx.appcompat.widget.AppCompatEditText
+import com.google.android.material.textfield.TextInputEditText
 
 class ClearFocusEditText : AppCompatEditText {
     constructor(context: Context) : super(context)

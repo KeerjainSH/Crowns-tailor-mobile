@@ -187,4 +187,6 @@
     <string name="tidak_perlu_dijemput">Tidak perlu dijemput</string>
     <string name="alamat_jemput">Alamat Jemput</string>
     <string name="nama_kontak">Nama Kontak</string>
+    <string name="username">Username</string>
+    <string name="masukkan_username_anda">Masukkan username anda</string>
 </resources>
