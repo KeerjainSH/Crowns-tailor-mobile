@@ -10,8 +10,10 @@ import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.databinding.RegisterFragmentBinding
+import com.keerjain.crownstailor.utils.modules.PasswordRule
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.nonEmptyList
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.validEmailList
+import com.wajahatkarim3.easyvalidation.core.view_ktx.validator
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -59,8 +61,15 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                         view.error = msg
                     }
 
+                    val isPasswordMinLength = password.validator()
+                        .addRule(PasswordRule())
+                        .addErrorCallback {
+                            password.error = it
+                        }
+                        .check()
+
                     lifecycleScope.launch(Dispatchers.Default) {
-                        if (isNotEmpty && isEmailFormatted) {
+                        if (isNotEmpty && isEmailFormatted && isPasswordMinLength) {
                             val registrationData = RegistrationData(
                                 username = username.text.toString(),
                                 password = password.text.toString(),
