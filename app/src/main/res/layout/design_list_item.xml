@@ -28,10 +28,20 @@
             android:id="@+id/tv_design_instruction"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:layout_marginHorizontal="16dp"
             android:fontFamily="@font/lato"
             android:textSize="12sp"
             android:text="@string/dummy_instruction" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginHorizontal="16dp"
+            android:fontFamily="@font/lato"
+            android:textSize="12sp"
+            android:textColor="@color/main_blue_color"
+            android:text="@string/lihat_detail" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.cardview.widget.CardView>
