@@ -6,11 +6,11 @@ import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.offer.OfferPrices
 import com.keerjain.crownstailor.data.entities.product.Product
-import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.RemoteDataSource
 import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
+import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.Penawaran
 import kotlinx.coroutines.flow.Flow
 

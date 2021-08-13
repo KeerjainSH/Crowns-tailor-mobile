@@ -1,6 +1,5 @@
 package com.keerjain.crownstailor.utils.modules
 
-import androidx.viewbinding.BuildConfig
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

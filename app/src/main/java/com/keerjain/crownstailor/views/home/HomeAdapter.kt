@@ -2,8 +2,6 @@ package com.keerjain.crownstailor.views.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
-import androidx.core.content.res.ResourcesCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.keerjain.crownstailor.R
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
@@ -53,13 +51,17 @@ class HomeAdapter : RecyclerView.Adapter<HomeAdapter.HomeViewHolder>() {
     inner class HomeViewHolder(private val binding: TransactionListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(order: TransactionListItem) {
-            binding.tvOrderId.text = binding.tvOrderId.context.resources.getString(R.string.invoice_number, order.trxId.toString())
+            binding.tvOrderId.text = binding.tvOrderId.context.resources.getString(
+                R.string.invoice_number,
+                order.trxId.toString()
+            )
             binding.tvProductName.text = order.productName
 
             val status = order.transactionStatus
-            binding.tvStatus.text = binding.tvStatus.context.resources.getString(status.getStringResources())
+            binding.tvStatus.text =
+                binding.tvStatus.context.resources.getString(status.getStringResources())
 
-            when(status) {
+            when (status) {
                 Status.PAID_ORDER -> {
                     binding.tvStatus.setBackgroundResource(
                         R.drawable.status_baru

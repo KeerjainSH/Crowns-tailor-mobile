@@ -103,17 +103,20 @@ class ProfileFragment : Fragment() {
     fun moveToSetting(menu: Int) {
         when (menu) {
             0 -> {
-                val toProdukJahit = ProfileFragmentDirections.actionNavigationOtherToChangeProductFragment()
+                val toProdukJahit =
+                    ProfileFragmentDirections.actionNavigationOtherToChangeProductFragment()
                 view?.findNavController()?.navigate(toProdukJahit)
             }
 
             1 -> {
-                val toProfile = ProfileFragmentDirections.actionNavigationOtherToChangeProfileFragment()
+                val toProfile =
+                    ProfileFragmentDirections.actionNavigationOtherToChangeProfileFragment()
                 view?.findNavController()?.navigate(toProfile)
             }
 
             2 -> {
-                val toRekeningBank = ProfileFragmentDirections.actionNavigationOtherToChangeBankFragment()
+                val toRekeningBank =
+                    ProfileFragmentDirections.actionNavigationOtherToChangeBankFragment()
                 view?.findNavController()?.navigate(toRekeningBank)
             }
         }

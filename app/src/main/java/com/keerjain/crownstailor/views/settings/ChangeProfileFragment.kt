@@ -53,7 +53,7 @@ class ChangeProfileFragment : Fragment() {
                 showDateDialog()
             }
             binding.etBirthDate.onFocusChangeListener =
-                View.OnFocusChangeListener { v, hasFocus ->
+                View.OnFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
                         showDateDialog()
                     }
@@ -169,11 +169,12 @@ class ChangeProfileFragment : Fragment() {
             profile.kodepos = binding.etPostalCode.text.toString()
             profile.noHp = binding.etPhoneNumber.text.toString()
             profile.tanggalLahir = binding.etBirthDate.text.toString()
-            profile.jenisKelamin = if (binding.genderSpinner.selectedItem.toString() == genderArray[0]) {
-                "l"
-            } else {
-                "p"
-            }
+            profile.jenisKelamin =
+                if (binding.genderSpinner.selectedItem.toString() == genderArray[0]) {
+                    "l"
+                } else {
+                    "p"
+                }
 
             viewModel.updateProfile(profile).collectLatest { isSuccessful ->
                 if (isSuccessful) {

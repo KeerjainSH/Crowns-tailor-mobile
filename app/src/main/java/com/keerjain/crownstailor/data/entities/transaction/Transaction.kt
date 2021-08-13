@@ -1,7 +1,10 @@
 package com.keerjain.crownstailor.data.entities.transaction
 
 import android.os.Parcelable
-import com.keerjain.crownstailor.data.entities.detail.*
+import com.keerjain.crownstailor.data.entities.detail.CustomerDetail
+import com.keerjain.crownstailor.data.entities.detail.DesignDetail
+import com.keerjain.crownstailor.data.entities.detail.ProductDetail
+import com.keerjain.crownstailor.data.entities.detail.ShipmentDetail
 import com.keerjain.crownstailor.data.entities.product.ProductListItem
 import com.keerjain.crownstailor.utils.enums.Status
 import kotlinx.parcelize.Parcelize

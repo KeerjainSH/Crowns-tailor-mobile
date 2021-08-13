@@ -47,7 +47,7 @@ class RegisterDetailTailorFragment : Fragment() {
                 showDateDialog()
             }
             binding.etBirthDate.onFocusChangeListener =
-                View.OnFocusChangeListener { v, hasFocus ->
+                View.OnFocusChangeListener { _, hasFocus ->
                     if (hasFocus) {
                         showDateDialog()
                     }

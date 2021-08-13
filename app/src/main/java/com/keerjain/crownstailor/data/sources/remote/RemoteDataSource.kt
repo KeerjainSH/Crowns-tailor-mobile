@@ -8,13 +8,13 @@ import com.keerjain.crownstailor.data.entities.offer.Offer
 import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.data.entities.offer.OfferPrices
 import com.keerjain.crownstailor.data.entities.product.Product
-import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.entities.transaction.Transaction
 import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.data.sources.remote.api.ApiService
 import com.keerjain.crownstailor.data.sources.remote.posts.IdPesananPost
 import com.keerjain.crownstailor.data.sources.remote.posts.LoginPost
 import com.keerjain.crownstailor.data.sources.remote.posts.ProfileUpdatePost
+import com.keerjain.crownstailor.data.sources.remote.posts.RegistrationData
 import com.keerjain.crownstailor.data.sources.remote.responses.DataItem
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.penjahit.DetailPenjahit
 import com.keerjain.crownstailor.data.sources.remote.utils.entities.pesanan.DesignKustom
@@ -104,7 +104,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 if (!listApi.isNullOrEmpty()) {
                     for (data in listApi) {
                         if (data != null) {
-                            val userResponse = data.idKonsumen?.let { api.getCustomerDetails(it.toLong()) }
+                            val userResponse =
+                                data.idKonsumen?.let { api.getCustomerDetails(it.toLong()) }
                             if (userResponse?.isSuccessful as Boolean) {
                                 val offer = data.id?.let {
                                     OfferListItem(
@@ -168,7 +169,9 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                     trxId = it.toLong(),
                                     productName = data.baju?.nama.toString(),
                                     productPhoto = data.baju?.foto.toString(),
-                                    transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt())
+                                    transactionStatus = DataMapper.mapStatusToOrderStatus(
+                                        data.statusPesanan.toString().toInt()
+                                    )
                                 )
                             }
 
@@ -216,7 +219,9 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                         productPhoto = data.baju.foto.toString(),
                                         productDescription = data.baju.deskripsi.toString()
                                     ),
-                                    orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                                    orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(
+                                        data.detailPesanan as List<DetailJahit>
+                                    ),
                                     designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                                     offerDate = data.createdAt.toString(),
                                     offerAmount = offerResponse.jumlahPenawaran?.toFloat(),
@@ -246,7 +251,9 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                         productPhoto = data.baju.foto.toString(),
                                         productDescription = data.baju.deskripsi.toString()
                                     ),
-                                    orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>),
+                                    orderDetail = DataMapper.mapDetailJahitListToOrderDetailList(
+                                        data.detailPesanan as List<DetailJahit>
+                                    ),
                                     designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                                     offerDate = data.createdAt.toString(),
                                     offerAmount = data.biayaTotal?.toFloat(),
@@ -312,7 +319,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 if (data != null) {
                     val userResponse = data.idKonsumen?.toLong()?.let { api.getCustomerDetails(it) }
                     if (userResponse?.isSuccessful as Boolean) {
-                        val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
+                        val orderList =
+                            DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
                         val transaction = data.id?.toLong()?.let {
                             Transaction(
                                 trxId = it,
@@ -339,7 +347,9 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 ),
                                 designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                                 totalAmount = data.biayaTotal?.toFloat(),
-                                transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
+                                transactionStatus = DataMapper.mapStatusToOrderStatus(
+                                    data.statusPesanan.toString().toInt()
+                                ),
                                 shipmentDetail = DataMapper.mapLokasiPenjemputanListToShipmentDetailList(
                                     data.lokasiPenjemputan as List<LokasiPenjemputan>,
                                     userResponse.body()?.data?.name.toString(),
@@ -349,7 +359,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
 
                         emit(transaction as Transaction)
                     } else {
-                        val orderList = DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
+                        val orderList =
+                            DataMapper.mapDetailJahitListToOrderDetailList(data.detailPesanan as List<DetailJahit>)
                         val transaction = data.id?.toLong()?.let {
                             Transaction(
                                 trxId = it,
@@ -376,7 +387,9 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                 ),
                                 designDetail = DataMapper.mapDesignKustomListToDesignDetail(data.designKustom as List<DesignKustom>),
                                 totalAmount = data.biayaTotal?.toFloat(),
-                                transactionStatus = DataMapper.mapStatusToOrderStatus(data.statusPesanan.toString().toInt()),
+                                transactionStatus = DataMapper.mapStatusToOrderStatus(
+                                    data.statusPesanan.toString().toInt()
+                                ),
                                 shipmentDetail = null
                             )
                         }
@@ -466,7 +479,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             if (response.isSuccessful) {
                 val catalogResponse = response.body()
                 if (catalogResponse != null) {
-                    val list = DataMapper.mapCatalogResponseListToProductList(catalogResponse.data as List<DataItem>)
+                    val list =
+                        DataMapper.mapCatalogResponseListToProductList(catalogResponse.data as List<DataItem>)
                     emit(list as List<Product>)
                 } else {
                     emit(ArrayList<Product>())
@@ -487,7 +501,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             )
 
             if (response.isSuccessful) {
-                val profile = DataMapper.mapDetailPenjahitToProfileUpdatePost(response.body()?.data as DetailPenjahit)
+                val profile =
+                    DataMapper.mapDetailPenjahitToProfileUpdatePost(response.body()?.data as DetailPenjahit)
                 emit(profile)
             } else {
                 emit(ProfileUpdatePost())

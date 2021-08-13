@@ -10,6 +10,5 @@
     
     <!-- STATUS COLOR -->
     <color name="status_dikerjakan_color">#FF4FA8E0</color>
-    <color name="status_dikirim_color">#FF4FD7E0</color>
     <color name="status_selesai_color">#FF4FE0AC</color>
 </resources>

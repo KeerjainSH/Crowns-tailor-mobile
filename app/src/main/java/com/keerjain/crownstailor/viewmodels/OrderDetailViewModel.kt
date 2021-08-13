@@ -7,12 +7,4 @@ import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 class OrderDetailViewModel(private val repos: AppRepository) : ViewModel() {
     fun getTransactionDetails(transactionListItem: TransactionListItem) =
         repos.getTransactionDetails(transactionListItem)
-
-    fun startWorking() {
-
-    }
-
-    fun sendOrder() {
-
-    }
 }

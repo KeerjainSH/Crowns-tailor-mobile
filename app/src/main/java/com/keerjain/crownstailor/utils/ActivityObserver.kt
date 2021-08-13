@@ -3,7 +3,7 @@ package com.keerjain.crownstailor.utils
 import androidx.lifecycle.DefaultLifecycleObserver
 import androidx.lifecycle.LifecycleOwner
 
-class ActivityObserver (
+class ActivityObserver(
     private val update: () -> Unit
 ) : DefaultLifecycleObserver {
 

@@ -1,6 +1,5 @@
 package com.keerjain.crownstailor.views.order
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
@@ -11,7 +10,6 @@ import com.keerjain.crownstailor.data.entities.transaction.TransactionListItem
 import com.keerjain.crownstailor.databinding.TransactionListItemBinding
 import com.keerjain.crownstailor.utils.ExtensionFunctions.loadPicture
 import com.keerjain.crownstailor.utils.enums.Status
-import com.keerjain.crownstailor.views.home.HomeAdapter
 
 class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>(), Filterable {
     private lateinit var onItemClickCallback: OnItemClickCallback
@@ -66,16 +64,20 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>(), Filte
 
     override fun getItemCount(): Int = listOrderFiltered.size
 
-    inner class OrderViewHolder (private val binding: TransactionListItemBinding) :
+    inner class OrderViewHolder(private val binding: TransactionListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(order: TransactionListItem) {
-            binding.tvOrderId.text = binding.tvOrderId.context.resources.getString(R.string.invoice_number, order.trxId.toString())
+            binding.tvOrderId.text = binding.tvOrderId.context.resources.getString(
+                R.string.invoice_number,
+                order.trxId.toString()
+            )
             binding.tvProductName.text = order.productName
 
             val status = order.transactionStatus
-            binding.tvStatus.text = binding.tvStatus.context.resources.getString(status.getStringResources())
+            binding.tvStatus.text =
+                binding.tvStatus.context.resources.getString(status.getStringResources())
 
-            when(status) {
+            when (status) {
                 Status.PAID_ORDER -> {
                     binding.tvStatus.setBackgroundResource(
                         R.drawable.status_baru
@@ -98,16 +100,19 @@ class OrderAdapter : RecyclerView.Adapter<OrderAdapter.OrderViewHolder>(), Filte
             override fun performFiltering(constraint: CharSequence?): FilterResults {
                 val charSearch = constraint.toString()
 
-                if (charSearch.isEmpty()) {
-                    listOrderFiltered = listOrderStatusFiltered
+                listOrderFiltered = if (charSearch.isEmpty()) {
+                    listOrderStatusFiltered
                 } else {
                     val resultList = ArrayList<TransactionListItem>()
                     for (data in listOrderStatusFiltered) {
-                        if (data.trxId.toString().lowercase().contains(charSearch.lowercase()) or data.productName.lowercase().contains(charSearch.lowercase())) {
+                        if (data.trxId.toString().lowercase()
+                                .contains(charSearch.lowercase()) or data.productName.lowercase()
+                                .contains(charSearch.lowercase())
+                        ) {
                             resultList.add(data)
                         }
                     }
-                    listOrderFiltered = resultList
+                    resultList
                 }
 
                 val filterResults = FilterResults()

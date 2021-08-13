@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class IsiHargaPost (
+data class IsiHargaPost(
     @SerializedName("id_pesanan")
     @Expose
     val idPesanan: Int?,

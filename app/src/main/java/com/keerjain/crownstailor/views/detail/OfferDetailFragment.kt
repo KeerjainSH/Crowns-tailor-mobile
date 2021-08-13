@@ -5,15 +5,11 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.text.InputType
-import android.text.method.LinkMovementMethod
-import android.text.method.MovementMethod
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
@@ -208,8 +204,8 @@ class OfferDetailFragment : Fragment() {
         }
     }
 
-    private fun isPriceFormValidated() : Boolean {
-        return when(fillMode) {
+    private fun isPriceFormValidated(): Boolean {
+        return when (fillMode) {
             0 -> {
                 nonEmptyList(
                     binding.etEstimation,
@@ -289,7 +285,7 @@ class OfferDetailFragment : Fragment() {
                 val offer = viewModel.getOffer()
 
 
-                val prices = when(fillMode) {
+                val prices = when (fillMode) {
                     0 -> {
                         OfferPrices(
                             idPesanan = offer.offerId.toInt(),
@@ -342,9 +338,11 @@ class OfferDetailFragment : Fragment() {
                                 binding.offerPriceNotGiven.visibility = View.GONE
                                 binding.offerPriceGiven.visibility = View.VISIBLE
                                 binding.offerPriceUpdated.visibility = View.GONE
-                                binding.tvOfferPrice.text = penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
+                                binding.tvOfferPrice.text =
+                                    penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
                                 binding.tvOfferEstimation.text = penawaran.hariTawar
-                                binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                                binding.tvOfferStatus.text =
+                                    resources.getString(offerDetail.offerStatus.getStringResources())
                                 Toast.makeText(
                                     requireContext(),
                                     resources.getString(R.string.price_sent),
@@ -376,7 +374,8 @@ class OfferDetailFragment : Fragment() {
         binding.offerPriceUpdated.visibility = View.GONE
         binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
         binding.tvOfferEstimation.text = offerDetail.offerEstimation
-        binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+        binding.tvOfferStatus.text =
+            resources.getString(offerDetail.offerStatus.getStringResources())
     }
 
     private fun showOfferForm(offerDetail: Offer) {
@@ -398,7 +397,8 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
                             binding.tvOfferEstimation.text = offerDetail.offerEstimation
-                            binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                            binding.tvOfferStatus.text =
+                                resources.getString(offerDetail.offerStatus.getStringResources())
                             Toast.makeText(
                                 requireContext(),
                                 resources.getString(R.string.offer_accepted),
@@ -432,7 +432,8 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
                             binding.tvOfferEstimation.text = offerDetail.offerEstimation
-                            binding.tvOfferStatus.text = resources.getString(offerDetail.offerStatus.getStringResources())
+                            binding.tvOfferStatus.text =
+                                resources.getString(offerDetail.offerStatus.getStringResources())
                             Toast.makeText(
                                 requireContext(),
                                 resources.getString(R.string.offer_declined),

@@ -10,63 +10,63 @@ interface ApiService {
     suspend fun getPenjahitDetails(
         @Header("Authorization") token: String,
         @Path("id") id: Int,
-    ) : Response<DetailPenjahitResponse>
+    ): Response<DetailPenjahitResponse>
 
     @POST("penjahit/updateProfil")
     suspend fun updatePenjahitDetails(
         @Header("Authorization") token: String,
         @Body data: ProfileUpdatePost,
-    ) : Response<DetailPenjahitResponse>
+    ): Response<DetailPenjahitResponse>
 
     @POST("pesanan/updateHarga")
     suspend fun fillPrice(
         @Header("Authorization") token: String,
         @Body data: IsiHargaPost
-    ) : Response<IsiHargaResponse>
+    ): Response<IsiHargaResponse>
 
     @POST("pesanan/terimaTawar")
     suspend fun acceptOffer(
         @Header("Authorization") token: String,
         @Body data: IdPesananPost
-    ) : Response<StatusTawarResponse>
+    ): Response<StatusTawarResponse>
 
     @POST("pesanan/tolakTawar")
     suspend fun declineOffer(
         @Header("Authorization") token: String,
         @Body data: IdPesananPost
-    ) : Response<StatusTawarResponse>
+    ): Response<StatusTawarResponse>
 
     @GET("pesanan/{id}")
     suspend fun getOrderDetails(
         @Header("Authorization") token: String,
         @Path("id") id: Int,
-    ) : Response<PesananDetailResponse>
+    ): Response<PesananDetailResponse>
 
     @POST("penjahit/login")
     suspend fun login(
         @Body data: LoginPost
-    ) : Response<LoginResponse>
+    ): Response<LoginResponse>
 
     @POST("penjahit/register")
     suspend fun register(
         @Body data: RegistrationData
-    ) : Response<LoginResponse>
+    ): Response<LoginResponse>
 
     @GET("pesanan/pembayaranBelumValid")
     suspend fun getOffers(
         @Header("Authorization") token: String,
-    ) : Response<AllPesananResponse>
+    ): Response<AllPesananResponse>
 
     @GET("pesanan/pembayaranValidSelesai")
     suspend fun getOrders(
         @Header("Authorization") token: String,
-    ) : Response<AllPesananResponse>
+    ): Response<AllPesananResponse>
 
     @GET("katalog")
-    suspend fun getCatalog() : Response<CatalogResponse>
+    suspend fun getCatalog(): Response<CatalogResponse>
 
     @GET("pembeli/id-pembeli/{id}")
     suspend fun getCustomerDetails(
         @Path("id") id: Long,
-    ) : Response<CustomerDetailResponse>
+    ): Response<CustomerDetailResponse>
 }

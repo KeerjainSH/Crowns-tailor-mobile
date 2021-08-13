@@ -68,7 +68,9 @@ class RegisterFragment : Fragment(), View.OnClickListener {
                             )
 
                             val toChooseProducts =
-                                RegisterFragmentDirections.actionRegisterFragmentToRegisterDetailTailorFragment(registrationData)
+                                RegisterFragmentDirections.actionRegisterFragmentToRegisterDetailTailorFragment(
+                                    registrationData
+                                )
 
                             withContext(Dispatchers.Main) {
                                 v.findNavController().navigate(toChooseProducts)

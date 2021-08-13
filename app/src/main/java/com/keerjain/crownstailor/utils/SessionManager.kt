@@ -48,10 +48,6 @@ class SessionManager(context: Context) {
         }
     }
 
-    fun saveToPreference(key: String, value: String) = editor.putString(key, value).commit()
-
-    fun getFromPreference(key: String) = pref.getString(key, "")
-
     companion object {
         const val KEY_LOGIN = "isLoggedIn"
         const val KEY_USERNAME = "username"

@@ -73,17 +73,29 @@ class LoginFragment : Fragment(), View.OnClickListener {
                     lifecycleScope.launch(Dispatchers.IO) {
                         viewModel.signIn(tailor).collectLatest { isSuccess ->
                             if (isSuccess) {
-                                val toHome = LoginFragmentDirections.actionLoginFragmentToMainActivity()
+                                val toHome =
+                                    LoginFragmentDirections.actionLoginFragmentToMainActivity()
 
                                 withContext(Dispatchers.Main) {
-                                    Toast.makeText(activity, resources.getString(R.string.login_success, username.text.toString()), Toast.LENGTH_SHORT)
+                                    Toast.makeText(
+                                        activity,
+                                        resources.getString(
+                                            R.string.login_success,
+                                            username.text.toString()
+                                        ),
+                                        Toast.LENGTH_SHORT
+                                    )
                                         .show()
                                     v.findNavController().navigate(toHome)
                                     activity?.finishAfterTransition()
                                 }
                             } else {
                                 withContext(Dispatchers.Main) {
-                                    Toast.makeText(activity, resources.getString(R.string.login_failed), Toast.LENGTH_SHORT)
+                                    Toast.makeText(
+                                        activity,
+                                        resources.getString(R.string.login_failed),
+                                        Toast.LENGTH_SHORT
+                                    )
                                         .show()
                                     Handler(Looper.getMainLooper()).postDelayed({
                                         setLoading(false)

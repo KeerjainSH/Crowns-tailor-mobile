@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -99,7 +98,8 @@ class MainActivity : AppCompatActivity() {
 
     fun moveSettings(menu: Int) {
         if (isSettings) {
-            val profileFragment = navHostFragment.childFragmentManager.fragments[0] as ProfileFragment
+            val profileFragment =
+                navHostFragment.childFragmentManager.fragments[0] as ProfileFragment
             profileFragment.moveToSetting(menu)
         }
     }

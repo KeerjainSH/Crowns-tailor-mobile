@@ -9,22 +9,22 @@ import kotlinx.parcelize.Parcelize
 @Parcelize
 data class IsiHargaResponse(
 
-	@field:SerializedName("data")
-	val data: ReturnHarga? = null,
+    @field:SerializedName("data")
+    val data: ReturnHarga? = null,
 
-	@field:SerializedName("success")
-	val success: Boolean? = null,
+    @field:SerializedName("success")
+    val success: Boolean? = null,
 
-	@field:SerializedName("message")
-	val message: String? = null
+    @field:SerializedName("message")
+    val message: String? = null
 ) : Parcelable
 
 @Parcelize
 data class ReturnHarga(
 
-	@field:SerializedName("pembayaran")
-	val pembayaran: Pembayaran? = null,
+    @field:SerializedName("pembayaran")
+    val pembayaran: Pembayaran? = null,
 
-	@field:SerializedName("penawaran")
-	val penawaran: Penawaran? = null
+    @field:SerializedName("penawaran")
+    val penawaran: Penawaran? = null
 ) : Parcelable

@@ -76,14 +76,19 @@ object DataMapper {
     }
 
     fun mapStatusToOfferStatus(input: Int?): OfferStatus {
-        return if (input == null) {
-            OfferStatus.OFFER_NEW
-        } else if (input == 1) (
-                OfferStatus.OFFER_RESPONSE_SENT
-                ) else if (input == 2) {
-            OfferStatus.OFFER_NEW_PRICE
-        } else {
-            OfferStatus.OFFER_ACCEPTED
+        return when (input) {
+            null -> {
+                OfferStatus.OFFER_NEW
+            }
+            1 -> (
+                    OfferStatus.OFFER_RESPONSE_SENT
+                    )
+            2 -> {
+                OfferStatus.OFFER_NEW_PRICE
+            }
+            else -> {
+                OfferStatus.OFFER_ACCEPTED
+            }
         }
     }
 

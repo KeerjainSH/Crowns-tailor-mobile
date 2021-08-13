@@ -9,7 +9,7 @@ import com.keerjain.crownstailor.databinding.DesignListItemBinding
 
 class DesignAdapter : RecyclerView.Adapter<DesignAdapter.DesignViewHolder>() {
     private lateinit var onItemClickCallback: OnItemClickCallback
-    val listDesign = ArrayList<DesignDetail>()
+    private val listDesign = ArrayList<DesignDetail>()
 
     interface OnItemClickCallback {
         fun onItemClicked(data: DesignDetail)
@@ -22,7 +22,10 @@ class DesignAdapter : RecyclerView.Adapter<DesignAdapter.DesignViewHolder>() {
     class DesignViewHolder(private val binding: DesignListItemBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(design: DesignDetail, position: Int) {
-            binding.tvDesignNumber.text = binding.tvDesignNumber.context.resources.getString(R.string.design_number, position.toString())
+            binding.tvDesignNumber.text = binding.tvDesignNumber.context.resources.getString(
+                R.string.design_number,
+                position.toString()
+            )
             binding.tvDesignInstruction.text = design.deskripsi
         }
     }

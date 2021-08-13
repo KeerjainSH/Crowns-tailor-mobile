@@ -1,7 +1,6 @@
 package com.keerjain.crownstailor.views.settings
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
@@ -19,9 +18,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val currentActivity = activity as MainActivity
 
-        val aturProdukJahit = findPreference<Preference>(resources.getString(R.string.key_atur_produk_jahit))
+        val aturProdukJahit =
+            findPreference<Preference>(resources.getString(R.string.key_atur_produk_jahit))
         val aturProfil = findPreference<Preference>(resources.getString(R.string.key_atur_profil))
-        val aturRekeningBank = findPreference<Preference>(resources.getString(R.string.key_atur_rekening_bank))
+        val aturRekeningBank =
+            findPreference<Preference>(resources.getString(R.string.key_atur_rekening_bank))
 
         aturProdukJahit?.onPreferenceClickListener = Preference.OnPreferenceClickListener {
             currentActivity.moveSettings(0)

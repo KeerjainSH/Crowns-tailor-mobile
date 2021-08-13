@@ -4,6 +4,8 @@
     <item android:drawable="@color/main_blue_color" />
 
     <item
+        android:width="185dp"
+        android:height="200dp"
         android:gravity="center">
         <bitmap
             android:gravity="fill_horizontal|fill_vertical"

@@ -2,17 +2,13 @@ package com.keerjain.crownstailor.views.order
 
 import android.app.SearchManager
 import android.content.Context
-import android.graphics.Typeface
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioButton
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
@@ -25,8 +21,6 @@ import com.keerjain.crownstailor.databinding.OrderFragmentBinding
 import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.viewmodels.OrderViewModel
 import com.keerjain.crownstailor.views.MainActivity
-import com.keerjain.crownstailor.views.home.HomeAdapter
-import com.keerjain.crownstailor.views.home.HomeFragmentDirections
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.withContext

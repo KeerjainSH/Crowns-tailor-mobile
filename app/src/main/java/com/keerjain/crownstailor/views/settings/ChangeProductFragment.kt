@@ -1,11 +1,11 @@
 package com.keerjain.crownstailor.views.settings
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -58,7 +58,7 @@ class ChangeProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showLoading(true)
         lifecycleScope.launchWhenCreated {
-            viewModel.getProfile().collectLatest { profile ->
+            viewModel.getProfile().collectLatest {
                 viewModel.getProductList().collectLatest { list ->
                     viewAdapter.setProductList(list)
                     showLoading(false)
@@ -87,7 +87,8 @@ class ChangeProductFragment : Fragment() {
 
                     viewModel.updateProfile(profile).collectLatest { isSuccessful ->
                         if (isSuccessful) {
-                            val toProfileFragment = ChangeProductFragmentDirections.actionChangeProductFragmentToNavigationOther()
+                            val toProfileFragment =
+                                ChangeProductFragmentDirections.actionChangeProductFragmentToNavigationOther()
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),

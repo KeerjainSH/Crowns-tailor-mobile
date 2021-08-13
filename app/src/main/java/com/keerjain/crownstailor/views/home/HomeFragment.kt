@@ -2,12 +2,9 @@ package com.keerjain.crownstailor.views.home
 
 import android.content.Context
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
@@ -62,7 +59,8 @@ class HomeFragment : Fragment() {
         binding.tvPesananSelesai.showLoading(true)
 
         currentActivity.setSupportActionBar(binding.topAppBar)
-        binding.tvWelcomeGreetings.text = resources.getString(R.string.welcome_message, sessionManager.getSessionData()?.name)
+        binding.tvWelcomeGreetings.text =
+            resources.getString(R.string.welcome_message, sessionManager.getSessionData()?.name)
         showListLoading(true)
 
         if (SessionManager(requireContext()).getLoginState()) {
@@ -98,8 +96,8 @@ class HomeFragment : Fragment() {
                     binding.tvTotalPesanan.showLoading(false)
                 }
             }
-            
-            lifecycleScope.launchWhenCreated { 
+
+            lifecycleScope.launchWhenCreated {
                 viewModel.getOffers().collectLatest {
                     val totalOffer = it.size.toString()
 

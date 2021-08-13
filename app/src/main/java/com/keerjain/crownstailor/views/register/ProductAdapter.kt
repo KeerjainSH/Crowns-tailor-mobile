@@ -55,7 +55,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
         listProductChecked.remove(product)
     }
 
-    fun getCheckedProductList() : List<Product> = listProductChecked
+    fun getCheckedProductList(): List<Product> = listProductChecked
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ProductViewHolder {
         val productCheckboxListBinding =

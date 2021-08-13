@@ -1,8 +1,6 @@
 package com.keerjain.crownstailor.views.offer
 
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +12,7 @@ import com.keerjain.crownstailor.data.entities.offer.OfferListItem
 import com.keerjain.crownstailor.databinding.OfferFragmentBinding
 import com.keerjain.crownstailor.viewmodels.OfferViewModel
 import com.keerjain.crownstailor.views.MainActivity
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.withContext
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class OfferFragment : Fragment() {

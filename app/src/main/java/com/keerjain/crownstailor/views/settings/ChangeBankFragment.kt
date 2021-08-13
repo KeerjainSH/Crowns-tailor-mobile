@@ -1,11 +1,11 @@
 package com.keerjain.crownstailor.views.settings
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import com.keerjain.crownstailor.R
@@ -99,7 +99,8 @@ class ChangeBankFragment : Fragment() {
 
                     viewModel.updateProfile(profile).collectLatest { isSuccessful ->
                         if (isSuccessful) {
-                            val toProfileFragment = ChangeBankFragmentDirections.actionChangeBankFragmentToNavigationOther()
+                            val toProfileFragment =
+                                ChangeBankFragmentDirections.actionChangeBankFragmentToNavigationOther()
                             withContext(Dispatchers.Main) {
                                 Toast.makeText(
                                     requireContext(),
