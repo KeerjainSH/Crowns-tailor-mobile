@@ -422,6 +422,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
             }
         } catch (e: Exception) {
+            Log.d("AcceptOfferError", "Error: $e")
             emit(false)
         }
     }
@@ -446,6 +447,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 Log.d("Error", "Gagal Mendapatkan Token: Token not found on prefs")
             }
         } catch (e: Exception) {
+            Log.d("DeclineOfferError", "Error: $e")
             emit(false)
         }
     }
@@ -468,6 +470,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 emit(Penawaran())
             }
         } catch (e: Exception) {
+            Log.d("SetPriceError", "Error: $e")
             emit(Penawaran())
         }
     }
@@ -489,6 +492,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 emit(ArrayList<Product>())
             }
         } catch (e: Exception) {
+            Log.d("GetCatalogError", "Error: $e")
             emit(ArrayList<Product>())
         }
     }
@@ -501,13 +505,16 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             )
 
             if (response.isSuccessful) {
+                Log.d("TailorDetails", response.isSuccessful.toString())
                 val profile =
                     DataMapper.mapDetailPenjahitToProfileUpdatePost(response.body()?.data as DetailPenjahit)
                 emit(profile)
             } else {
+                Log.d("TailorDetailsError", "Error: Response Unsucessful")
                 emit(ProfileUpdatePost())
             }
         } catch (e: Exception) {
+            Log.d("TailorDetailsError", "Error: $e")
             emit(ProfileUpdatePost())
         }
     }
@@ -523,6 +530,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
 
             emit(response.isSuccessful)
         } catch (e: Exception) {
+            Log.d("UpdateTailorError", "Error: $e")
             emit(false)
         }
     }
@@ -540,6 +548,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 emit(-1f)
             }
         } catch (e: Exception) {
+            Log.d("GetRatingError", "Error: $e")
             emit(-1f)
         }
     }
