@@ -7,4 +7,5 @@ import kotlinx.parcelize.Parcelize
 data class Product(
     val id: Int,
     val productName: String,
+    var isChecked: Boolean? = false,
 ) : Parcelable

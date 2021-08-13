@@ -302,7 +302,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 }
             }
         } catch (e: Exception) {
-
+            Log.d("OfferDetailError", "Error: $e")
         }
     }
 
@@ -399,7 +399,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                 }
             }
         } catch (e: Exception) {
-
+            Log.d("OrderDetailError", "Error: $e")
         }
     }
 

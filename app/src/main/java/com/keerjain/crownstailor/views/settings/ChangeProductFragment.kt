@@ -10,6 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.keerjain.crownstailor.R
+import com.keerjain.crownstailor.data.sources.remote.posts.ListIdBajuItem
 import com.keerjain.crownstailor.databinding.FragmentChangeProductBinding
 import com.keerjain.crownstailor.utils.DataMapper
 import com.keerjain.crownstailor.viewmodels.SettingViewModel
@@ -58,10 +59,23 @@ class ChangeProductFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         showLoading(true)
         lifecycleScope.launchWhenCreated {
-            viewModel.getProfile().collectLatest {
+            viewModel.getProfile().collectLatest { profile ->
                 viewModel.getProductList().collectLatest { list ->
-                    viewAdapter.setProductList(list)
-                    showLoading(false)
+                    lifecycleScope.launch(Dispatchers.Default) {
+                        for (data in list) {
+                            for (checked in profile.listIdBaju as List<ListIdBajuItem>) {
+                                if (data.id == checked.idBaju) {
+                                    data.isChecked = true
+                                    viewAdapter.addToCheckedList(data)
+                                }
+                            }
+                        }
+
+                        withContext(Dispatchers.Main) {
+                            viewAdapter.setProductList(list)
+                            showLoading(false)
+                        }
+                    }
                 }
             }
         }

@@ -32,6 +32,7 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
 
         fun bind(product: Product) {
             checkBox.text = product.productName
+            checkBox.isChecked = product.isChecked as Boolean
         }
 
         override fun onClick(v: View) {
@@ -48,10 +49,12 @@ class ProductAdapter : RecyclerView.Adapter<ProductAdapter.ProductViewHolder>() 
     }
 
     fun addToCheckedList(product: Product) {
+        product.isChecked = true
         listProductChecked.add(product)
     }
 
     fun removeFromCheckedList(product: Product) {
+        product.isChecked = false
         listProductChecked.remove(product)
     }
 
