@@ -1,6 +1,7 @@
 package com.keerjain.crownstailor.views.settings
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -63,7 +64,15 @@ class ProfileFragment : Fragment() {
 
         lifecycleScope.launchWhenCreated {
             viewModel.getRating().collectLatest { rating ->
-                binding.tvRating.text = rating.toString()
+                if (rating != null) {
+                    withContext(Dispatchers.Main) {
+                        binding.tvRating.text = rating.toString()
+                    }
+                } else {
+                    withContext(Dispatchers.Main) {
+                        binding.tvRating.text = resources.getString(R.string.belum_ada_rating)
+                    }
+                }
 
                 withContext(Dispatchers.Main) {
                     binding.profilePicture.setProfilePicture("https://www.pngkey.com/png/full/503-5035055_a-festival-celebrating-tractors-profile-picture-placeholder-round.png")
@@ -73,6 +82,8 @@ class ProfileFragment : Fragment() {
 
                     showLoading(false)
                 }
+
+                Log.d("Test", "MASOK")
             }
         }
     }

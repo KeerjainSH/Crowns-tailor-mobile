@@ -25,5 +25,5 @@ interface AppRepository {
     fun setPrice(prices: OfferPrices): Flow<Penawaran>
     fun getTailorDetails(): Flow<ProfileUpdatePost>
     fun updateTailorDetails(profile: ProfileUpdatePost): Flow<Boolean>
-    fun getRating(): Flow<Float>
+    fun getRating(): Flow<Float?>
 }

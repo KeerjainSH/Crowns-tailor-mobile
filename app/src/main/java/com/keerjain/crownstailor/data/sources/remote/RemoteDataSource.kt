@@ -535,7 +535,7 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
         }
     }
 
-    fun getRating(): Flow<Float> = flow {
+    fun getRating(): Flow<Float?> = flow {
         try {
             val response = api.getPenjahitDetails(
                 sessionManager.getToken().toString(),
@@ -543,13 +543,19 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
             )
 
             if (response.isSuccessful) {
-                response.body()?.data?.rating?.let { emit(it) }
+                val rating = response.body()?.data?.rating
+
+                if (rating != null) {
+                    emit(rating)
+                } else {
+                    emit(null)
+                }
             } else {
-                emit(-1f)
+                emit(null)
             }
         } catch (e: Exception) {
             Log.d("GetRatingError", "Error: $e")
-            emit(-1f)
+            emit(null)
         }
     }
 }
