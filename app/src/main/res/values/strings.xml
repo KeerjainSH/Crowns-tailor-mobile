@@ -165,4 +165,6 @@
     <string name="lihat_detail"><![CDATA[Lihat detail >]]></string>
     <string name="penjahit">Penjahit</string>
     <string name="belum_ada_rating">Belum ada rating</string>
+    <string name="total_pendapatan">Total Pendapatan</string>
+    <string name="info_pendapatan">Pendapatan akhir akan dikurangi 10% untuk biaya aplikasi.</string>
 </resources>

@@ -441,6 +441,15 @@
                     android:paddingVertical="12dp"
                     android:textSize="14sp" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/info_pendapatan" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/btn_confirm_offer"
                     android:layout_width="match_parent"
@@ -490,6 +499,25 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/lato"
+                    android:text="@string/total_pendapatan"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_income_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_price"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
                     android:text="@string/estimasi_terakhir"
                     android:textColor="@color/black" />
 
@@ -518,7 +546,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
                     android:background="@drawable/status_baru"
                     android:fontFamily="@font/lato"
                     android:paddingHorizontal="16dp"
@@ -526,6 +553,16 @@
                     android:text="@string/dummy_offer_status"
                     android:textColor="@color/white"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/info_pendapatan" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -560,6 +597,25 @@
                     android:layout_marginHorizontal="16dp"
                     android:layout_marginTop="24dp"
                     android:fontFamily="@font/lato"
+                    android:text="@string/total_pendapatan"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/tv_income_new_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/lato"
+                    android:text="@string/dummy_price"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
                     android:text="@string/estimasi_baru"
                     android:textColor="@color/black" />
 
@@ -572,6 +628,15 @@
                     android:fontFamily="@font/lato"
                     android:text="@string/dummy_price"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="16dp"
+                    android:layout_marginTop="24dp"
+                    android:fontFamily="@font/lato"
+                    android:textSize="12sp"
+                    android:text="@string/info_pendapatan" />
 
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"

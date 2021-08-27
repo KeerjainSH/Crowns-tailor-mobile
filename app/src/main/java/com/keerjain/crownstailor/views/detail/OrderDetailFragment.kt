@@ -142,6 +142,10 @@ class OrderDetailFragment : Fragment() {
         binding.tvPaymentTotal.text =
             transaction.totalAmount?.formatToCurrency()
 
+        val pendapatan = transaction.totalAmount?.times(0.9)?.toFloat()
+        binding.tvIncomeTotal.text =
+            pendapatan?.formatToCurrency()
+
         val status = transaction.transactionStatus
         binding.tvStatusDetail.text = resources.getString(status.getStringResources())
 

@@ -340,6 +340,8 @@ class OfferDetailFragment : Fragment() {
                                 binding.offerPriceUpdated.visibility = View.GONE
                                 binding.tvOfferPrice.text =
                                     penawaran.jumlahPenawaran?.toFloat()?.formatToCurrency()
+                                binding.tvIncomePrice.text =
+                                    penawaran.jumlahPenawaran?.times(0.9)?.toFloat()?.formatToCurrency()
                                 binding.tvOfferEstimation.text = penawaran.hariTawar
                                 binding.tvOfferStatus.text =
                                     resources.getString(offerDetail.offerStatus.getStringResources())
@@ -373,6 +375,8 @@ class OfferDetailFragment : Fragment() {
         binding.offerPriceGiven.visibility = View.VISIBLE
         binding.offerPriceUpdated.visibility = View.GONE
         binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+        binding.tvIncomePrice.text =
+            offerDetail.offerAmount?.times(0.9)?.toFloat()?.formatToCurrency()
         binding.tvOfferEstimation.text = offerDetail.offerEstimation
         binding.tvOfferStatus.text =
             resources.getString(offerDetail.offerStatus.getStringResources())
