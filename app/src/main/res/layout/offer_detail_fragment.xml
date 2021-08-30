@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".views.detail.OfferDetailFragment">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -26,7 +27,7 @@
         android:id="@+id/offer_view_loading"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
+        android:visibility="visible"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <include layout="@layout/offer_detail_fragment_placeholder" />
@@ -38,7 +39,7 @@
         android:layout_height="match_parent"
         android:overScrollMode="ifContentScrolls"
         android:scrollbars="none"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
         <androidx.appcompat.widget.LinearLayoutCompat

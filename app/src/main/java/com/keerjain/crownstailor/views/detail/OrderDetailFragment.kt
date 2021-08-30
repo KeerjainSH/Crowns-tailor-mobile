@@ -139,10 +139,11 @@ class OrderDetailFragment : Fragment() {
             }
         }
 
+        val pembayaran = transaction.totalAmount
         binding.tvPaymentTotal.text =
-            transaction.totalAmount?.formatToCurrency()
+            pembayaran?.formatToCurrency()
 
-        val pendapatan = transaction.totalAmount?.times(0.9)?.toFloat()
+        val pendapatan = pembayaran?.times(0.9)?.toFloat()
         binding.tvIncomeTotal.text =
             pendapatan?.formatToCurrency()
 

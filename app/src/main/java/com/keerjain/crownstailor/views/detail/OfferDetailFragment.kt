@@ -387,6 +387,7 @@ class OfferDetailFragment : Fragment() {
         binding.offerPriceGiven.visibility = View.GONE
         binding.offerPriceUpdated.visibility = View.VISIBLE
         binding.tvOfferNewPrice.text = offerDetail.offerAmount?.formatToCurrency()
+        binding.tvIncomeNewPrice.text = offerDetail.offerAmount?.times(0.9)?.toFloat()?.formatToCurrency()
         binding.tvOfferNewEstimation.text = offerDetail.offerEstimation
 
         binding.btnConfirmNewOffer.setOnClickListener {
@@ -400,6 +401,7 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceGiven.visibility = View.VISIBLE
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+                            binding.tvIncomePrice.text = offerDetail.offerAmount?.times(0.9f)?.formatToCurrency()
                             binding.tvOfferEstimation.text = offerDetail.offerEstimation
                             binding.tvOfferStatus.text =
                                 resources.getString(offerDetail.offerStatus.getStringResources())
@@ -435,6 +437,7 @@ class OfferDetailFragment : Fragment() {
                             binding.offerPriceGiven.visibility = View.VISIBLE
                             binding.offerPriceUpdated.visibility = View.GONE
                             binding.tvOfferPrice.text = offerDetail.offerAmount?.formatToCurrency()
+                            binding.tvIncomePrice.text = offerDetail.offerAmount?.times(0.9f)?.formatToCurrency()
                             binding.tvOfferEstimation.text = offerDetail.offerEstimation
                             binding.tvOfferStatus.text =
                                 resources.getString(offerDetail.offerStatus.getStringResources())

@@ -15,6 +15,7 @@ import com.keerjain.crownstailor.databinding.HomeFragmentBinding
 import com.keerjain.crownstailor.utils.ActivityObserver
 import com.keerjain.crownstailor.utils.ExtensionFunctions.showLoading
 import com.keerjain.crownstailor.utils.SessionManager
+import com.keerjain.crownstailor.utils.enums.OfferStatus
 import com.keerjain.crownstailor.utils.enums.Status
 import com.keerjain.crownstailor.viewmodels.HomeViewModel
 import com.keerjain.crownstailor.views.MainActivity
@@ -98,8 +99,9 @@ class HomeFragment : Fragment() {
             }
 
             lifecycleScope.launchWhenCreated {
-                viewModel.getOffers().collectLatest {
-                    val totalOffer = it.size.toString()
+                viewModel.getOffers().collectLatest { list ->
+                    val offers = list.filter { it.offerStatus == OfferStatus.OFFER_NEW || it.offerStatus == OfferStatus.OFFER_NEW_PRICE }
+                    val totalOffer = offers.size.toString()
 
                     binding.tvPenawaranBaru.text = totalOffer
                     binding.tvPenawaranBaru.showLoading(false)

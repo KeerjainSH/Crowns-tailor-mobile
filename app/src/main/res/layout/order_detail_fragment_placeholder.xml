@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -16,7 +15,7 @@
         android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/tv_invoice_no"
+        android:id="@+id/placeholder_tv_invoice_no"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -42,7 +41,7 @@
         android:textColor="@color/black" />
 
     <TextView
-        android:id="@+id/tv_status_detail"
+        android:id="@+id/placeholder_tv_status_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -63,7 +62,7 @@
         android:background="#FF454545" />
 
     <TextView
-        android:id="@+id/tv_title_pengiriman"
+        android:id="@+id/placeholder_tv_title_pengiriman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -73,7 +72,7 @@
         android:textColor="@color/black" />
 
     <TableLayout
-        android:id="@+id/table_pengiriman"
+        android:id="@+id/placeholder_table_pengiriman"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
@@ -92,7 +91,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_nama_penerima"
+                android:id="@+id/placeholder_tv_nama_penerima"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
@@ -113,7 +112,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_hp_penerima"
+                android:id="@+id/placeholder_tv_hp_penerima"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
@@ -134,7 +133,7 @@
                 android:textSize="12sp" />
 
             <TextView
-                android:id="@+id/tv_alamat_penerima"
+                android:id="@+id/placeholder_tv_alamat_penerima"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/lato"
@@ -176,7 +175,7 @@
         android:layout_marginBottom="24dp">
 
         <TextView
-            android:id="@+id/textView31"
+            android:id="@+id/placeholder_textView31"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -190,7 +189,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/tv_payment_total"
+            android:id="@+id/placeholder_tv_payment_total"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -200,10 +199,10 @@
             android:textColor="#FFAAAAAA"
             android:background="#FFAAAAAA"
             android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/textView31"
+            app:layout_constraintBottom_toBottomOf="@+id/placeholder_textView31"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toEndOf="@+id/textView31"
-            app:layout_constraintTop_toTopOf="@+id/textView31" />
+            app:layout_constraintStart_toEndOf="@+id/placeholder_textView31"
+            app:layout_constraintTop_toTopOf="@+id/placeholder_textView31" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -117,7 +117,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                             email = userResponse.body()?.data?.email.toString(),
                                             name = userResponse.body()?.data?.name.toString()
                                         ),
-                                        offerDate = data.penawaran?.createdAt.toString()
+                                        offerDate = data.penawaran?.createdAt.toString(),
+                                        offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
                                     )
                                 }
 
@@ -135,7 +136,8 @@ class RemoteDataSource(private val api: ApiService, private val sessionManager: 
                                             email = "null",
                                             name = "null"
                                         ),
-                                        offerDate = data.penawaran?.createdAt.toString()
+                                        offerDate = data.penawaran?.createdAt.toString(),
+                                        offerStatus = DataMapper.mapStatusToOfferStatus(data.penawaran?.statusPenawaran?.toInt())
                                     )
                                 }
 
