@@ -94,14 +94,6 @@ dependencies {
 //    LOTTIE
     implementation "com.airbnb.android:lottie:$lottie_version"
 
-//    GOOGLE AUTHENTICATION
-//    implementation 'com.google.android.gms:play-services-auth:19.2.0'
-
 //    SECURITY
-//    implementation "androidx.security:security-crypto:1.1.0-alpha03"
-//    implementation 'com.scottyab:secure-preferences-lib:0.1.7'
-
-//    WORK MANAGER
-//    implementation "androidx.work:work-runtime-ktx:$work_version"
-//    implementation "androidx.work:work-multiprocess:$work_version"
+    implementation "androidx.security:security-crypto:$security_crypto_version"
 }

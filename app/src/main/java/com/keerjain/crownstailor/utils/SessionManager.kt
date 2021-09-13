@@ -2,11 +2,35 @@ package com.keerjain.crownstailor.utils
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.security.keystore.KeyGenParameterSpec
+import android.security.keystore.KeyProperties
+import androidx.security.crypto.EncryptedSharedPreferences
+import androidx.security.crypto.MasterKey
 import com.keerjain.crownstailor.data.entities.detail.TailorSession
 
 class SessionManager(context: Context) {
-    private var pref: SharedPreferences =
-        context.getSharedPreferences("Session", Context.MODE_PRIVATE)
+    val spec = KeyGenParameterSpec.Builder(
+        MasterKey.DEFAULT_MASTER_KEY_ALIAS,
+        KeyProperties.PURPOSE_ENCRYPT or KeyProperties.PURPOSE_DECRYPT
+    )
+        .setBlockModes(KeyProperties.BLOCK_MODE_GCM)
+        .setKeySize(MasterKey.DEFAULT_AES_GCM_MASTER_KEY_SIZE)
+        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
+        .build()
+
+    val masterKey = MasterKey.Builder(context)
+        .setKeyGenParameterSpec(spec)
+        .build()
+
+    private var pref: SharedPreferences = EncryptedSharedPreferences
+        .create(
+            context,
+            "Session",
+            masterKey,
+            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM
+        )
+
     private var editor: SharedPreferences.Editor = pref.edit()
 
     fun createLoginSession(session: TailorSession) {
